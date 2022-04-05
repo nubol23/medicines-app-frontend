@@ -24,6 +24,9 @@ export const familyReducer = (state = {}, action) => {
         return family
       })
 
+    case familyTypes.addMultiple:
+      return [...state, ...action.payload];
+
     default:
       return state
   }
