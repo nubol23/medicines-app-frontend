@@ -1,0 +1,25 @@
+@import "../../styles/styles";
+
+.home-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  height: 100vh;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  width: 100%;
+}
+
+.home-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+}
