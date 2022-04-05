@@ -3,6 +3,8 @@ import {BrowserRouter} from "react-router-dom";
 import {AuthContext} from "./auth/authContext";
 import {authReducer} from "./auth/authReducer";
 import {AppRouter} from "./routers/AppRouter";
+import {familyReducer} from "./reducers/familyReducer";
+import {FamilyContext} from "./contexts/familyContext";
 
 const init = () => {
   return JSON.parse(localStorage.getItem('user') || '{"logged": false}')
@@ -17,12 +19,16 @@ function App() {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user])
 
+  const [families, familiesDispatch] = useReducer(familyReducer, [], () => [])
+
   return (
-    <AuthContext.Provider value={{user, userDispatch}}>
-      <BrowserRouter>
-        <AppRouter/>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <FamilyContext.Provider value={{families, familiesDispatch}}>
+      <AuthContext.Provider value={{user, userDispatch}}>
+        <BrowserRouter>
+          <AppRouter/>
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </FamilyContext.Provider>
   );
 }
 
