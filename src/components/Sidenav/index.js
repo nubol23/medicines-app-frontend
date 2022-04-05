@@ -1,5 +1,6 @@
 import React from 'react';
 import "./sidenav.scss"
+import {NavLink} from "react-router-dom";
 
 const Sidenav = () => {
 
@@ -11,13 +12,11 @@ const Sidenav = () => {
         <li className="mb-1">
           <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                   data-bs-target="#home-collapse" aria-expanded="true">
-            Home
+            Families
           </button>
           <div className="collapse show" id="home-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-              <li><a href="#" className="link-dark rounded">Overview</a></li>
-              <li><a href="#" className="link-dark rounded">Updates</a></li>
-              <li><a href="#" className="link-dark rounded">Reports</a></li>
+              <li><NavLink className={({isActive}) => "link-dark rounded"} to="/family">List</NavLink></li>
             </ul>
           </div>
         </li>

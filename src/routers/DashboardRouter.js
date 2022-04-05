@@ -4,6 +4,7 @@ import {HomeScreen} from '../components/HomeScreen'
 import Navbar from "../components/Navbar";
 import Sidenav from "../components/Sidenav";
 import "./dashboard.scss"
+import FamilyScreen from "../components/FamilyScreen";
 
 export const DashboardRouter = () => {
   return (
@@ -17,6 +18,7 @@ export const DashboardRouter = () => {
           <div className="container">
             <Routes>
               <Route path='/home' element={<HomeScreen/>}/>
+              <Route path='/family' element={<FamilyScreen/>}/>
               <Route path="/*" element={<Navigate to="/home"/>}/>
             </Routes>
           </div>
