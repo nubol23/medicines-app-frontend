@@ -1,14 +1,29 @@
 import React from 'react'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {HomeScreen} from '../components/HomeScreen'
+import Navbar from "../components/Navbar";
+import Sidenav from "../components/Sidenav";
+import "./dashboard.scss"
 
 export const DashboardRouter = () => {
   return (
     <>
-      <Routes>
-        <Route path='/home' element={<HomeScreen/>}/>
-        <Route path="/*" element={<Navigate to="/home"/>}/>
-      </Routes>
+      <div className="dashboard-box">
+        <Navbar/>
+
+        <div className="dashboard-screen">
+          <Sidenav/>
+
+          <div className="container">
+            <Routes>
+              <Route path='/home' element={<HomeScreen/>}/>
+              <Route path="/*" element={<Navigate to="/home"/>}/>
+            </Routes>
+          </div>
+
+        </div>
+
+      </div>
     </>
   )
 }
