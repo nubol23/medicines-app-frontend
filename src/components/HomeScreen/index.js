@@ -7,11 +7,10 @@ export const HomeScreen = () => {
 
   return (
     <div className="home-box">
+      <Navbar/>
 
-      <Sidenav/>
-
-      <div className="home-content">
-        <Navbar/>
+      <div className="home-screen">
+        <Sidenav/>
       </div>
 
     </div>
