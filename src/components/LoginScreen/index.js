@@ -5,7 +5,7 @@ import authApi from '../../apis/authApi'
 import {AuthContext} from '../../auth/authContext';
 import useForm from '../../hooks/useForm'
 import authTypes from '../../types/authTypes';
-import "./login.css"
+import "./login.scss"
 
 export const LoginScreen = () => {
 
@@ -74,7 +74,8 @@ export const LoginScreen = () => {
           onChange={handleInputChange}
         />
 
-        <button type='submit' className="btn btn-primary btn-block">
+        {/*<button type='submit' className="btn btn-primary btn-block">*/}
+        <button type='submit' className="primary-button">
           Login
         </button>
 
