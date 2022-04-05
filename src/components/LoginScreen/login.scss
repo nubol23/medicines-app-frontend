@@ -15,3 +15,13 @@
   min-width: 280px;
   width: 20%;
 }
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-header {
+  text-align: center;
+}

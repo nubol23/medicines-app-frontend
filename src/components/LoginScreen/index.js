@@ -54,36 +54,42 @@ export const LoginScreen = () => {
   return (
     <div className="login-box animate__animated animate__fadeIn">
 
-      <form onSubmit={handleLogin} className="form-box">
-        <input
-          className="form-control mb-4"
-          type="text"
-          placeholder="Correo"
-          name="email"
-          value={email}
-          onChange={handleInputChange}
-        />
+      <div className="login-content">
 
-        <input
-          className="form-control mb-4"
-          type="password"
-          placeholder="Contraseña"
-          name="password"
-          autoComplete='off'
-          value={password}
-          onChange={handleInputChange}
-        />
+        <h3 className="login-header mb-4">Medicines App</h3>
 
-        {/*<button type='submit' className="btn btn-primary btn-block">*/}
-        <button type='submit' className="primary-button">
-          Login
-        </button>
+        <form onSubmit={handleLogin} className="form-box">
+          <input
+            className="form-control mb-4"
+            type="text"
+            placeholder="Correo"
+            name="email"
+            value={email}
+            onChange={handleInputChange}
+          />
 
-        <br/>
-        {
-          (message !== '') && <p>{message}</p>
-        }
-      </form>
+          <input
+            className="form-control mb-4"
+            type="password"
+            placeholder="Contraseña"
+            name="password"
+            autoComplete='off'
+            value={password}
+            onChange={handleInputChange}
+          />
+
+          {/*<button type='submit' className="btn btn-primary btn-block">*/}
+          <button type='submit' className="primary-button">
+            Login
+          </button>
+
+          <br/>
+          {
+            (message !== '') && <p>{message}</p>
+          }
+        </form>
+
+      </div>
     </div>
   )
 }
