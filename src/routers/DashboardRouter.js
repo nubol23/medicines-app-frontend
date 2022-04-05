@@ -12,7 +12,7 @@ import familyTypes from "../types/familyTypes";
 
 export const DashboardRouter = () => {
 
-  const {families, familiesDispatch} = useContext(FamilyContext);
+  const {familiesDispatch} = useContext(FamilyContext);
 
   useRequest(
     api.get("/families/"),

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import "./sidenav.scss"
 import {NavLink} from "react-router-dom";
+import {FamilyContext} from "../../contexts/familyContext";
 
 const Sidenav = () => {
+
+  const {families} = useContext(FamilyContext);
 
   return (
     <div className="flex-shrink-0 p-3 app-sidenav">
@@ -17,6 +20,14 @@ const Sidenav = () => {
           <div className="collapse show" id="home-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
               <li><NavLink className={({isActive}) => "link-dark rounded"} to="/family">List</NavLink></li>
+              {
+                families.map(family => (
+                  <li key={family.id}><NavLink
+                    className={({isActive}) => "link-dark rounded"}
+                    to={`/family/${family.id}`}>{family.family_name}
+                  </NavLink></li>
+                ))
+              }
             </ul>
           </div>
         </li>
