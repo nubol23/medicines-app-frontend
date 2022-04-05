@@ -2,12 +2,9 @@ import React from 'react';
 import "./sidenav.scss"
 
 const Sidenav = () => {
-  const simpleWidth = {
-    width: "240px"
-  }
 
   return (
-    <div className="flex-shrink-0 p-3 bg-white" style={simpleWidth}>
+    <div className="flex-shrink-0 p-3 app-sidenav">
 
       <ul className="list-unstyled ps-0">
 
@@ -41,7 +38,7 @@ const Sidenav = () => {
         </li>
 
       </ul>
-      
+
     </div>
   );
 };

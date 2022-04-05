@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <div className="app-header">
-      <h3>Medicines App</h3>
+      <h3 className="header-name">Medicines App</h3>
 
       <button onClick={handleLogout} type="button" className="primary-button">
         Logout
