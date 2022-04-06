@@ -2,6 +2,8 @@
 
 .header-name {
   color: white;
+  margin-left: 8px;
+  margin-right: 20px;
 }
 
 .app-header {
@@ -13,4 +15,16 @@
 
   padding: 10px 20px 10px 20px;
   background-color: $primary;
+}
+
+.header-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.tab-button {
+  @extend .primary-button;
+  margin-left: 10px;
+  margin-right: 10px;
 }

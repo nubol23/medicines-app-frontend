@@ -21,7 +21,13 @@ const Navbar = () => {
 
   return (
     <div className="app-header">
-      <h3 className="header-name">Medicines</h3>
+
+      <div className="header-tabs">
+        <h3 className="header-name">Medicines</h3>
+        <button className="tab-button">Familias</button>
+        <button className="tab-button">Medicamentos</button>
+        <button className="tab-button">Compras</button>
+      </div>
 
       <button onClick={handleLogout} type="button" className="secondary-button">
         Logout
