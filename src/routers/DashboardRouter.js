@@ -8,6 +8,8 @@ import useRequest from "../hooks/useRequest";
 import api from "../apis/api";
 import {FamilyContext} from "../contexts/familyContext";
 import familyTypes from "../types/familyTypes";
+import MedicinesScreen from "../components/MedicinesScreen";
+import PurchasesScreen from "../components/PurchasesScreen";
 
 export const DashboardRouter = () => {
 
@@ -35,7 +37,9 @@ export const DashboardRouter = () => {
           <div className="container">
             <Routes>
               <Route path='/home' element={<HomeScreen/>}/>
-              <Route path='/family' element={<FamilyScreen/>}/>
+              <Route path='/families' element={<FamilyScreen/>}/>
+              <Route path='/medicines' element={<MedicinesScreen/>}/>
+              <Route path='/purchases' element={<PurchasesScreen/>}/>
               <Route path="/*" element={<Navigate to="/home"/>}/>
             </Routes>
           </div>

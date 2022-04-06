@@ -6,6 +6,8 @@ import "./navbar.scss"
 import {FamilyContext} from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 
+const activeTabButton = ({isActive}) => "tab-button" + (isActive ? " tab-button-active" : "")
+
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -25,15 +27,18 @@ const Navbar = () => {
       <div className="header-tabs">
         <h3 className="header-name">Medicines</h3>
 
-        <NavLink
-          to="/family"
-          className={({isActive}) => "tab-button" + (isActive ? " tab-button-active" : "")}
-        >
+        <NavLink to="/families" className={activeTabButton}>
           Familias
         </NavLink>
 
-        <button className="tab-button">Medicamentos</button>
-        <button className="tab-button">Compras</button>
+        <NavLink to="/medicines" className={activeTabButton}>
+          Medicamentos
+        </NavLink>
+
+        <NavLink to="/purchases" className={activeTabButton}>
+          Compras
+        </NavLink>
+
       </div>
 
       <button onClick={handleLogout} type="button" className="secondary-button">
