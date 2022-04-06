@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {FamilyContext} from "../../contexts/familyContext";
 import {useNavigate} from "react-router-dom";
 
-const ListTable = () => {
+const FamilyTable = () => {
   const {families} = useContext(FamilyContext);
 
   const navigate = useNavigate()
@@ -36,4 +36,4 @@ const ListTable = () => {
   );
 };
 
-export default ListTable;
+export default FamilyTable;

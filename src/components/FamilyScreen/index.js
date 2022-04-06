@@ -1,6 +1,6 @@
 import React from 'react';
 import "./family.scss"
-import ListTable from "../ListTable";
+import FamilyTable from "../FamilyTable";
 import useForm from "../../hooks/useForm";
 
 const FamilyScreen = () => {
@@ -28,7 +28,7 @@ const FamilyScreen = () => {
         <button type="submit" className="create-family-button">Crear Familia</button>
       </form>
 
-      <ListTable/>
+      <FamilyTable/>
     </div>
   );
 };
