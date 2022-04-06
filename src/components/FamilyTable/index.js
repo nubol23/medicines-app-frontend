@@ -6,8 +6,8 @@ import api from "../../apis/api";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
-import Swal from "sweetalert2";
 import responseDialog from "../../utils/responseDialog";
+import deleteDialog from "../../utils/deleteDialog";
 
 const FamilyTable = () => {
   const {families, familiesDispatch} = useContext(FamilyContext);
@@ -18,45 +18,27 @@ const FamilyTable = () => {
     navigate(`/family/${id}`)
   }
 
-  const handleDeleteFamily = (id) => {
+  const handleDeleteFamily = (id, family_name) => {
 
-    Swal.fire({
-      title: `¿Está seguro/a que desea borrar la familia?`,
-      icon: 'warning',
-      confirmButtonText: 'SI',
-      showCancelButton: true,
-      cancelButtonText: "NO",
-      confirmButtonColor: "#20b2aa",
-      cancelButtonColor: "#f6546a",
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire({
-          allowOutsideClick: false,
-          icon: 'info',
-          text: 'Espere por favor'
-        });
-        Swal.showLoading()
-
-        api.delete(`/families/${id}`)
-          .then((response) => {
-            familiesDispatch({
-              type: familyTypes.removeFamily,
-              payload: {id},
-            })
-
-            responseDialog({state: true, msg: "Eliminada correctamente"})
-          })
-          .catch((error) => {
-
-            responseDialog({state: false, msg: "Error al eliminar"})
-
-            // If returned 401
-            if (error.response && error.response.status === 401)
-              userDispatch({type: authTypes.logout});
+    deleteDialog(() => {
+      api.delete(`/families/${id}`)
+        .then((response) => {
+          familiesDispatch({
+            type: familyTypes.removeFamily,
+            payload: {id},
           })
 
-      }
-    })
+          responseDialog({state: true, msg: "Famiilia eliminada correctamente"})
+        })
+        .catch((error) => {
+
+          responseDialog({state: false, msg: "Error al eliminar"})
+
+          // If returned 401
+          if (error.response && error.response.status === 401)
+            userDispatch({type: authTypes.logout});
+        })
+    }, `¿Está seguro/a que desea eliminar la familia ${family_name}?`)
 
   }
 
@@ -78,7 +60,7 @@ const FamilyTable = () => {
             <td>
               <button
                 className="delete-row-button"
-                onClick={() => handleDeleteFamily(family.id)}
+                onClick={() => handleDeleteFamily(family.id, family.family_name)}
               >x
               </button>
             </td>
