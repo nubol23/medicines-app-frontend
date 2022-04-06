@@ -5,7 +5,7 @@ import familyTypes from "../types/familyTypes";
 //   name,
 // }
 
-export const familyReducer = (state = {}, action) => {
+export const familyReducer = (state = [], action) => {
   switch (action.type) {
     case familyTypes.addFamily:
       return [...state, action.payload];
@@ -26,6 +26,11 @@ export const familyReducer = (state = {}, action) => {
 
     case familyTypes.addMultiple:
       return [...state, ...action.payload];
+
+    case familyTypes.clear:
+      // Clearing the state array
+      state.length = 0;
+      return state
 
     default:
       return state
