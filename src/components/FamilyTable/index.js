@@ -6,6 +6,8 @@ import api from "../../apis/api";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
+import Swal from "sweetalert2";
+import responseDialog from "../../utils/responseDialog";
 
 const FamilyTable = () => {
   const {families, familiesDispatch} = useContext(FamilyContext);
@@ -17,21 +19,45 @@ const FamilyTable = () => {
   }
 
   const handleDeleteFamily = (id) => {
-    api.delete(`/families/${id}`)
-      .then((response) => {
-        familiesDispatch({
-          type: familyTypes.removeFamily,
-          payload: {id},
-        })
-      })
-      .catch((error) => {
 
-        console.log("Error deleting")
+    Swal.fire({
+      title: `¿Está seguro/a que desea borrar la familia?`,
+      icon: 'warning',
+      confirmButtonText: 'SI',
+      showCancelButton: true,
+      cancelButtonText: "NO",
+      confirmButtonColor: "#20b2aa",
+      cancelButtonColor: "#f6546a",
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: 'Espere por favor'
+        });
+        Swal.showLoading()
 
-        // If returned 401
-        if (error.response && error.response.status === 401)
-          userDispatch({type: authTypes.logout});
-      })
+        api.delete(`/families/${id}`)
+          .then((response) => {
+            familiesDispatch({
+              type: familyTypes.removeFamily,
+              payload: {id},
+            })
+
+            responseDialog({state: true, msg: "Eliminada correctamente"})
+          })
+          .catch((error) => {
+
+            responseDialog({state: false, msg: "Error al eliminar"})
+
+            // If returned 401
+            if (error.response && error.response.status === 401)
+              userDispatch({type: authTypes.logout});
+          })
+
+      }
+    })
+
   }
 
   return (
