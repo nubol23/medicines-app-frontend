@@ -6,8 +6,8 @@ import api from "../../apis/api";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
-import responseDialog from "../../utils/responseDialog";
 import deleteDialog from "../../utils/deleteDialog";
+import {toast} from "react-hot-toast";
 
 const FamilyTable = () => {
   const {families, familiesDispatch} = useContext(FamilyContext);
@@ -28,15 +28,16 @@ const FamilyTable = () => {
             payload: {id},
           })
 
-          responseDialog({state: true, msg: "Famiilia eliminada correctamente"})
+          toast.success("Familia eliminada correctamente")
         })
         .catch((error) => {
-
-          responseDialog({state: false, msg: "Error al eliminar"})
-
           // If returned 401
-          if (error.response && error.response.status === 401)
+          if (error.response && error.response.status === 401) {
             userDispatch({type: authTypes.logout});
+            toast.error("Sesión expirada")
+          } else {
+            toast.error("Error al eliminar familia")
+          }
         })
     }, `¿Está seguro/a que desea eliminar la familia ${family_name}?`)
 

@@ -11,12 +11,12 @@ const deleteDialog = (deleteFunction, title) => {
     cancelButtonColor: "#f6546a",
   }).then((result) => {
     if (result.value) {
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'info',
-        text: 'Espere por favor'
-      });
-      Swal.showLoading()
+      // Swal.fire({
+      //   allowOutsideClick: false,
+      //   icon: 'info',
+      //   text: 'Espere por favor'
+      // });
+      // Swal.showLoading()
 
       deleteFunction()
     }
