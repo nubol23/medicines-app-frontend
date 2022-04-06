@@ -28,18 +28,3 @@
   @extend .primary-button;
   margin-left: 10%;
 }
-
-.family-table {
-  margin-top: 8%;
-  width: 90%;
-
-  cursor: pointer;
-}
-
-.delete-row-button {
-  @extend .tertiary-button;
-  align-content: center;
-  color: white;
-  padding: 3px 12px 3px 12px;
-  font-weight: bold;
-}
