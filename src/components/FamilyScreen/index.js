@@ -7,6 +7,7 @@ import {AuthContext} from "../../auth/authContext";
 import {FamilyContext} from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
+import {toast, Toaster} from "react-hot-toast";
 
 const FamilyScreen = () => {
 
@@ -26,10 +27,12 @@ const FamilyScreen = () => {
           type: familyTypes.addFamily,
           payload: response.data,
         })
+
+        toast.success("Familia creada correctamente")
       })
       .catch((error) => {
 
-        console.log("Error creating")
+        toast.error("Error al crear la familia")
 
         // If returned 401
         if (error.response && error.response.status === 401)
@@ -39,6 +42,8 @@ const FamilyScreen = () => {
 
   return (
     <div className="family-screen">
+      <Toaster/>
+
       <form className="create-family-form" onSubmit={handleCreateFamily}>
         <input
           className="form-control create-family-input"
