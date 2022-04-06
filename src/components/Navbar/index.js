@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
 import "./navbar.scss"
@@ -24,7 +24,14 @@ const Navbar = () => {
 
       <div className="header-tabs">
         <h3 className="header-name">Medicines</h3>
-        <button className="tab-button">Familias</button>
+
+        <NavLink
+          to="/family"
+          className={({isActive}) => "tab-button" + (isActive ? " tab-button-active" : "")}
+        >
+          Familias
+        </NavLink>
+
         <button className="tab-button">Medicamentos</button>
         <button className="tab-button">Compras</button>
       </div>

@@ -2,7 +2,6 @@ import React, {useContext} from 'react'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {HomeScreen} from '../components/HomeScreen'
 import Navbar from "../components/Navbar";
-import Sidenav from "../components/Sidenav";
 import "./dashboard.scss"
 import FamilyScreen from "../components/FamilyScreen";
 import useRequest from "../hooks/useRequest";
@@ -32,7 +31,6 @@ export const DashboardRouter = () => {
         <Navbar/>
 
         <div className="dashboard-screen">
-          <Sidenav/>
 
           <div className="container">
             <Routes>

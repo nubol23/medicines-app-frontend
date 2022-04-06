@@ -27,4 +27,17 @@
   @extend .primary-button;
   margin-left: 10px;
   margin-right: 10px;
+  text-decoration: none;
+
+  &:hover {
+    color: white;
+  }
+
+  &:focus {
+    background-color: darken($color: $primary, $amount: 10);
+  }
+}
+
+.tab-button-active {
+  background-color: darken($color: $primary, $amount: 10);
 }
