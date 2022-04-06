@@ -22,7 +22,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="app-header">
+    <div className="app-header animate__animated animate__fadeInDown">
 
       <div className="header-tabs">
         <h3 className="header-name">Medicines</h3>

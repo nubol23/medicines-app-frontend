@@ -55,7 +55,7 @@ const FamilyTable = () => {
       <tbody>
       {
         families.map(family => (
-          <tr key={family.id}>
+          <tr key={family.id} className="animate__animated animate__fadeIn">
             <td onClick={() => handleTableClick(family.id)}>{family.id}</td>
             <td onClick={() => handleTableClick(family.id)}>{family.family_name}</td>
             <td>

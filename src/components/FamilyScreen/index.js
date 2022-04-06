@@ -14,7 +14,7 @@ const FamilyScreen = () => {
   const {userDispatch} = useContext(AuthContext);
   const {familiesDispatch} = useContext(FamilyContext);
 
-  const [{new_family_name}, handleInputChange] = useForm({new_family_name: '',})
+  const [{new_family_name}, handleInputChange, reset] = useForm({new_family_name: '',})
 
   const handleCreateFamily = (e) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ const FamilyScreen = () => {
         })
 
         toast.success("Familia creada correctamente")
+        reset()
       })
       .catch((error) => {
 
@@ -41,7 +42,7 @@ const FamilyScreen = () => {
   }
 
   return (
-    <div className="family-screen">
+    <div className="family-screen animate__animated animate__fadeIn">
       <Toaster/>
 
       <form className="create-family-form" onSubmit={handleCreateFamily}>
