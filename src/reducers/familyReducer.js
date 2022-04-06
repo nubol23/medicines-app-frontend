@@ -8,7 +8,7 @@ import familyTypes from "../types/familyTypes";
 export const familyReducer = (state = [], action) => {
   switch (action.type) {
     case familyTypes.addFamily:
-      return [...state, action.payload];
+      return [action.payload, ...state];
 
     case familyTypes.removeFamily:
       return state.filter(family => family.id !== action.payload.id);
