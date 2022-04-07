@@ -8,11 +8,13 @@ import deleteDialog from "../../utils/deleteDialog";
 import {toast} from "react-hot-toast";
 import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
+import {useNavigate} from "react-router-dom";
 
 const MedicineTable = () => {
 
   const {medicines, medicinesDispatch} = useContext(MedicineContext);
   const {userDispatch} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useRequest(
     api.get("/medicines/medicines/"),
@@ -32,7 +34,7 @@ const MedicineTable = () => {
   }
 
   const handleEditMedicine = (id) => {
-
+    navigate(`/medicines/update/`)
   }
 
   const handleDeleteMedicine = (id, name, cant, unit) => {
