@@ -6,6 +6,7 @@ import {AuthContext} from "../../auth/authContext";
 import {useNavigate, useParams} from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
+import authTypes from "../../types/authTypes";
 
 const MedicineUpdateScreen = () => {
 
@@ -42,30 +43,30 @@ const MedicineUpdateScreen = () => {
       return;
     }
 
-    // api.patch(`/medicines/medicines/`, {
-    //   name,
-    //   maker,
-    //   quantity,
-    //   unit,
-    // })
-    //   .then((response) => {
-    //     toast.success("Medicina creada correctamente")
-    //     setDisabled(true);
-    //
-    //     setTimeout(() => {
-    //       reset();
-    //       setDisabled(false);
-    //       navigate("/medicines");
-    //     }, 1000);
-    //   })
-    //   .catch((error) => {
-    //
-    //     toast.error("Error al crear medicina")
-    //
-    //     // If returned 401
-    //     if (error.response && error.response.status === 401)
-    //       userDispatch({type: authTypes.logout});
-    //   })
+    api.patch(`/medicines/medicines/${medicineId}`, {
+      name,
+      maker,
+      quantity,
+      unit,
+    })
+      .then((response) => {
+        toast.success("Medicina actualizada correctamente")
+        setDisabled(true);
+
+        setTimeout(() => {
+          reset();
+          setDisabled(false);
+          navigate("/medicines");
+        }, 1000);
+      })
+      .catch((error) => {
+
+        toast.error("Error al actualizar medicina")
+
+        // If returned 401
+        if (error.response && error.response.status === 401)
+          userDispatch({type: authTypes.logout});
+      })
   }
 
   return (
