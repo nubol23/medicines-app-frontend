@@ -19,7 +19,11 @@ const useForm = (initialState = {}) => {
 
   }
 
-  return [values, handleInputChange, reset];
+  const handleSetAllValues = (data) => {
+    setValues(vals => data)
+  }
+
+  return [values, handleInputChange, reset, handleSetAllValues];
 
 }
 

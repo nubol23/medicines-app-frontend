@@ -12,7 +12,7 @@ const MedicineUpdateScreen = () => {
   const [buttonDisabled, setDisabled] = useState(false);
   const navigate = useNavigate()
   const {userDispatch} = useContext(AuthContext);
-  const [{name, maker, quantity, unit}, handleInputChange, reset] = useForm({
+  const [{name, maker, quantity, unit}, handleInputChange, reset, handleSetAllValues] = useForm({
     name: "",
     maker: "",
     quantity: "",
@@ -23,23 +23,18 @@ const MedicineUpdateScreen = () => {
   useRequest(
     api.get(`/medicines/medicines/${medicineId}`),
     (response) => {
-      // medicinesDispatch({type: medicineTypes.clear});
-      // medicinesDispatch({
-      //   type: medicineTypes.addMultiple,
-      //   payload: response.data.results,
-      // });
-
-      console.log(response.data)
-      // handleInputChange({target: {name: "name", value: response.data.name}})
-      // handleInputChange({target: {name: "maker", value: response.data.name}})
-      // handleInputChange({target: {name: "quantity", value: response.data.name}})
-      // handleInputChange({target: {name: "unit", value: response.data.name}})
+      handleSetAllValues({
+        name: response.data.name,
+        maker: response.data.maker,
+        quantity: response.data.quantity,
+        unit: response.data.unit,
+      })
     },
     (error) => {
     },
   )
 
-  const handleCreateMedicine = (e) => {
+  const handleUpdateMedicine = (e) => {
     e.preventDefault();
 
     if (name === "" || maker === "" || quantity === "" || unit === "") {
@@ -47,7 +42,7 @@ const MedicineUpdateScreen = () => {
       return;
     }
 
-    // api.post("/medicines/medicines/", {
+    // api.patch(`/medicines/medicines/`, {
     //   name,
     //   maker,
     //   quantity,
@@ -75,7 +70,7 @@ const MedicineUpdateScreen = () => {
 
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
-      <form className="create-medicine-form" onSubmit={handleCreateMedicine}>
+      <form className="create-medicine-form" onSubmit={handleUpdateMedicine}>
         <input
           className="form-control create-medicine-form-input"
           type="text"
