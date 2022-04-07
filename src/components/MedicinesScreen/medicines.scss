@@ -1,8 +1,20 @@
+.medicine-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  //margin-left: 10%;
+
+  width: 90%;
+  height: 90%;
+}
+
 .medicines-buttons {
   margin-top: 8%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .search-medicine-form {

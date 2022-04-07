@@ -2,6 +2,7 @@ import React from 'react';
 import useForm from "../../hooks/useForm";
 import "./medicines.scss"
 import {useNavigate} from "react-router-dom";
+import MedicineTable from "../MedicineTable";
 
 const MedicinesScreen = () => {
 
@@ -18,7 +19,7 @@ const MedicinesScreen = () => {
   }
 
   return (
-    <div className="family-screen animate__animated animate__fadeIn">
+    <div className="medicine-screen animate__animated animate__fadeIn">
       <div className="medicines-buttons">
         <form className="search-medicine-form" onSubmit={handleSearchMedicine}>
           <input
@@ -37,6 +38,8 @@ const MedicinesScreen = () => {
           <button className="create-family-button" onClick={handleCreateMedicine}>Crear</button>
         </div>
       </div>
+
+      <MedicineTable/>
     </div>
   );
 };
