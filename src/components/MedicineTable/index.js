@@ -34,7 +34,7 @@ const MedicineTable = () => {
   }
 
   const handleEditMedicine = (id) => {
-    navigate(`/medicines/update/`)
+    navigate(`/medicines/update/${id}`)
   }
 
   const handleDeleteMedicine = (id, name, cant, unit) => {

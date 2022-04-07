@@ -25,7 +25,7 @@ export const DashboardRouter = () => {
               <Route path='/families/:familyId' element={<FamilyDetails/>}/>
               <Route path='/medicines' element={<MedicinesScreen/>}/>
               <Route path='/medicines/create' element={<MedicineCreateScreen/>}/>
-              <Route path='/medicines/update' element={<MedicineUpdateScreen/>}/>
+              <Route path='/medicines/update/:medicineId' element={<MedicineUpdateScreen/>}/>
               <Route path='/purchases' element={<PurchasesScreen/>}/>
               <Route path="/*" element={<Navigate to="/home"/>}/>
             </Routes>
