@@ -8,22 +8,20 @@ const useRequest = (httpRequest, resolveFunc, rejectFunc, deps = []) => {
   const {userDispatch} = useContext(AuthContext);
 
   useEffect(() => {
-    setTimeout(() => {
 
-      httpRequest()
-        .then((response) => {
-          resolveFunc(response);
-        })
-        .catch((error) => {
-          rejectFunc(error);
+    httpRequest()
+      .then((response) => {
+        resolveFunc(response);
+      })
+      .catch((error) => {
+        rejectFunc(error);
 
-          // If returned 401
-          if (error.response && error.response.status === 401)
-            userDispatch({type: authTypes.logout});
+        // If returned 401
+        if (error.response && error.response.status === 401)
+          userDispatch({type: authTypes.logout});
 
-        })
+      })
 
-    }, 100)
   }, deps)
 };
 
