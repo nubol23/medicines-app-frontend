@@ -54,7 +54,7 @@ const MedicineCreateScreen = () => {
   }
 
   return (
-    <div className="family-screen animate__animated animate__fadeIn">
+    <div className="create-medicine-screen animate__animated animate__fadeIn">
       <form className="create-medicine-form" onSubmit={handleCreateMedicine}>
         <input
           className="form-control create-medicine-form-input"
