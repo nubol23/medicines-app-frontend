@@ -4,10 +4,15 @@ import {MedicineContext} from "../../contexts/medicineContext";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import medicineTypes from "../../types/medicineTypes";
+import deleteDialog from "../../utils/deleteDialog";
+import {toast} from "react-hot-toast";
+import authTypes from "../../types/authTypes";
+import {AuthContext} from "../../auth/authContext";
 
 const MedicineTable = () => {
 
   const {medicines, medicinesDispatch} = useContext(MedicineContext);
+  const {userDispatch} = useContext(AuthContext);
 
   useRequest(
     api.get("/medicines/medicines/"),
@@ -30,8 +35,27 @@ const MedicineTable = () => {
 
   }
 
-  const handleDeleteMedicine = (id) => {
+  const handleDeleteMedicine = (id, name, cant, unit) => {
+    deleteDialog(() => {
+      api.delete(`/medicines/medicines/${id}`)
+        .then((response) => {
+          medicinesDispatch({
+            type: medicineTypes.remove,
+            payload: {id},
+          })
 
+          toast.success("Medicina eliminada correctamente")
+        })
+        .catch((error) => {
+          // If returned 401
+          if (error.response && error.response.status === 401) {
+            userDispatch({type: authTypes.logout});
+            toast.error("Sesión expirada")
+          } else {
+            toast.error("Error al eliminar medicina")
+          }
+        })
+    }, `¿Está seguro/a que desea eliminar ${name} ${cant} ${unit}?`)
   }
 
   return (
@@ -61,7 +85,7 @@ const MedicineTable = () => {
                 ><i className="fas fa-pen"/></button>
                 <button
                   className="delete-row-button"
-                  onClick={() => handleDeleteMedicine(medicine.id)}
+                  onClick={() => handleDeleteMedicine(medicine.id, medicine.name, medicine.quantity, medicine.unit)}
                 ><i className="fas fa-trash"/></button>
               </td>
             </tr>
