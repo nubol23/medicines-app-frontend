@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import "./createMedicine.scss"
 import useForm from "../../hooks/useForm";
 import {toast, Toaster} from "react-hot-toast";
+import api from "../../apis/api";
+import {AuthContext} from "../../auth/authContext";
+import authTypes from "../../types/authTypes";
+import {useNavigate} from "react-router-dom";
 
 const MedicineCreateScreen = () => {
 
+  const [buttonDisabled, setDisabled] = useState(false);
+  const navigate = useNavigate()
+  const {userDispatch} = useContext(AuthContext);
   const [{name, maker, quantity, unit}, handleInputChange, reset] = useForm({
     name: "",
     maker: "",
@@ -20,7 +27,30 @@ const MedicineCreateScreen = () => {
       return;
     }
 
-    
+    api.post("/medicines/medicines/", {
+      name,
+      maker,
+      quantity,
+      unit,
+    })
+      .then((response) => {
+        toast.success("Medicina creada correctamente")
+        setDisabled(true);
+
+        setTimeout(() => {
+          reset();
+          setDisabled(false);
+          navigate("/medicines");
+        }, 1000);
+      })
+      .catch((error) => {
+
+        toast.error("Error al crear medicina")
+
+        // If returned 401
+        if (error.response && error.response.status === 401)
+          userDispatch({type: authTypes.logout});
+      })
   }
 
   return (
@@ -58,7 +88,7 @@ const MedicineCreateScreen = () => {
           value={unit}
           onChange={handleInputChange}
         />
-        <button type="submit" className="primary-button">Crear</button>
+        <button type="submit" className="create-medicine-button" disabled={buttonDisabled}>Crear</button>
       </form>
       <Toaster/>
     </div>

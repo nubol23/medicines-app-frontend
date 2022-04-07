@@ -1,3 +1,5 @@
+@import "../../styles/styles";
+
 .create-medicine-form {
   display: flex;
   flex-direction: column;
@@ -9,4 +11,13 @@
 
 .create-medicine-form-input {
   margin-bottom: 20px;
+}
+
+.create-medicine-button {
+  @extend .primary-button;
+
+  &:disabled {
+    background-color: darkgray;
+    box-shadow: none;
+  }
 }
