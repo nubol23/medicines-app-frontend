@@ -10,6 +10,7 @@ import {FamilyContext} from "../contexts/familyContext";
 import familyTypes from "../types/familyTypes";
 import MedicinesScreen from "../components/MedicinesScreen";
 import PurchasesScreen from "../components/PurchasesScreen";
+import FamilyDetails from "../components/FamilyDetails";
 
 export const DashboardRouter = () => {
 
@@ -39,6 +40,7 @@ export const DashboardRouter = () => {
             <Routes>
               <Route path='/home' element={<HomeScreen/>}/>
               <Route path='/families' element={<FamiliesScreen/>}/>
+              <Route path='/families/:familyId' element={<FamilyDetails/>}/>
               <Route path='/medicines' element={<MedicinesScreen/>}/>
               <Route path='/purchases' element={<PurchasesScreen/>}/>
               <Route path="/*" element={<Navigate to="/home"/>}/>

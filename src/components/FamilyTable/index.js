@@ -15,7 +15,7 @@ const FamilyTable = () => {
 
   const navigate = useNavigate()
   const handleTableClick = (id) => {
-    navigate(`/family/${id}`)
+    navigate(`/families/${id}`)
   }
 
   const handleDeleteFamily = (id, family_name) => {
