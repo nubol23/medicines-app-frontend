@@ -22,7 +22,7 @@ const MedicineUpdateScreen = () => {
 
   const {medicineId} = useParams()
   useRequest(
-    api.get(`/medicines/medicines/${medicineId}`),
+    () => api.get(`/medicines/medicines/${medicineId}`),
     (response) => {
       handleSetAllValues({
         name: response.data.name,
