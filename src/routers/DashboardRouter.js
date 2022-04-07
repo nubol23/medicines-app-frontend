@@ -18,10 +18,11 @@ export const DashboardRouter = () => {
   useRequest(
     api.get("/families/"),
     (response) => {
+      familiesDispatch({type: familyTypes.clear});
       familiesDispatch({
         type: familyTypes.addMultiple,
         payload: response.data.results,
-      })
+      });
     },
     (error) => {
     },
