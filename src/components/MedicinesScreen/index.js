@@ -1,9 +1,11 @@
 import React from 'react';
 import useForm from "../../hooks/useForm";
 import "./medicines.scss"
+import {useNavigate} from "react-router-dom";
 
 const MedicinesScreen = () => {
 
+  const navigate = useNavigate();
   const [{medicineName}, handleInputChange, reset] = useForm({medicineName: '',})
 
   const handleSearchMedicine = (e) => {
@@ -11,8 +13,12 @@ const MedicinesScreen = () => {
 
   }
 
+  const handleCreateMedicine = () => {
+    navigate("/medicines/create")
+  }
+
   return (
-    <div>
+    <div className="family-screen animate__animated animate__fadeIn">
       <div className="medicines-buttons">
         <form className="search-medicine-form" onSubmit={handleSearchMedicine}>
           <input
@@ -28,7 +34,7 @@ const MedicinesScreen = () => {
         </form>
 
         <div>
-          <button className="create-family-button">Crear</button>
+          <button className="create-family-button" onClick={handleCreateMedicine}>Crear</button>
         </div>
       </div>
     </div>
