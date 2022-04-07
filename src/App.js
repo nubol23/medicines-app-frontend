@@ -5,6 +5,8 @@ import {authReducer} from "./auth/authReducer";
 import {AppRouter} from "./routers/AppRouter";
 import {familyReducer} from "./reducers/familyReducer";
 import {FamilyContext} from "./contexts/familyContext";
+import {medicineReducer} from "./reducers/medicineReducer";
+import {MedicineContext} from "./contexts/medicineContext";
 
 const init = () => {
   return JSON.parse(localStorage.getItem('user') || '{"logged": false}')
@@ -20,15 +22,18 @@ function App() {
   }, [user])
 
   const [families, familiesDispatch] = useReducer(familyReducer, [], () => [])
+  const [medicines, medicinesDispatch] = useReducer(medicineReducer, [], () => [])
 
   return (
-    <FamilyContext.Provider value={{families, familiesDispatch}}>
-      <AuthContext.Provider value={{user, userDispatch}}>
-        <BrowserRouter>
-          <AppRouter/>
-        </BrowserRouter>
-      </AuthContext.Provider>
-    </FamilyContext.Provider>
+    <MedicineContext.Provider value={{medicines, medicinesDispatch}}>
+      <FamilyContext.Provider value={{families, familiesDispatch}}>
+        <AuthContext.Provider value={{user, userDispatch}}>
+          <BrowserRouter>
+            <AppRouter/>
+          </BrowserRouter>
+        </AuthContext.Provider>
+      </FamilyContext.Provider>
+    </MedicineContext.Provider>
   );
 }
 

@@ -1,7 +1,39 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import "./medicineTable.scss"
+import {MedicineContext} from "../../contexts/medicineContext";
+import useRequest from "../../hooks/useRequest";
+import api from "../../apis/api";
+import medicineTypes from "../../types/medicineTypes";
 
 const MedicineTable = () => {
+
+  const {medicines, medicinesDispatch} = useContext(MedicineContext);
+
+  useRequest(
+    api.get("/medicines/medicines/"),
+    (response) => {
+      medicinesDispatch({type: medicineTypes.clear});
+      medicinesDispatch({
+        type: medicineTypes.addMultiple,
+        payload: response.data.results,
+      });
+    },
+    (error) => {
+    },
+  )
+
+  const handleTableClick = (id) => {
+
+  }
+
+  const handleEditMedicine = (id) => {
+
+  }
+
+  const handleDeleteMedicine = (id) => {
+
+  }
+
   return (
     <div className="medicine-table">
       <table className="table table-hover">
@@ -9,27 +41,32 @@ const MedicineTable = () => {
         <tr>
           <th>Nombre</th>
           <th>Fabricante</th>
-          <th>Cantidad</th>
-          <th>Unidad</th>
+          <th>Cant.</th>
+          <th>U.</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
-        {/*{*/}
-        {/*  families.map(family => (*/}
-        {/*    <tr key={family.id} className="animate__animated animate__fadeIn">*/}
-        {/*      <td onClick={() => handleTableClick(family.id)}>{family.id}</td>*/}
-        {/*      <td onClick={() => handleTableClick(family.id)}>{family.family_name}</td>*/}
-        {/*      <td>*/}
-        {/*        <button*/}
-        {/*          className="delete-row-button"*/}
-        {/*          onClick={() => handleDeleteFamily(family.id, family.family_name)}*/}
-        {/*        >x*/}
-        {/*        </button>*/}
-        {/*      </td>*/}
-        {/*    </tr>*/}
-        {/*  ))*/}
-        {/*}*/}
+        {
+          medicines.map(medicine => (
+            <tr key={medicine.id} className="animate__animated animate__fadeIn">
+              <td onClick={() => handleTableClick(medicine.id)}>{medicine.name}</td>
+              <td onClick={() => handleTableClick(medicine.id)}>{medicine.maker}</td>
+              <td onClick={() => handleTableClick(medicine.id)}>{Math.round(medicine.quantity)}</td>
+              <td onClick={() => handleTableClick(medicine.id)}>{medicine.unit}</td>
+              <td>
+                <button
+                  className="edit-row-button"
+                  onClick={() => handleEditMedicine(medicine.id)}
+                ><i className="fas fa-pen"/></button>
+                <button
+                  className="delete-row-button"
+                  onClick={() => handleDeleteMedicine(medicine.id)}
+                ><i className="fas fa-trash"/></button>
+              </td>
+            </tr>
+          ))
+        }
         </tbody>
       </table>
     </div>
