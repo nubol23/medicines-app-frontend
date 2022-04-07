@@ -3,7 +3,7 @@ import {Navigate, Route, Routes} from 'react-router-dom'
 import {HomeScreen} from '../components/HomeScreen'
 import Navbar from "../components/Navbar";
 import "./dashboard.scss"
-import FamilyScreen from "../components/FamilyScreen";
+import FamiliesScreen from "../components/FamiliesScreen";
 import useRequest from "../hooks/useRequest";
 import api from "../apis/api";
 import {FamilyContext} from "../contexts/familyContext";
@@ -37,7 +37,7 @@ export const DashboardRouter = () => {
           <div className="container">
             <Routes>
               <Route path='/home' element={<HomeScreen/>}/>
-              <Route path='/families' element={<FamilyScreen/>}/>
+              <Route path='/families' element={<FamiliesScreen/>}/>
               <Route path='/medicines' element={<MedicinesScreen/>}/>
               <Route path='/purchases' element={<PurchasesScreen/>}/>
               <Route path="/*" element={<Navigate to="/home"/>}/>

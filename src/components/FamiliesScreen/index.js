@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./family.scss"
+import "./families.scss"
 import FamilyTable from "../FamilyTable";
 import useForm from "../../hooks/useForm";
 import api from "../../apis/api";
@@ -9,7 +9,7 @@ import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
 import {toast, Toaster} from "react-hot-toast";
 
-const FamilyScreen = () => {
+const FamiliesScreen = () => {
 
   const {userDispatch} = useContext(AuthContext);
   const {familiesDispatch} = useContext(FamilyContext);
@@ -63,4 +63,4 @@ const FamilyScreen = () => {
   );
 };
 
-export default FamilyScreen;
+export default FamiliesScreen;
