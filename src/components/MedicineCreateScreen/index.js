@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import "./createMedicine.scss"
 import useForm from "../../hooks/useForm";
-import {toast, Toaster} from "react-hot-toast";
+import {toast} from "react-hot-toast";
 import api from "../../apis/api";
 import {AuthContext} from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
@@ -37,11 +37,9 @@ const MedicineCreateScreen = () => {
         toast.success("Medicina creada correctamente")
         setDisabled(true);
 
-        setTimeout(() => {
-          reset();
-          setDisabled(false);
-          navigate("/medicines");
-        }, 1000);
+        reset();
+        setDisabled(false);
+        navigate("/medicines");
       })
       .catch((error) => {
 
@@ -90,7 +88,6 @@ const MedicineCreateScreen = () => {
         />
         <button type="submit" className="create-medicine-button" disabled={buttonDisabled}>Crear</button>
       </form>
-      <Toaster/>
     </div>
   );
 };

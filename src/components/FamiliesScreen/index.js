@@ -7,7 +7,7 @@ import {AuthContext} from "../../auth/authContext";
 import {FamilyContext} from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
-import {toast, Toaster} from "react-hot-toast";
+import {toast} from "react-hot-toast";
 
 const FamiliesScreen = () => {
 
@@ -43,7 +43,6 @@ const FamiliesScreen = () => {
 
   return (
     <div className="family-screen animate__animated animate__fadeIn">
-      <Toaster/>
 
       <form className="create-family-form" onSubmit={handleCreateFamily}>
         <input

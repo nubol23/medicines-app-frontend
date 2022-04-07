@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import "../MedicineCreateScreen/createMedicine.scss"
 import useForm from "../../hooks/useForm";
-import {toast, Toaster} from "react-hot-toast";
+import {toast} from "react-hot-toast";
 import {AuthContext} from "../../auth/authContext";
 import {useNavigate, useParams} from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
@@ -53,11 +53,9 @@ const MedicineUpdateScreen = () => {
         toast.success("Medicina actualizada correctamente")
         setDisabled(true);
 
-        setTimeout(() => {
-          reset();
-          setDisabled(false);
-          navigate("/medicines");
-        }, 1000);
+        reset();
+        setDisabled(false);
+        navigate("/medicines");
       })
       .catch((error) => {
 
@@ -106,7 +104,6 @@ const MedicineUpdateScreen = () => {
         />
         <button type="submit" className="create-medicine-button" disabled={buttonDisabled}>Actualizar</button>
       </form>
-      <Toaster/>
     </div>
   );
 };

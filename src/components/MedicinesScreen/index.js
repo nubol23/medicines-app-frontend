@@ -3,7 +3,6 @@ import useForm from "../../hooks/useForm";
 import "./medicines.scss"
 import {useNavigate} from "react-router-dom";
 import MedicineTable from "../MedicineTable";
-import {Toaster} from "react-hot-toast";
 
 const MedicinesScreen = () => {
 
@@ -21,8 +20,7 @@ const MedicinesScreen = () => {
 
   return (
     <div className="medicine-screen animate__animated animate__fadeIn">
-      <Toaster/>
-      
+
       <div className="medicines-buttons">
         <form className="search-medicine-form" onSubmit={handleSearchMedicine}>
           <input
