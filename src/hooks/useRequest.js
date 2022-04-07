@@ -10,7 +10,7 @@ const useRequest = (httpRequest, resolveFunc, rejectFunc, deps = []) => {
   useEffect(() => {
     setTimeout(() => {
 
-      httpRequest
+      httpRequest()
         .then((response) => {
           resolveFunc(response);
         })

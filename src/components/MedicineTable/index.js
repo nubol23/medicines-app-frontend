@@ -17,7 +17,7 @@ const MedicineTable = () => {
   const navigate = useNavigate();
 
   useRequest(
-    api.get("/medicines/medicines/"),
+    () => api.get("/medicines/medicines/"),
     (response) => {
       medicinesDispatch({type: medicineTypes.clear});
       medicinesDispatch({

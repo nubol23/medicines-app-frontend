@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {FamilyContext} from "../../contexts/familyContext";
 import {useNavigate} from "react-router-dom";
 import "./familyTable.scss"
@@ -14,8 +14,12 @@ const FamilyTable = () => {
   const {families, familiesDispatch} = useContext(FamilyContext);
   const {userDispatch} = useContext(AuthContext);
 
+  useEffect(() => {
+    console.log(":D")
+  }, [userDispatch])
+
   useRequest(
-    api.get("/families/"),
+    () => api.get("/families/"),
     (response) => {
       familiesDispatch({type: familyTypes.clear});
       familiesDispatch({
