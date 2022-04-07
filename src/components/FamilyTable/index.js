@@ -8,10 +8,24 @@ import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
 import deleteDialog from "../../utils/deleteDialog";
 import {toast} from "react-hot-toast";
+import useRequest from "../../hooks/useRequest";
 
 const FamilyTable = () => {
   const {families, familiesDispatch} = useContext(FamilyContext);
   const {userDispatch} = useContext(AuthContext);
+
+  useRequest(
+    api.get("/families/"),
+    (response) => {
+      familiesDispatch({type: familyTypes.clear});
+      familiesDispatch({
+        type: familyTypes.addMultiple,
+        payload: response.data.results,
+      });
+    },
+    (error) => {
+    },
+  )
 
   const navigate = useNavigate()
   const handleTableClick = (id) => {
