@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import {FamilyContext} from "../../contexts/familyContext";
 import {useNavigate} from "react-router-dom";
 import "./familyTable.scss"
@@ -9,14 +9,12 @@ import {AuthContext} from "../../auth/authContext";
 import deleteDialog from "../../utils/deleteDialog";
 import {toast} from "react-hot-toast";
 import useRequest from "../../hooks/useRequest";
+import LoadingCircle from "../LoadingCircle";
 
 const FamilyTable = () => {
+  const [loading, setLoading] = useState(true)
   const {families, familiesDispatch} = useContext(FamilyContext);
   const {userDispatch} = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log(":D")
-  }, [userDispatch])
 
   useRequest(
     () => api.get("/families/"),
@@ -26,6 +24,7 @@ const FamilyTable = () => {
         type: familyTypes.addMultiple,
         payload: response.data.results,
       });
+      setLoading(false)
     },
     (error) => {
     },
@@ -61,7 +60,7 @@ const FamilyTable = () => {
 
   }
 
-  return (
+  return loading ? <LoadingCircle/> : (
     <table className="table table-hover family-table">
       <thead>
       <tr>
