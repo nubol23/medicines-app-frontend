@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import "./medicineTable.scss"
 import {MedicineContext} from "../../contexts/medicineContext";
 import useRequest from "../../hooks/useRequest";
@@ -9,9 +9,10 @@ import {toast} from "react-hot-toast";
 import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
 import {useNavigate} from "react-router-dom";
+import LoadingCircle from "../LoadingCircle";
 
 const MedicineTable = () => {
-
+  const [loading, setLoading] = useState(true)
   const {medicines, medicinesDispatch} = useContext(MedicineContext);
   const {userDispatch} = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const MedicineTable = () => {
         type: medicineTypes.addMultiple,
         payload: response.data.results,
       });
+      setLoading(false)
     },
     (error) => {
     },
@@ -60,7 +62,7 @@ const MedicineTable = () => {
     }, `¿Está seguro/a que desea eliminar ${name} ${cant} ${unit}?`)
   }
 
-  return (
+  return loading ? <LoadingCircle/> : (
     <div className="medicine-table">
       <table className="table table-hover">
         <thead>
