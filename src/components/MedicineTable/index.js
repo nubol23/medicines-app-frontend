@@ -10,8 +10,17 @@ import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
 import {useNavigate} from "react-router-dom";
 import LoadingCircle from "../LoadingCircle";
+import Paginator from "../Paginator";
 
 const MedicineTable = () => {
+
+  const [paginatorParams, setPaginatorParams] = useState({
+    baseUrl: "/medicines/medicines/",
+    totalCount: 0,
+    nextUrl: null,
+    prevUrl: null,
+  })
+
   const [loading, setLoading] = useState(true)
   const {medicines, medicinesDispatch} = useContext(MedicineContext);
   const {userDispatch} = useContext(AuthContext);
@@ -26,6 +35,12 @@ const MedicineTable = () => {
         payload: response.data.results,
       });
       setLoading(false)
+      setPaginatorParams({
+        ...paginatorParams,
+        totalCount: response.data.count,
+        nextUrl: response.data.next,
+        prevUrl: response.data.previous,
+      })
     },
     (error) => {
     },
@@ -63,40 +78,44 @@ const MedicineTable = () => {
   }
 
   return loading ? <LoadingCircle/> : (
-    <div className="medicine-table">
-      <table className="table table-hover">
-        <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Fabricante</th>
-          <th>Cant.</th>
-          <th>U.</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          medicines.map(medicine => (
-            <tr key={medicine.id} className="animate__animated animate__fadeIn">
-              <td onClick={() => handleTableClick(medicine.id)}>{medicine.name}</td>
-              <td onClick={() => handleTableClick(medicine.id)}>{medicine.maker}</td>
-              <td onClick={() => handleTableClick(medicine.id)}>{Math.round(medicine.quantity)}</td>
-              <td onClick={() => handleTableClick(medicine.id)}>{medicine.unit}</td>
-              <td>
-                <button
-                  className="edit-row-button"
-                  onClick={() => handleEditMedicine(medicine.id)}
-                ><i className="fas fa-pen"/></button>
-                <button
-                  className="delete-row-button"
-                  onClick={() => handleDeleteMedicine(medicine.id, medicine.name, medicine.quantity, medicine.unit)}
-                ><i className="fas fa-trash"/></button>
-              </td>
-            </tr>
-          ))
-        }
-        </tbody>
-      </table>
+    <div>
+      <div className="medicine-table">
+        <table className="table table-hover">
+          <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Fabricante</th>
+            <th>Cant.</th>
+            <th>U.</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          {
+            medicines.map(medicine => (
+              <tr key={medicine.id} className="animate__animated animate__fadeIn">
+                <td onClick={() => handleTableClick(medicine.id)}>{medicine.name}</td>
+                <td onClick={() => handleTableClick(medicine.id)}>{medicine.maker}</td>
+                <td onClick={() => handleTableClick(medicine.id)}>{Math.round(medicine.quantity)}</td>
+                <td onClick={() => handleTableClick(medicine.id)}>{medicine.unit}</td>
+                <td>
+                  <button
+                    className="edit-row-button"
+                    onClick={() => handleEditMedicine(medicine.id)}
+                  ><i className="fas fa-pen"/></button>
+                  <button
+                    className="delete-row-button"
+                    onClick={() => handleDeleteMedicine(medicine.id, medicine.name, medicine.quantity, medicine.unit)}
+                  ><i className="fas fa-trash"/></button>
+                </td>
+              </tr>
+            ))
+          }
+          </tbody>
+        </table>
+      </div>
+
+      <Paginator params={paginatorParams} setParams={setPaginatorParams}/>
     </div>
   );
 };
