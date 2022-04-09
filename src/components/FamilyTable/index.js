@@ -10,8 +10,17 @@ import deleteDialog from "../../utils/deleteDialog";
 import {toast} from "react-hot-toast";
 import useRequest from "../../hooks/useRequest";
 import LoadingCircle from "../LoadingCircle";
+import Paginator from "../Paginator";
 
 const FamilyTable = () => {
+
+  const [paginatorParams, setPaginatorParams] = useState({
+    baseUrl: "/medicines/medicines/",
+    totalCount: 0,
+    nextUrl: null,
+    prevUrl: null,
+  })
+
   const [loading, setLoading] = useState(true)
   const {families, familiesDispatch} = useContext(FamilyContext);
   const {userDispatch} = useContext(AuthContext);
@@ -19,12 +28,21 @@ const FamilyTable = () => {
   useRequest(
     () => api.get("/families/"),
     (response) => {
+
       familiesDispatch({type: familyTypes.clear});
       familiesDispatch({
         type: familyTypes.addMultiple,
         payload: response.data.results,
       });
       setLoading(false)
+
+      setPaginatorParams({
+        ...paginatorParams,
+        totalCount: response.data.count,
+        nextUrl: response.data.next,
+        prevUrl: response.data.previous,
+      })
+
     },
     (error) => {
     },
@@ -61,31 +79,40 @@ const FamilyTable = () => {
   }
 
   return loading ? <LoadingCircle/> : (
-    <table className="table table-hover family-table">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nombre de Familia</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      {
-        families.map(family => (
-          <tr key={family.id} className="animate__animated animate__fadeIn">
-            <td onClick={() => handleTableClick(family.id)}>{family.id}</td>
-            <td onClick={() => handleTableClick(family.id)}>{family.family_name}</td>
-            <td>
-              <button
-                className="delete-row-button"
-                onClick={() => handleDeleteFamily(family.id, family.family_name)}
-              ><i className="fas fa-trash"/></button>
-            </td>
-          </tr>
-        ))
-      }
-      </tbody>
-    </table>
+    <div>
+      <table className="table table-hover family-table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre de Familia</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          families.map(family => (
+            <tr key={family.id} className="animate__animated animate__fadeIn">
+              <td onClick={() => handleTableClick(family.id)}>{family.id}</td>
+              <td onClick={() => handleTableClick(family.id)}>{family.family_name}</td>
+              <td>
+                <button
+                  className="delete-row-button"
+                  onClick={() => handleDeleteFamily(family.id, family.family_name)}
+                ><i className="fas fa-trash"/></button>
+              </td>
+            </tr>
+          ))
+        }
+        </tbody>
+      </table>
+
+      <Paginator
+        params={paginatorParams}
+        setParams={setPaginatorParams}
+        dispatch={familiesDispatch}
+        actionType={familyTypes}
+      />
+    </div>
   );
 };
 

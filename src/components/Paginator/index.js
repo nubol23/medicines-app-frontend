@@ -1,12 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import "./paginator.scss"
 import api from "../../apis/api";
-import {MedicineContext} from "../../contexts/medicineContext";
-import medicineTypes from "../../types/medicineTypes";
 
-const Paginator = ({params, setParams}) => {
+const Paginator = ({params, setParams, dispatch, actionType}) => {
   const [page, setPage] = useState(1);
-  const {medicines, medicinesDispatch} = useContext(MedicineContext);
 
   const updatePageRequest = (newPageNumber) => {
     api.get(params.baseUrl, {params: {page: newPageNumber}})
@@ -19,9 +16,9 @@ const Paginator = ({params, setParams}) => {
           prevUrl: response.data.previous,
         })
 
-        medicinesDispatch({type: medicineTypes.clear});
-        medicinesDispatch({
-          type: medicineTypes.addMultiple,
+        dispatch({type: actionType.clear});
+        dispatch({
+          type: actionType.addMultiple,
           payload: response.data.results,
         });
 

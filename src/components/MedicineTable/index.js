@@ -115,7 +115,12 @@ const MedicineTable = () => {
         </table>
       </div>
 
-      <Paginator params={paginatorParams} setParams={setPaginatorParams}/>
+      <Paginator
+        params={paginatorParams}
+        setParams={setPaginatorParams}
+        dispatch={medicinesDispatch}
+        actionType={medicineTypes}
+      />
     </div>
   );
 };
