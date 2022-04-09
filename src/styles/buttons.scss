@@ -20,6 +20,12 @@
   }
 }
 
+.primary-button-icon {
+  @extend .primary-button;
+  padding-bottom: 0;
+  padding-right: 7px;
+}
+
 .secondary-button {
   background-color: $secondary;
   border-radius: 5px;
