@@ -9,6 +9,7 @@ import PurchasesScreen from "../components/PurchasesScreen";
 import FamilyDetails from "../components/FamilyDetails";
 import MedicineCreateScreen from "../components/MedicineCreateScreen";
 import MedicineUpdateScreen from "../components/MedicineUpdateScreen";
+import PurchaseCreateScreen from "../components/PurchaseCreateScreen";
 
 export const DashboardRouter = () => {
   return (
@@ -26,6 +27,7 @@ export const DashboardRouter = () => {
             <Route path='/medicines/create' element={<MedicineCreateScreen/>}/>
             <Route path='/medicines/update/:medicineId' element={<MedicineUpdateScreen/>}/>
             <Route path='/purchases' element={<PurchasesScreen/>}/>
+            <Route path='/purchases/:medicineId/create' element={<PurchaseCreateScreen/>}/>
             <Route path="/*" element={<Navigate to="/home"/>}/>
           </Routes>
 

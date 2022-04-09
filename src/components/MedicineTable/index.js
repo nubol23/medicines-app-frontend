@@ -47,7 +47,7 @@ const MedicineTable = () => {
   )
 
   const handleTableClick = (id) => {
-
+    navigate(`/purchases/${id}/create`)
   }
 
   const handleEditMedicine = (id) => {
