@@ -15,7 +15,7 @@ import Paginator from "../Paginator";
 const FamilyTable = () => {
 
   const [paginatorParams, setPaginatorParams] = useState({
-    baseUrl: "/medicines/medicines/",
+    baseUrl: "/families/",
     totalCount: 0,
     nextUrl: null,
     prevUrl: null,
