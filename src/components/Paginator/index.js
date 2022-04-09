@@ -8,29 +8,35 @@ const Paginator = ({params, setParams}) => {
   const [page, setPage] = useState(1);
   const {medicines, medicinesDispatch} = useContext(MedicineContext);
 
-  const handlePrevious = () => {
+  const updatePageRequest = (newPageNumber) => {
+    api.get(params.baseUrl, {params: {page: newPageNumber}})
+      .then((response) => {
 
+        setPage(newPageNumber)
+        setParams({
+          ...params,
+          nextUrl: response.data.next,
+          prevUrl: response.data.previous,
+        })
+
+        medicinesDispatch({type: medicineTypes.clear});
+        medicinesDispatch({
+          type: medicineTypes.addMultiple,
+          payload: response.data.results,
+        });
+
+      })
+  }
+
+  const handlePrevious = () => {
+    if (params.prevUrl !== null) {
+      updatePageRequest(page - 1)
+    }
   }
 
   const handleNext = () => {
     if (params.nextUrl !== null) {
-      api.get(params.baseUrl, {params: {page: page + 1}})
-        .then((response) => {
-
-          setPage(page + 1)
-          setParams({
-            ...params,
-            nextUrl: response.data.next,
-            prevUrl: response.data.previous,
-          })
-
-          medicinesDispatch({type: medicineTypes.clear});
-          medicinesDispatch({
-            type: medicineTypes.addMultiple,
-            payload: response.data.results,
-          });
-
-        })
+      updatePageRequest(page + 1)
     }
   }
 
