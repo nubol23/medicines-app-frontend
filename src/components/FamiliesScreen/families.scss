@@ -6,18 +6,17 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  margin-left: 10%;
-
   width: 90%;
   height: 90%;
 }
 
 .create-family-form {
-  margin-top: 8%;
+  margin-top: 6%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 
-  width: 70%;
+  //width: 70%;
 }
 
 .create-family-input {

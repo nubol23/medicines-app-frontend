@@ -18,18 +18,16 @@ export const DashboardRouter = () => {
 
         <div className="dashboard-screen">
 
-          <div className="container">
-            <Routes>
-              <Route path='/home' element={<HomeScreen/>}/>
-              <Route path='/families' element={<FamiliesScreen/>}/>
-              <Route path='/families/:familyId' element={<FamilyDetails/>}/>
-              <Route path='/medicines' element={<MedicinesScreen/>}/>
-              <Route path='/medicines/create' element={<MedicineCreateScreen/>}/>
-              <Route path='/medicines/update/:medicineId' element={<MedicineUpdateScreen/>}/>
-              <Route path='/purchases' element={<PurchasesScreen/>}/>
-              <Route path="/*" element={<Navigate to="/home"/>}/>
-            </Routes>
-          </div>
+          <Routes>
+            <Route path='/home' element={<HomeScreen/>}/>
+            <Route path='/families' element={<FamiliesScreen/>}/>
+            <Route path='/families/:familyId' element={<FamilyDetails/>}/>
+            <Route path='/medicines' element={<MedicinesScreen/>}/>
+            <Route path='/medicines/create' element={<MedicineCreateScreen/>}/>
+            <Route path='/medicines/update/:medicineId' element={<MedicineUpdateScreen/>}/>
+            <Route path='/purchases' element={<PurchasesScreen/>}/>
+            <Route path="/*" element={<Navigate to="/home"/>}/>
+          </Routes>
 
         </div>
 
