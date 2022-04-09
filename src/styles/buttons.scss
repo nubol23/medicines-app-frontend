@@ -24,6 +24,11 @@
   @extend .primary-button;
   padding-bottom: 0;
   padding-right: 7px;
+
+  &:disabled {
+    background-color: gray;
+    box-shadow: none;
+  }
 }
 
 .secondary-button {
