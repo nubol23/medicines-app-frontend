@@ -102,11 +102,11 @@ const MedicineTable = () => {
                   <button
                     className="edit-row-button"
                     onClick={() => handleEditMedicine(medicine.id)}
-                  ><i className="fas fa-pen"/></button>
+                  ><i className="material-icons">edit</i></button>
                   <button
                     className="delete-row-button"
                     onClick={() => handleDeleteMedicine(medicine.id, medicine.name, medicine.quantity, medicine.unit)}
-                  ><i className="fas fa-trash"/></button>
+                  ><i className="material-icons">delete</i></button>
                 </td>
               </tr>
             ))

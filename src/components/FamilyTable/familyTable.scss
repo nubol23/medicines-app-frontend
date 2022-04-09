@@ -8,9 +8,6 @@
 }
 
 .delete-row-button {
-  @extend .tertiary-button;
-  align-content: center;
+  @extend .tertiary-button-icon;
   color: white;
-  padding: 3px 12px 3px 12px;
-  font-weight: bold;
 }

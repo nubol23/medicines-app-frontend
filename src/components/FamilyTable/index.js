@@ -98,7 +98,7 @@ const FamilyTable = () => {
                 <button
                   className="delete-row-button"
                   onClick={() => handleDeleteFamily(family.id, family.family_name)}
-                ><i className="fas fa-trash"/></button>
+                ><i className="material-icons">delete</i></button>
               </td>
             </tr>
           ))

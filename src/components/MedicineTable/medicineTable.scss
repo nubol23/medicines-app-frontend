@@ -13,9 +13,6 @@
 }
 
 .edit-row-button {
-  @extend .secondary-button;
-  align-content: center;
+  @extend .secondary-button-icon;
   color: white;
-  padding: 3px 10px 3px 10px;
-  font-weight: bold;
 }

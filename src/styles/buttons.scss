@@ -49,6 +49,17 @@
   }
 }
 
+.secondary-button-icon {
+  @extend .secondary-button;
+  padding-bottom: 0;
+  padding-right: 7px;
+
+  &:disabled {
+    background-color: gray;
+    box-shadow: none;
+  }
+}
+
 .tertiary-button {
   background-color: $tertiary;
   border-radius: 5px;
@@ -64,5 +75,16 @@
 
   &:active {
     background-color: darken($color: $tertiary, $amount: 10);
+  }
+}
+
+.tertiary-button-icon {
+  @extend .tertiary-button;
+  padding-bottom: 0;
+  padding-right: 7px;
+
+  &:disabled {
+    background-color: gray;
+    box-shadow: none;
   }
 }
