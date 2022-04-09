@@ -23,8 +23,11 @@ const MedicinesScreen = () => {
     if (medicineName !== "") searchParams = {...searchParams, name: medicineName}
 
     let req = null
-    if (emptyObj(searchParams)) {req = api.get("/medicines/medicines/")}
-    else {req = api.get("/medicines/medicines/", {params: searchParams})}
+    if (emptyObj(searchParams)) {
+      req = api.get("/medicines/medicines/")
+    } else {
+      req = api.get("/medicines/medicines/", {params: searchParams})
+    }
 
     req.then((response) => {
       medicinesDispatch({type: medicineTypes.clear});
@@ -32,7 +35,7 @@ const MedicinesScreen = () => {
         type: medicineTypes.addMultiple,
         payload: response.data.results,
       });
-    }).catch(toast.error("Error al buscar"))
+    }).catch((error) => toast.error("Error al buscar"))
   }
 
   const handleCreateMedicine = () => {
