@@ -29,8 +29,21 @@ const PurchaseCreateScreen = () => {
     (error) => {
     }
   )
+  const [families, setFamilies] = useState([{
+    id: "",
+    name: "",
+  }])
+  useRequest(
+    () => api.get("/families/"),
+    (response) => {
+      setFamilies(response.data.results)
+    },
+    (error) => {
+    }
+  )
 
-  const [{buyDate, expirationDate, quantity}, handleInputChange] = useForm({
+  const [{familyId, buyDate, expirationDate, quantity}, handleInputChange] = useForm({
+    familyId: "",
     buyDate: "",
     expirationDate: "",
     quantity: "",
@@ -39,7 +52,7 @@ const PurchaseCreateScreen = () => {
   const handlePurchase = (e) => {
     e.preventDefault();
 
-    if (buyDate === "" || expirationDate === "" || quantity === "")
+    if (familyId === "" || buyDate === "" || expirationDate === "" || quantity === "")
       toast.error("Todos los campos son requeridos")
 
     
@@ -49,6 +62,18 @@ const PurchaseCreateScreen = () => {
     <div className="create-medicine-screen animate__animated animate__fadeIn">
       <form className="create-medicine-form" onSubmit={handlePurchase}>
         <p>Comprando medicamento {medicine.name} - {medicine.maker}: {medicine.quantity} {medicine.unit}</p>
+
+        <select
+          className="form-select create-medicine-form-input"
+          name="familyId"
+          value={familyId}
+          onChange={handleInputChange}
+        >
+          <option value="">Seleccione su familia</option>
+          {
+            families.map(family => <option value={family.id} key={family.id}>{family.family_name}</option>)
+          }
+        </select>
 
         <input
           className="form-control create-medicine-form-input"
