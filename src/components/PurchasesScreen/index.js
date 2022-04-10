@@ -1,6 +1,7 @@
 import React from 'react';
 import useForm from "../../hooks/useForm";
 import "./purchases.scss"
+import PurchaseTable from "../PurchaseTable";
 
 const PurchasesScreen = () => {
 
@@ -8,7 +9,7 @@ const PurchasesScreen = () => {
 
   const handleSearchByMedicine = (e) => {
     e.preventDefault();
-    
+
   }
 
   return (
@@ -29,6 +30,7 @@ const PurchasesScreen = () => {
         </form>
       </div>
 
+      <PurchaseTable/>
     </div>
   );
 };
