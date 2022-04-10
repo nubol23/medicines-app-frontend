@@ -6,6 +6,7 @@ import api from "../../apis/api";
 import purchaseTypes from "../../types/purchaseTypes";
 import {formatDate} from "../../utils/functions";
 import "./purchaseTable.scss"
+import {useNavigate} from "react-router-dom";
 
 const PurchaseTable = ({familyId}) => {
 
@@ -43,12 +44,14 @@ const PurchaseTable = ({familyId}) => {
       })
   }, [familyId])
 
+  const navigate = useNavigate();
+
   const handleTableClick = (purchaseId) => {
 
   }
 
-  const handleEditPurchase = (purchaseId) => {
-
+  const handleEditPurchase = (purchaseId, medicineId) => {
+    navigate(`/purchases/${medicineId}/update/${purchaseId}`)
   }
 
   const handleDeletePurchase = (purchaseId) => {
@@ -82,7 +85,7 @@ const PurchaseTable = ({familyId}) => {
                 <td>
                   <button
                     className="edit-row-button"
-                    onClick={() => handleEditPurchase(purchase.id)}
+                    onClick={() => handleEditPurchase(purchase.id, purchase.medicine.id)}
                   ><i className="material-icons">edit</i></button>
                   <button
                     className="delete-row-button"
