@@ -11,6 +11,7 @@ import deleteDialog from "../../utils/deleteDialog";
 import {toast} from "react-hot-toast";
 import {AuthContext} from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
+import useUpdateEffect from "../../hooks/useUpdateEffect";
 
 const PurchaseTable = ({familyId, filterByUser}) => {
 
@@ -48,6 +49,17 @@ const PurchaseTable = ({familyId, filterByUser}) => {
         });
       })
   }, [familyId])
+
+  useUpdateEffect(() => {
+    api.get("/medicines/purchase", {params: {filter_by_user: filterByUser}})
+      .then((response) => {
+        purchasesDispatch({type: purchaseTypes.clear});
+        purchasesDispatch({
+          type: purchaseTypes.addMultiple,
+          payload: response.data.results,
+        });
+      })
+  }, [filterByUser])
 
   const navigate = useNavigate();
 
