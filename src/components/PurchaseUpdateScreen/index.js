@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import {useParams} from "react-router-dom";
+import React, {useContext, useState} from 'react';
+import {useNavigate, useParams} from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import useForm from "../../hooks/useForm";
 import {formatFormDate} from "../../utils/functions";
+import {toast} from "react-hot-toast";
+import {AuthContext} from "../../auth/authContext";
+import authTypes from "../../types/authTypes";
 
 const PurchaseUpdateScreen = () => {
 
+  const [buttonDisabled, setDisabled] = useState(false);
   const {medicineId, purchaseId} = useParams()
+  const {userDispatch} = useContext(AuthContext);
 
   const [medicine, setMedicine] = useState({
     id: "",
@@ -64,8 +69,36 @@ const PurchaseUpdateScreen = () => {
     },
   )
 
+  const navigate = useNavigate();
   const handleUpdatePurchase = (e) => {
     e.preventDefault();
+
+    if (familyId === "" || buyDate === "" || expirationDate === "" || quantity === "") {
+      toast.error("Todos los campos son requeridos")
+      return;
+    }
+
+    api.patch(`/medicines/purchase/${purchaseId}`, {
+      buy_date: buyDate,
+      expiration_date: expirationDate,
+      units: quantity,
+    })
+      .then((response) => {
+        toast.success("Compra actualizada correctamente")
+        setDisabled(true);
+
+        reset();
+        setDisabled(false);
+        navigate("/purchases");
+      })
+      .catch((error) => {
+
+        toast.error("Error al actualizar compra")
+
+        // If returned 401
+        if (error.response && error.response.status === 401)
+          userDispatch({type: authTypes.logout});
+      })
   }
 
   return (
@@ -107,7 +140,7 @@ const PurchaseUpdateScreen = () => {
           value={quantity}
           onChange={handleInputChange}
         />
-        <button type="submit" className="create-medicine-button">Actualizar compra</button>
+        <button type="submit" className="create-medicine-button" disabled={buttonDisabled}>Actualizar compra</button>
       </form>
     </div>
   );
