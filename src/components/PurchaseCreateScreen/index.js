@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
@@ -48,14 +48,30 @@ const PurchaseCreateScreen = () => {
     expirationDate: "",
     quantity: "",
   })
+  const navigate = useNavigate();
 
   const handlePurchase = (e) => {
     e.preventDefault();
 
-    if (familyId === "" || buyDate === "" || expirationDate === "" || quantity === "")
+    if (familyId === "" || buyDate === "" || expirationDate === "" || quantity === "") {
       toast.error("Todos los campos son requeridos")
+      return;
+    }
 
-    
+    api.post("/medicines/purchase", {
+      medicine: medicineId,
+      family: familyId,
+      buy_date: buyDate,
+      expiration_date: expirationDate,
+      units: quantity,
+    })
+      .then((response) => {
+        toast.success("Compra registrada correctamente");
+        navigate("/purchases")
+      })
+      .catch((error) => {
+        toast.error("Error al registrrar la compra")
+      })
   }
 
   return (
