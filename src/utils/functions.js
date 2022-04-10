@@ -10,3 +10,8 @@ export const formatDate = (dateStr) => {
   res = `${parts.at(2)}/${parts.at(1)}/${parts.at(0)}`
   return res
 }
+
+export const formatFormDate = (dateStr) => {
+  let res = dateStr.split("T").at(0)
+  return res
+}

@@ -80,7 +80,7 @@ const PurchaseTable = ({familyId}) => {
                   {purchase.medicine.name} - {purchase.medicine.maker}: {purchase.medicine.quantity} {purchase.medicine.unit}
                 </td>
                 <td onClick={() => handleTableClick(purchase.id)}>{purchase.family.family_name}</td>
-                <td onClick={() => handleTableClick(purchase.id)}>{formatDate(purchase.buy_date)}</td>
+                <td onClick={() => handleTableClick(purchase.id)}>{formatDate(purchase.expiration_date)}</td>
                 <td onClick={() => handleTableClick(purchase.id)}>{purchase.units}</td>
                 <td>
                   <button

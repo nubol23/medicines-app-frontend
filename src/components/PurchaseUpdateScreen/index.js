@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import useForm from "../../hooks/useForm";
+import {formatFormDate} from "../../utils/functions";
 
 const PurchaseUpdateScreen = () => {
 
@@ -42,12 +43,26 @@ const PurchaseUpdateScreen = () => {
     }
   )
 
-  const [{familyId, buyDate, expirationDate, quantity}, handleInputChange] = useForm({
+  const [{familyId, buyDate, expirationDate, quantity}, handleInputChange, reset, handleSetAllValues] = useForm({
     familyId: "",
     buyDate: "",
     expirationDate: "",
     quantity: "",
   })
+
+  useRequest(
+    () => api.get(`/medicines/purchase/${purchaseId}`),
+    (response) => {
+      handleSetAllValues({
+        familyId: response.data.family.id,
+        buyDate: formatFormDate(response.data.buy_date),
+        expirationDate: formatFormDate(response.data.expiration_date),
+        quantity: response.data.units,
+      })
+    },
+    (error) => {
+    },
+  )
 
   const handleUpdatePurchase = (e) => {
     e.preventDefault();
