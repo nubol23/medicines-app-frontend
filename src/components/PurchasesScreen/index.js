@@ -22,6 +22,11 @@ const PurchasesScreen = () => {
 
   const [{medicineName, familyId}, handleInputChange] = useForm({medicineName: '',})
 
+  const [filterByUser, setFilterByUser] = useState(false);
+  const handleCheckbox = () => {
+    setFilterByUser(!filterByUser);
+  }
+
   const handleSearchByMedicine = (e) => {
     e.preventDefault();
 
@@ -54,10 +59,22 @@ const PurchasesScreen = () => {
               families.map(family => <option value={family.id} key={family.id}>{family.family_name}</option>)
             }
           </select>
+
+          <div className="form-check family-selector">
+            <label className="form-check-label" htmlFor="listByUser">Filtrar por usuario</label>
+            <input
+              id="listByUser"
+              className="form-check-input"
+              type="checkbox"
+              name="listByUser"
+              checked={filterByUser}
+              onChange={handleCheckbox}
+            />
+          </div>
         </form>
       </div>
 
-      <PurchaseTable familyId={familyId}/>
+      <PurchaseTable familyId={familyId} filterByUser={filterByUser}/>
     </div>
   );
 };

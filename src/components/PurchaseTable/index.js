@@ -12,7 +12,7 @@ import {toast} from "react-hot-toast";
 import {AuthContext} from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
 
-const PurchaseTable = ({familyId}) => {
+const PurchaseTable = ({familyId, filterByUser}) => {
 
   const {purchases, purchasesDispatch} = useContext(PurchaseContext);
   const {userDispatch} = useContext(AuthContext);
