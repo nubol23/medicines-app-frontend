@@ -1,0 +1,6 @@
+@import "../MedicineTable/medicineTable";
+
+.purchase-table {
+  @extend .medicine-table;
+  cursor: initial;
+}

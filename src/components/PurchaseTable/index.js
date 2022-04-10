@@ -5,6 +5,7 @@ import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import purchaseTypes from "../../types/purchaseTypes";
 import {formatDate} from "../../utils/functions";
+import "./purchaseTable.scss"
 
 const PurchaseTable = ({familyId}) => {
 
@@ -57,7 +58,7 @@ const PurchaseTable = ({familyId}) => {
   return loading ? <LoadingCircle/> : (
     <div>
 
-      <div className="medicine-table">
+      <div className="purchase-table">
         <table className="table table-hover">
           <thead>
           <tr>
