@@ -7,10 +7,15 @@ import purchaseTypes from "../../types/purchaseTypes";
 import {formatDate} from "../../utils/functions";
 import "./purchaseTable.scss"
 import {useNavigate} from "react-router-dom";
+import deleteDialog from "../../utils/deleteDialog";
+import {toast} from "react-hot-toast";
+import {AuthContext} from "../../auth/authContext";
+import authTypes from "../../types/authTypes";
 
 const PurchaseTable = ({familyId}) => {
 
   const {purchases, purchasesDispatch} = useContext(PurchaseContext);
+  const {userDispatch} = useContext(AuthContext);
   const [loading, setLoading] = useState(true)
 
   useRequest(
@@ -54,8 +59,27 @@ const PurchaseTable = ({familyId}) => {
     navigate(`/purchases/${medicineId}/update/${purchaseId}`)
   }
 
-  const handleDeletePurchase = (purchaseId) => {
+  const handleDeletePurchase = (purchaseId, medicineName, familyName) => {
+    deleteDialog(() => {
+      api.delete(`/medicines/purchase/${purchaseId}`)
+        .then((response) => {
+          purchasesDispatch({
+            type: purchaseTypes.remove,
+            payload: {id: purchaseId},
+          })
 
+          toast.success("Compra eliminada correctamente")
+        })
+        .catch((error) => {
+          // If returned 401
+          if (error.response && error.response.status === 401) {
+            userDispatch({type: authTypes.logout});
+            toast.error("Sesión expirada")
+          } else {
+            toast.error("Error al eliminar la compra")
+          }
+        })
+    }, `¿Está seguro/a que desea eliminar la compra de ${medicineName} para la familia ${familyName}?`)
   }
 
   return loading ? <LoadingCircle/> : (
@@ -89,7 +113,7 @@ const PurchaseTable = ({familyId}) => {
                   ><i className="material-icons">edit</i></button>
                   <button
                     className="delete-row-button"
-                    onClick={() => handleDeletePurchase(purchase.id)}
+                    onClick={() => handleDeletePurchase(purchase.id, purchase.medicine.name, purchase.family.family_name)}
                   ><i className="material-icons">delete</i></button>
                 </td>
               </tr>
