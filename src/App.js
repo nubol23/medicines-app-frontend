@@ -7,6 +7,8 @@ import {familyReducer} from "./reducers/familyReducer";
 import {FamilyContext} from "./contexts/familyContext";
 import {medicineReducer} from "./reducers/medicineReducer";
 import {MedicineContext} from "./contexts/medicineContext";
+import {purchaseReducer} from "./reducers/purchaseReducer";
+import {PurchaseContext} from "./contexts/purchaseContext";
 
 const init = () => {
   return JSON.parse(localStorage.getItem('user') || '{"logged": false}')
@@ -23,17 +25,20 @@ function App() {
 
   const [families, familiesDispatch] = useReducer(familyReducer, [], () => [])
   const [medicines, medicinesDispatch] = useReducer(medicineReducer, [], () => [])
+  const [purchases, purchasesDispatch] = useReducer(purchaseReducer, [], () => [])
 
   return (
-    <MedicineContext.Provider value={{medicines, medicinesDispatch}}>
-      <FamilyContext.Provider value={{families, familiesDispatch}}>
-        <AuthContext.Provider value={{user, userDispatch}}>
-          <BrowserRouter>
-            <AppRouter/>
-          </BrowserRouter>
-        </AuthContext.Provider>
-      </FamilyContext.Provider>
-    </MedicineContext.Provider>
+    <PurchaseContext.Provider value={{purchases, purchasesDispatch}}>
+      <MedicineContext.Provider value={{medicines, medicinesDispatch}}>
+        <FamilyContext.Provider value={{families, familiesDispatch}}>
+          <AuthContext.Provider value={{user, userDispatch}}>
+            <BrowserRouter>
+              <AppRouter/>
+            </BrowserRouter>
+          </AuthContext.Provider>
+        </FamilyContext.Provider>
+      </MedicineContext.Provider>
+    </PurchaseContext.Provider>
   );
 }
 
