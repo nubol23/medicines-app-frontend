@@ -61,7 +61,7 @@ const PurchasesScreen = () => {
           </select>
 
           <div className="form-check family-selector">
-            <label className="form-check-label" htmlFor="listByUser">Filtrar por usuario</label>
+            <label className="form-check-label" htmlFor="listByUser">Mostrar solo mis compras</label>
             <input
               id="listByUser"
               className="form-check-input"
