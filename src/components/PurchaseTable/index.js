@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {PurchaseContext} from "../../contexts/purchaseContext";
 import LoadingCircle from "../LoadingCircle";
 import useRequest from "../../hooks/useRequest";
@@ -30,6 +30,17 @@ const PurchaseTable = ({familyId}) => {
     (error) => {
     },
   )
+
+  useEffect(() => {
+    api.get("/medicines/purchase", {params: {family_ids: familyId}})
+      .then((response) => {
+        purchasesDispatch({type: purchaseTypes.clear});
+        purchasesDispatch({
+          type: purchaseTypes.addMultiple,
+          payload: response.data.results,
+        });
+      })
+  }, [familyId])
 
   const handleTableClick = (purchaseId) => {
 
