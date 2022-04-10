@@ -104,13 +104,20 @@ const PurchaseUpdateScreen = () => {
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
       <form className="create-medicine-form" onSubmit={handleUpdatePurchase}>
-        <p>Actualizando compra {medicine.name} - {medicine.maker}: {medicine.quantity} {medicine.unit}</p>
+        <div>
+          <p>
+            Actualizando compra de {medicine.name}<br/>
+            Cantidad: {medicine.quantity} {medicine.unit}<br/>
+            Fabricante: {medicine.maker}<br/>
+          </p>
+        </div>
 
         <select
           className="form-select create-medicine-form-input"
           name="familyId"
           value={familyId}
           onChange={handleInputChange}
+          disabled={true} //Temporal fix
         >
           <option value="">Seleccione su familia</option>
           {
@@ -118,14 +125,18 @@ const PurchaseUpdateScreen = () => {
           }
         </select>
 
+        <label htmlFor="buyDate">Fecha de compra</label>
         <input
+          id="buyDate"
           className="form-control create-medicine-form-input"
           type="date"
           name="buyDate"
           value={buyDate}
           onChange={handleInputChange}
         />
+        <label htmlFor="expirationDate">Fecha de expiración</label>
         <input
+          id="expirationDate"
           className="form-control create-medicine-form-input"
           type="date"
           name="expirationDate"

@@ -77,7 +77,13 @@ const PurchaseCreateScreen = () => {
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
       <form className="create-medicine-form" onSubmit={handlePurchase}>
-        <p>Comprando medicamento {medicine.name} - {medicine.maker}: {medicine.quantity} {medicine.unit}</p>
+        <div>
+          <p>
+            Registrando compra de {medicine.name}<br/>
+            Cantidad: {medicine.quantity} {medicine.unit}<br/>
+            Fabricante: {medicine.maker}
+          </p>
+        </div>
 
         <select
           className="form-select create-medicine-form-input"
@@ -91,14 +97,18 @@ const PurchaseCreateScreen = () => {
           }
         </select>
 
+        <label htmlFor="buyDate">Fecha de compra</label>
         <input
+          id="buyDate"
           className="form-control create-medicine-form-input"
           type="date"
           name="buyDate"
           value={buyDate}
           onChange={handleInputChange}
         />
+        <label htmlFor="expirationDate">Fecha de expiración</label>
         <input
+          id="expirationDate"
           className="form-control create-medicine-form-input"
           type="date"
           name="expirationDate"
