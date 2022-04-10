@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {PurchaseContext} from "../../contexts/purchaseContext";
 import LoadingCircle from "../LoadingCircle";
 
-const PurchaseTable = () => {
+const PurchaseTable = ({familyId}) => {
 
   const {purchases, purchasesDispatch} = useContext(PurchaseContext);
   const [loading, setLoading] = useState(true)

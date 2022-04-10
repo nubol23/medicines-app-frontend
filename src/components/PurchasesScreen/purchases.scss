@@ -1,6 +1,15 @@
 .search-purchases-form {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 
   width: 100%;
+}
+
+.medicine-search-input {
+  width: 65%;
+}
+
+.family-selector {
+  margin-top: 6%;
 }
