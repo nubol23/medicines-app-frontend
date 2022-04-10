@@ -1,14 +1,99 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams} from "react-router-dom";
+import useRequest from "../../hooks/useRequest";
+import api from "../../apis/api";
+import useForm from "../../hooks/useForm";
 
 const PurchaseUpdateScreen = () => {
 
   const {medicineId, purchaseId} = useParams()
 
+  const [medicine, setMedicine] = useState({
+    id: "",
+    name: "",
+    maker: "",
+    quantity: "",
+    unit: "",
+  });
+  useRequest(
+    () => api.get(`/medicines/medicines/${medicineId}`),
+    (response) => {
+      setMedicine({
+        id: response.data.id,
+        name: response.data.name,
+        maker: response.data.maker,
+        quantity: response.data.quantity,
+        unit: response.data.unit,
+      })
+    },
+    (error) => {
+    }
+  )
+  const [families, setFamilies] = useState([{
+    id: "",
+    name: "",
+  }])
+  useRequest(
+    () => api.get("/families/"),
+    (response) => {
+      setFamilies(response.data.results)
+    },
+    (error) => {
+    }
+  )
+
+  const [{familyId, buyDate, expirationDate, quantity}, handleInputChange] = useForm({
+    familyId: "",
+    buyDate: "",
+    expirationDate: "",
+    quantity: "",
+  })
+
+  const handleUpdatePurchase = (e) => {
+    e.preventDefault();
+  }
+
   return (
-    <div>
-      Medicine: {medicineId}<br/>
-      Purchase: {purchaseId}
+    <div className="create-medicine-screen animate__animated animate__fadeIn">
+      <form className="create-medicine-form" onSubmit={handleUpdatePurchase}>
+        <p>Actualizando compra {medicine.name} - {medicine.maker}: {medicine.quantity} {medicine.unit}</p>
+
+        <select
+          className="form-select create-medicine-form-input"
+          name="familyId"
+          value={familyId}
+          onChange={handleInputChange}
+        >
+          <option value="">Seleccione su familia</option>
+          {
+            families.map(family => <option value={family.id} key={family.id}>{family.family_name}</option>)
+          }
+        </select>
+
+        <input
+          className="form-control create-medicine-form-input"
+          type="date"
+          name="buyDate"
+          value={buyDate}
+          onChange={handleInputChange}
+        />
+        <input
+          className="form-control create-medicine-form-input"
+          type="date"
+          name="expirationDate"
+          value={expirationDate}
+          onChange={handleInputChange}
+        />
+        <input
+          className="form-control create-medicine-form-input"
+          type="text"
+          placeholder="Cantitdad unitaria"
+          name="quantity"
+          value={quantity}
+          onChange={handleInputChange}
+        />
+        <button type="submit" className="create-medicine-button">Actualizar compra</button>
+      </form>
     </div>
   );
 };
