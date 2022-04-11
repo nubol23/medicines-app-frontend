@@ -12,8 +12,9 @@ import {toast} from "react-hot-toast";
 import {AuthContext} from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
+import Paginator from "../Paginator";
 
-const PurchaseTable = ({familyId, filterByUser}) => {
+const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorParams}) => {
 
   const {purchases, purchasesDispatch} = useContext(PurchaseContext);
   const {userDispatch} = useContext(AuthContext);
@@ -28,12 +29,12 @@ const PurchaseTable = ({familyId, filterByUser}) => {
         payload: response.data.results,
       });
       setLoading(false)
-      // setPaginatorParams({
-      //   ...paginatorParams,
-      //   totalCount: response.data.count,
-      //   nextUrl: response.data.next,
-      //   prevUrl: response.data.previous,
-      // })
+      setPaginatorParams({
+        ...paginatorParams,
+        totalCount: response.data.count,
+        nextUrl: response.data.next,
+        prevUrl: response.data.previous,
+      })
     },
     (error) => {
     },
@@ -135,6 +136,12 @@ const PurchaseTable = ({familyId, filterByUser}) => {
         </table>
       </div>
 
+      <Paginator
+        params={paginatorParams}
+        setParams={setPaginatorParams}
+        dispatch={purchasesDispatch}
+        actionType={purchaseTypes}
+      />
     </div>
   );
 };

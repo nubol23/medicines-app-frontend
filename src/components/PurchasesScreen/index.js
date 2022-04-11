@@ -7,6 +7,13 @@ import api from "../../apis/api";
 
 const PurchasesScreen = () => {
 
+  const [paginatorParams, setPaginatorParams] = useState({
+    baseUrl: "/medicines/purchase",
+    totalCount: 0,
+    nextUrl: null,
+    prevUrl: null,
+  })
+
   const [families, setFamilies] = useState([{
     id: "",
     name: "",
@@ -74,7 +81,12 @@ const PurchasesScreen = () => {
         </form>
       </div>
 
-      <PurchaseTable familyId={familyId} filterByUser={filterByUser}/>
+      <PurchaseTable
+        familyId={familyId}
+        filterByUser={filterByUser}
+        paginatorParams={paginatorParams}
+        setPaginatorParams={setPaginatorParams}
+      />
     </div>
   );
 };
