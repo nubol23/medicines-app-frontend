@@ -11,7 +11,6 @@ import deleteDialog from "../../utils/deleteDialog";
 import {toast} from "react-hot-toast";
 import {AuthContext} from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
-import useUpdateEffect from "../../hooks/useUpdateEffect";
 import Paginator from "../Paginator";
 
 const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorParams}) => {
@@ -41,7 +40,7 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
   )
 
   useEffect(() => {
-    api.get("/medicines/purchase", {params: {family_ids: familyId}})
+    api.get("/medicines/purchase", {params: {family_ids: familyId, filter_by_user: filterByUser}})
       .then((response) => {
         purchasesDispatch({type: purchaseTypes.clear});
         purchasesDispatch({
@@ -56,25 +55,7 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
           prevUrl: response.data.previous,
         })
       })
-  }, [familyId])
-
-  useUpdateEffect(() => {
-    api.get("/medicines/purchase", {params: {filter_by_user: filterByUser}})
-      .then((response) => {
-        purchasesDispatch({type: purchaseTypes.clear});
-        purchasesDispatch({
-          type: purchaseTypes.addMultiple,
-          payload: response.data.results,
-        });
-
-        setPaginatorParams({
-          ...paginatorParams,
-          totalCount: response.data.count,
-          nextUrl: response.data.next,
-          prevUrl: response.data.previous,
-        })
-      })
-  }, [filterByUser])
+  }, [familyId, filterByUser])
 
   const navigate = useNavigate();
 
