@@ -4,7 +4,6 @@ import "./medicines.scss"
 import {useNavigate} from "react-router-dom";
 import MedicineTable from "../MedicineTable";
 import api from "../../apis/api";
-import {emptyObj} from "../../utils/functions";
 import {MedicineContext} from "../../contexts/medicineContext";
 import medicineTypes from "../../types/medicineTypes";
 import {toast} from "react-hot-toast";
@@ -29,28 +28,22 @@ const MedicinesScreen = () => {
 
     if (medicineName !== "") searchParams = {...searchParams, name: medicineName}
 
-    let req = null
-    if (emptyObj(searchParams)) {
-      req = api.get("/medicines/medicines/")
-    } else {
-      req = api.get("/medicines/medicines/", {params: searchParams})
-    }
+    api.get("/medicines/medicines/", {params: searchParams})
+      .then((response) => {
+        medicinesDispatch({type: medicineTypes.clear});
+        medicinesDispatch({
+          type: medicineTypes.addMultiple,
+          payload: response.data.results,
+        });
 
-    req.then((response) => {
-      medicinesDispatch({type: medicineTypes.clear});
-      medicinesDispatch({
-        type: medicineTypes.addMultiple,
-        payload: response.data.results,
-      });
+        setPaginatorParams({
+          ...paginatorParams,
+          totalCount: response.data.count,
+          nextUrl: response.data.next,
+          prevUrl: response.data.previous,
+        })
 
-      setPaginatorParams({
-        ...paginatorParams,
-        totalCount: response.data.count,
-        nextUrl: response.data.next,
-        prevUrl: response.data.previous,
-      })
-      
-    }).catch((error) => toast.error("Error al buscar"))
+      }).catch((error) => toast.error("Error al buscar"))
   }
 
   const handleCreateMedicine = () => {
