@@ -48,6 +48,13 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
           type: purchaseTypes.addMultiple,
           payload: response.data.results,
         });
+
+        setPaginatorParams({
+          ...paginatorParams,
+          totalCount: response.data.count,
+          nextUrl: response.data.next,
+          prevUrl: response.data.previous,
+        })
       })
   }, [familyId])
 
@@ -59,6 +66,13 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
           type: purchaseTypes.addMultiple,
           payload: response.data.results,
         });
+
+        setPaginatorParams({
+          ...paginatorParams,
+          totalCount: response.data.count,
+          nextUrl: response.data.next,
+          prevUrl: response.data.previous,
+        })
       })
   }, [filterByUser])
 
