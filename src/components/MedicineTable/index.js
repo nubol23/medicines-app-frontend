@@ -12,14 +12,7 @@ import {useNavigate} from "react-router-dom";
 import LoadingCircle from "../LoadingCircle";
 import Paginator from "../Paginator";
 
-const MedicineTable = () => {
-
-  const [paginatorParams, setPaginatorParams] = useState({
-    baseUrl: "/medicines/medicines/",
-    totalCount: 0,
-    nextUrl: null,
-    prevUrl: null,
-  })
+const MedicineTable = ({paginatorParams, setPaginatorParams}) => {
 
   const [loading, setLoading] = useState(true)
   const {medicines, medicinesDispatch} = useContext(MedicineContext);

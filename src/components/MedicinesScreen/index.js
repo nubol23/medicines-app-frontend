@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import useForm from "../../hooks/useForm";
 import "./medicines.scss"
 import {useNavigate} from "react-router-dom";
@@ -10,6 +10,13 @@ import medicineTypes from "../../types/medicineTypes";
 import {toast} from "react-hot-toast";
 
 const MedicinesScreen = () => {
+
+  const [paginatorParams, setPaginatorParams] = useState({
+    baseUrl: "/medicines/medicines/",
+    totalCount: 0,
+    nextUrl: null,
+    prevUrl: null,
+  })
 
   const navigate = useNavigate();
   const [{medicineName}, handleInputChange, reset] = useForm({medicineName: '',})
@@ -35,6 +42,14 @@ const MedicinesScreen = () => {
         type: medicineTypes.addMultiple,
         payload: response.data.results,
       });
+
+      setPaginatorParams({
+        ...paginatorParams,
+        totalCount: response.data.count,
+        nextUrl: response.data.next,
+        prevUrl: response.data.previous,
+      })
+      
     }).catch((error) => toast.error("Error al buscar"))
   }
 
@@ -64,7 +79,7 @@ const MedicinesScreen = () => {
         </div>
       </div>
 
-      <MedicineTable/>
+      <MedicineTable paginatorParams={paginatorParams} setPaginatorParams={setPaginatorParams}/>
     </div>
   );
 };
