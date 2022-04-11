@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import useForm from "../../hooks/useForm";
 import "./purchases.scss"
 import PurchaseTable from "../PurchaseTable";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
+import {PurchaseContext} from "../../contexts/purchaseContext";
+import purchaseTypes from "../../types/purchaseTypes";
+import {toast} from "react-hot-toast";
 
 const PurchasesScreen = () => {
 
@@ -34,9 +37,30 @@ const PurchasesScreen = () => {
     setFilterByUser(!filterByUser);
   }
 
+  const {purchasesDispatch} = useContext(PurchaseContext);
   const handleSearchByMedicine = (e) => {
     e.preventDefault();
 
+    let searchParams = {}
+
+    if (medicineName !== "") searchParams = {...searchParams, medicine_name: medicineName}
+
+    api.get("/medicines/purchase", {params: searchParams})
+      .then((response) => {
+        purchasesDispatch({type: purchaseTypes.clear});
+        purchasesDispatch({
+          type: purchaseTypes.addMultiple,
+          payload: response.data.results,
+        });
+
+        setPaginatorParams({
+          ...paginatorParams,
+          totalCount: response.data.count,
+          nextUrl: response.data.next,
+          prevUrl: response.data.previous,
+        })
+
+      }).catch((error) => toast.error("Error al buscar"))
   }
 
   return (
