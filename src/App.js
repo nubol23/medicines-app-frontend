@@ -9,6 +9,8 @@ import {medicineReducer} from "./reducers/medicineReducer";
 import {MedicineContext} from "./contexts/medicineContext";
 import {purchaseReducer} from "./reducers/purchaseReducer";
 import {PurchaseContext} from "./contexts/purchaseContext";
+import {MemberContext} from "./contexts/memberContext";
+import {memberReducer} from "./reducers/memberReducer";
 
 const init = () => {
   return JSON.parse(localStorage.getItem('user') || '{"logged": false}')
@@ -23,22 +25,25 @@ function App() {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user])
 
-  const [families, familiesDispatch] = useReducer(familyReducer, [], () => [])
-  const [medicines, medicinesDispatch] = useReducer(medicineReducer, [], () => [])
-  const [purchases, purchasesDispatch] = useReducer(purchaseReducer, [], () => [])
+  const [families, familiesDispatch] = useReducer(familyReducer, [], () => []);
+  const [medicines, medicinesDispatch] = useReducer(medicineReducer, [], () => []);
+  const [purchases, purchasesDispatch] = useReducer(purchaseReducer, [], () => []);
+  const [members, membersDispatch] = useReducer(memberReducer, [], () => []);
 
   return (
-    <PurchaseContext.Provider value={{purchases, purchasesDispatch}}>
-      <MedicineContext.Provider value={{medicines, medicinesDispatch}}>
-        <FamilyContext.Provider value={{families, familiesDispatch}}>
-          <AuthContext.Provider value={{user, userDispatch}}>
-            <BrowserRouter>
-              <AppRouter/>
-            </BrowserRouter>
-          </AuthContext.Provider>
-        </FamilyContext.Provider>
-      </MedicineContext.Provider>
-    </PurchaseContext.Provider>
+    <MemberContext.Provider value={{members, membersDispatch}}>
+      <PurchaseContext.Provider value={{purchases, purchasesDispatch}}>
+        <MedicineContext.Provider value={{medicines, medicinesDispatch}}>
+          <FamilyContext.Provider value={{families, familiesDispatch}}>
+            <AuthContext.Provider value={{user, userDispatch}}>
+              <BrowserRouter>
+                <AppRouter/>
+              </BrowserRouter>
+            </AuthContext.Provider>
+          </FamilyContext.Provider>
+        </MedicineContext.Provider>
+      </PurchaseContext.Provider>
+    </MemberContext.Provider>
   );
 }
 
