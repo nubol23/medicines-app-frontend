@@ -7,6 +7,7 @@ import useForm from "../../hooks/useForm";
 import {toast} from "react-hot-toast";
 import authTypes from "../../types/authTypes";
 import {AuthContext} from "../../auth/authContext";
+import MemberTable from "../MemberTable";
 
 const FamilyDetails = () => {
 
@@ -83,6 +84,8 @@ const FamilyDetails = () => {
 
         <button className="primary-button">Invitar</button>
       </div>
+
+      <MemberTable familyId={familyId}/>
     </div>
   );
 };
