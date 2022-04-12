@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useParams} from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import "./familyDetails.scss"
+import useForm from "../../hooks/useForm";
+import {toast} from "react-hot-toast";
+import authTypes from "../../types/authTypes";
+import {AuthContext} from "../../auth/authContext";
 
 const FamilyDetails = () => {
 
+  const {userDispatch} = useContext(AuthContext);
   const {familyId} = useParams();
   const [family, setFamily] = useState({id: familyId, family_name: ""});
 
@@ -18,13 +23,61 @@ const FamilyDetails = () => {
     },
   )
 
+  const [{familyName}, handleInputChange, reset, handleSetAllValues] = useForm({familyName: '',})
+  const [editable, setEditable] = useState(false)
+  const handleEdit = () => {
+    setEditable(true)
+    handleSetAllValues({familyName: family.family_name})
+  }
+  const handleSave = () => {
+    setEditable(false)
+
+    api.patch(`/families/${familyId}`, {family_name: familyName})
+      .then((response) => {
+        toast.success("Nombre de familia actualizado")
+        setFamily({...family, family_name: familyName})
+      })
+      .catch((error) => {
+
+        toast.error("Error al actualizar el nombre")
+
+        // If returned 401
+        if (error.response && error.response.status === 401)
+          userDispatch({type: authTypes.logout});
+      })
+  }
 
   return (
     <div className="medicine-screen">
       <div className="family-editable-row">
-        <h4 className="editable-name">
-          {family.family_name}
-        </h4>
+
+        {
+          editable ? <div className="editable-row">
+              <button
+                className="primary-button-icon"
+                onClick={handleSave}
+              >
+                <i className="material-icons">save</i>
+              </button>
+              <input
+                className="form-control create-family-input"
+                type="text"
+                name="familyName"
+                value={familyName}
+                onChange={handleInputChange}
+              />
+            </div>
+            : <div className="editable-row">
+              <button
+                className="primary-button-icon"
+                onClick={handleEdit}
+              >
+                <i className="material-icons">edit</i>
+              </button>
+
+              <h4>{family.family_name}</h4>
+            </div>
+        }
 
         <button className="primary-button">Invitar</button>
       </div>

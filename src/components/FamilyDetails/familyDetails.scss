@@ -9,3 +9,11 @@
   margin-top: 8px;
   width: 50%;
 }
+
+.editable-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  width: 67%;
+}
