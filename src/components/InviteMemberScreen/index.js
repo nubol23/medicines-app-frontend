@@ -11,6 +11,7 @@ const InviteMemberScreen = () => {
   const {familyId} = useParams();
   const [family, setFamily] = useState({id: familyId, family_name: ""});
   const [expandForm, setExpandForm] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
   useRequest(
     () => api.get(`/families/${familyId}`),
@@ -32,6 +33,7 @@ const InviteMemberScreen = () => {
 
   const handleInviteMember = (e) => {
     e.preventDefault();
+    setDisabled(true);
 
     if (!expandForm) {
 
@@ -52,13 +54,17 @@ const InviteMemberScreen = () => {
 
                   toast.success(msg);
                   navigate(`/families/${familyId}`);
+                  setDisabled(false);
                 })
                 .catch((error) => {
                   let errorMsg = error.response.data.error;
                   if (errorMsg === "User is already a member of this family")
                     errorMsg = "El usuario ya es miembro de la familia"
+                  if (errorMsg === "User already has a pending invitation to this family")
+                    errorMsg = "El usuario ya tiene una invitación pendiente a esta familia"
 
                   toast.error(errorMsg);
+                  setDisabled(false);
                 })
 
             } else {
@@ -67,6 +73,7 @@ const InviteMemberScreen = () => {
                 {duration: 6000}
               )
               setExpandForm(true);
+              setDisabled(false);
             }
 
           })
@@ -75,7 +82,33 @@ const InviteMemberScreen = () => {
       else
         toast.error("Campo obligatorio")
     } else {
-      console.log("expanded")
+      if (email === "" || firstName === "" || lastName === "" || phoneNumber === "")
+        toast.error("Todos los campos son obligatorios")
+      else {
+        api.post(`/families/${familyId}/create-invitation`, {
+          email,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number: phoneNumber,
+        })
+          .then((response) => {
+            let msg = response.data.message;
+            if (msg === "Created the invitation")
+              msg = "Se creó la invitación"
+
+            toast.success(msg);
+            navigate(`/families/${familyId}`);
+            setDisabled(false);
+          })
+          .catch((error) => {
+            let errorMsg = error.response.data.error;
+            if (errorMsg === "User already has a pending invitation to this family")
+              errorMsg = "El usuario ya tiene una invitación pendiente a esta familia"
+
+            toast.error(errorMsg);
+            setDisabled(false);
+          })
+      }
     }
 
   }
@@ -127,7 +160,7 @@ const InviteMemberScreen = () => {
           </>)
         }
 
-        <button type="submit" className="create-medicine-button">Invitar miembro</button>
+        <button type="submit" className="create-medicine-button" disabled={disabled}>Invitar miembro</button>
       </form>
     </div>
   );
