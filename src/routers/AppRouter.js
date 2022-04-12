@@ -5,12 +5,15 @@ import {DashboardRouter} from './DashboardRouter'
 import PrivateRouter from './PrivateRouter'
 import PublicRouter from "./PublicRouter";
 import {Toaster} from "react-hot-toast";
+import ValidateUserScreen from "../components/ValidateUserScreen";
 
 export const AppRouter = () => {
   return (
     <>
       <Toaster/>
       <Routes>
+
+        <Route path="validate/:userId" element={<ValidateUserScreen/>}/>
 
         <Route path='login' element={
           <PublicRouter>
