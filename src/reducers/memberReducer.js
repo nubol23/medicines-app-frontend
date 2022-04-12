@@ -14,11 +14,11 @@ export const memberReducer = (state = [], action) => {
       return [action.payload, ...state];
 
     case memberTypes.remove:
-      return state.filter(member => member.id !== action.payload.id);
+      return state.filter(member => member.user_id !== action.payload.id);
 
     case memberTypes.update:
       return state.map(member => {
-        if (member.id === action.payload.id) {
+        if (member.user_id === action.payload.id) {
           return {
             ...member,
             name: action.payload.name,
