@@ -48,7 +48,7 @@ const FamilyDetails = () => {
   }
 
   return (
-    <div className="medicine-screen">
+    <div className="medicine-screen animate__animated animate__fadeIn">
       <div className="family-editable-row">
 
         {
@@ -60,11 +60,12 @@ const FamilyDetails = () => {
                 <i className="material-icons">save</i>
               </button>
               <input
-                className="form-control create-family-input"
+                className="form-control create-family-input animate__animated animate__fadeIn"
                 type="text"
                 name="familyName"
                 value={familyName}
                 onChange={handleInputChange}
+                style={{marginLeft: "20px"}}
               />
             </div>
             : <div className="editable-row">
@@ -75,7 +76,8 @@ const FamilyDetails = () => {
                 <i className="material-icons">edit</i>
               </button>
 
-              <h4>{family.family_name}</h4>
+              <h4 className="editable-name animate__animated animate__fadeIn"
+                  style={{marginLeft: "20px"}}>{family.family_name}</h4>
             </div>
         }
 
