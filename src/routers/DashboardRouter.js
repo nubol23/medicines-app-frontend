@@ -11,6 +11,7 @@ import MedicineCreateScreen from "../components/MedicineCreateScreen";
 import MedicineUpdateScreen from "../components/MedicineUpdateScreen";
 import PurchaseCreateScreen from "../components/PurchaseCreateScreen";
 import PurchaseUpdateScreen from "../components/PurchaseUpdateScreen";
+import InviteMemberScreen from "../components/InviteMemberScreen";
 
 export const DashboardRouter = () => {
   return (
@@ -24,6 +25,7 @@ export const DashboardRouter = () => {
             <Route path='/home' element={<HomeScreen/>}/>
             <Route path='/families' element={<FamiliesScreen/>}/>
             <Route path='/families/:familyId' element={<FamilyDetails/>}/>
+            <Route path="/families/:familyId/invite" element={<InviteMemberScreen/>}/>
             <Route path='/medicines' element={<MedicinesScreen/>}/>
             <Route path='/medicines/create' element={<MedicineCreateScreen/>}/>
             <Route path='/medicines/update/:medicineId' element={<MedicineUpdateScreen/>}/>

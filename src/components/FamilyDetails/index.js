@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import "./familyDetails.scss"
@@ -48,6 +48,11 @@ const FamilyDetails = () => {
       })
   }
 
+  const navigate = useNavigate();
+  const handleInvite = () => {
+    navigate(`/families/${familyId}/invite`)
+  }
+
   return (
     <div className="medicine-screen animate__animated animate__fadeIn">
       <div className="family-editable-row">
@@ -82,7 +87,7 @@ const FamilyDetails = () => {
             </div>
         }
 
-        <button className="primary-button">Invitar</button>
+        <button className="primary-button" onClick={handleInvite}>Invitar</button>
       </div>
 
       <MemberTable familyId={familyId}/>
