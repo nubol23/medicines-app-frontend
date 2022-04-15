@@ -3,11 +3,20 @@ import {useParams} from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import "./profile.scss"
 import {toast} from "react-hot-toast";
+import useRequest from "../../hooks/useRequest";
+import api from "../../apis/api";
 
 const ProfileScreen = () => {
   const {userId} = useParams();
 
-  const [{email, firstName, lastName, phoneNumber, password, confirmPassword}, handleInputChange] = useForm({
+  const [{
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    password,
+    confirmPassword
+  }, handleInputChange, reset, handleSetAllValues] = useForm({
     email: "",
     firstName: "",
     lastName: "",
@@ -15,6 +24,20 @@ const ProfileScreen = () => {
     password: "",
     confirmPassword: "",
   })
+  useRequest(
+    () => api.get(`/users/${userId}`),
+    (response) => {
+      handleSetAllValues({
+        email: response.data.email,
+        firstName: response.data.first_name,
+        lastName: response.data.last_name,
+        phoneNumber: response.data.phone_number,
+      })
+    },
+    (error) => {
+    },
+  )
+
   const [userButtonDisabled, setUserButtonDisabled] = useState(false);
   const [passwordButtonDisabled, setPasswordButtonDisabled] = useState(false);
 
@@ -25,6 +48,22 @@ const ProfileScreen = () => {
       toast.error("Ningún campo debe estar vacío")
       return;
     }
+
+    setUserButtonDisabled(true);
+    api.patch(`/users/update/${userId}`, {
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber,
+    })
+      .then((response) => {
+        setUserButtonDisabled(false);
+        toast.success("Datos actualizados correctamente");
+      })
+      .catch((error) => {
+        setUserButtonDisabled(false);
+        toast.error("Error al actualizar los datos")
+      })
   }
 
   const handleUpdatePassword = (e) => {
@@ -50,6 +89,7 @@ const ProfileScreen = () => {
             name="email"
             value={email}
             onChange={handleInputChange}
+            disabled={true}
           />
 
           <input
