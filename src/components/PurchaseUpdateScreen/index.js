@@ -143,7 +143,9 @@ const PurchaseUpdateScreen = () => {
           value={expirationDate}
           onChange={handleInputChange}
         />
+        <label htmlFor="units">Cantidad de unidades</label>
         <input
+          id="units"
           className="form-control create-medicine-form-input"
           type="text"
           placeholder="Cantitdad unitaria"

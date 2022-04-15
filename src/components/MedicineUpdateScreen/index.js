@@ -70,7 +70,9 @@ const MedicineUpdateScreen = () => {
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
       <form className="create-medicine-form" onSubmit={handleUpdateMedicine}>
+        <label htmlFor="name">Nombre del medicamento</label>
         <input
+          id="name"
           className="form-control create-medicine-form-input"
           type="text"
           placeholder="Nombre medicamento"
@@ -78,7 +80,9 @@ const MedicineUpdateScreen = () => {
           value={name}
           onChange={handleInputChange}
         />
+        <label htmlFor="maker">Fabricante</label>
         <input
+          id="maker"
           className="form-control create-medicine-form-input"
           type="text"
           placeholder="Fabricante"
@@ -86,7 +90,9 @@ const MedicineUpdateScreen = () => {
           value={maker}
           onChange={handleInputChange}
         />
+        <label htmlFor="quantity">Cantidad</label>
         <input
+          id="quantity"
           className="form-control create-medicine-form-input"
           type="text"
           placeholder="Cantitdad unitaria"
@@ -94,7 +100,9 @@ const MedicineUpdateScreen = () => {
           value={quantity}
           onChange={handleInputChange}
         />
+        <label htmlFor="units">Unidad</label>
         <input
+          id="units"
           className="form-control create-medicine-form-input"
           type="text"
           placeholder="Unidad"
