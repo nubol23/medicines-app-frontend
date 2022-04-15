@@ -18,6 +18,11 @@
   &:active {
     background-color: darken($color: $primary, $amount: 10);
   }
+
+  &:disabled {
+    background-color: darkgray;
+    box-shadow: none;
+  }
 }
 
 .primary-button-icon {

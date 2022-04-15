@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useForm from "../../hooks/useForm";
 import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-hot-toast";
@@ -8,6 +8,7 @@ const RestorePasswordScreen = () => {
 
   const {requestId} = useParams();
   const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(false);
 
   const [{password, passwordConfirm}, handleInputChange] = useForm({
     password: '',
@@ -27,12 +28,15 @@ const RestorePasswordScreen = () => {
       return;
     }
 
+    setDisabled(true);
     authApi.post(`/users/restoration/${requestId}`, {password})
       .then((response) => {
+        setDisabled(false);
         toast.success("Contraseña restaurada exitosamente")
         navigate("/login", {replace: true});
       })
       .catch((error) => {
+        setDisabled(false);
         let errorMsg = error.response.data.error
         if (errorMsg === "Expired request")
           toast.error("Solicitud expirada")
@@ -66,7 +70,7 @@ const RestorePasswordScreen = () => {
             onChange={handleInputChange}
           />
 
-          <button type='submit' className="primary-button">
+          <button type='submit' className="primary-button" disabled={disabled}>
             Nueva contraseña
           </button>
         </form>
