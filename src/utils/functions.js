@@ -7,7 +7,7 @@ export const emptyObj = (obj) => {
 export const formatDate = (dateStr) => {
   let res = dateStr.split("T").at(0)
   const parts = res.split("-")
-  res = `${parts.at(2)}/${parts.at(1)}/${parts.at(0)}`
+  res = `${parts.at(2)} / ${parts.at(1)} / ${parts.at(0)}`
   return res
 }
 

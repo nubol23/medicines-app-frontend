@@ -22,6 +22,7 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
   useRequest(
     () => api.get("/medicines/purchase"),
     (response) => {
+      console.log(response.data.results)
       purchasesDispatch({type: purchaseTypes.clear});
       purchasesDispatch({
         type: purchaseTypes.addMultiple,
@@ -98,9 +99,10 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
           <thead>
           <tr>
             <th>Medicina</th>
-            <th>Familia</th>
-            <th>Expiración</th>
+            <th>Fam</th>
+            <th>Exp</th>
             <th>U.</th>
+            <th>Fin</th>
             <th></th>
           </tr>
           </thead>
@@ -114,6 +116,7 @@ const PurchaseTable = ({familyId, filterByUser, paginatorParams, setPaginatorPar
                 <td onClick={() => handleTableClick(purchase.id)}>{purchase.family.family_name}</td>
                 <td onClick={() => handleTableClick(purchase.id)}>{formatDate(purchase.expiration_date)}</td>
                 <td onClick={() => handleTableClick(purchase.id)}>{purchase.units}</td>
+                <td onClick={() => handleTableClick(purchase.id)}>{purchase.consumed ? "SI" : "NO"}</td>
                 <td>
                   <button
                     className="edit-row-button"
