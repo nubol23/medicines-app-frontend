@@ -8,6 +8,7 @@ import {Toaster} from "react-hot-toast";
 import ValidateUserScreen from "../components/ValidateUserScreen";
 import RestorePasswordScreen from "../components/RestorePasswordScreen";
 import RequestRestorePasswordScreen from "../components/RequestRestorePasswordScreen";
+import RegisterScreen from "../components/RegisterScreen";
 
 export const AppRouter = () => {
   return (
@@ -24,6 +25,12 @@ export const AppRouter = () => {
             <LoginScreen/>
           </PublicRouter>
         }/>
+        <Route path='register' element={
+          <PublicRouter>
+            <RegisterScreen/>
+          </PublicRouter>
+        }/>
+
 
         <Route path="/*" element={
           <PrivateRouter>

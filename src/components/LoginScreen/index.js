@@ -79,7 +79,9 @@ export const LoginScreen = () => {
           <button type='submit' className="primary-button">
             Login
           </button>
+          <Link to="/register">¿No tienes cuenta?</Link>
         </form>
+        <br/>
         <Link to="/restore">¿Olvidaste tu contraseña?</Link>
       </div>
     </div>
