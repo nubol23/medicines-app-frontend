@@ -17,11 +17,15 @@ const RestorePasswordScreen = () => {
   const handleRestore = (e) => {
     e.preventDefault();
 
-    if (password === "" || passwordConfirm === "")
+    if (password === "" || passwordConfirm === "") {
       toast.error("Ambos campos son obligatorios")
+      return;
+    }
 
-    if (password !== passwordConfirm)
+    if (password !== passwordConfirm) {
       toast.error("Los campos no coinciden")
+      return;
+    }
 
     authApi.post(`/users/restoration/${requestId}`, {password})
       .then((response) => {

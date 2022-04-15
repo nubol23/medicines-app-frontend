@@ -1,5 +1,7 @@
 import React from 'react';
 import useForm from "../../hooks/useForm";
+import {toast} from "react-hot-toast";
+import authApi from "../../apis/authApi";
 
 const RequestRestorePasswordScreen = () => {
 
@@ -7,6 +9,19 @@ const RequestRestorePasswordScreen = () => {
 
   const handleRequestRestore = (e) => {
     e.preventDefault();
+
+    if (email === "") {
+      toast.error("El correo es requisito")
+      return;
+    }
+
+    authApi.post(`/users/restoration`, {email})
+      .then((response) => {
+        toast.success("Se enviaron las instruccions al email")
+      })
+      .catch((error) => {
+        toast.error("Error al enviar email")
+      })
   }
 
   return (
