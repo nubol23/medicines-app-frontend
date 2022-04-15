@@ -7,6 +7,7 @@ import PublicRouter from "./PublicRouter";
 import {Toaster} from "react-hot-toast";
 import ValidateUserScreen from "../components/ValidateUserScreen";
 import RestorePasswordScreen from "../components/RestorePasswordScreen";
+import RequestRestorePasswordScreen from "../components/RequestRestorePasswordScreen";
 
 export const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ export const AppRouter = () => {
 
         <Route path="validate/:userId" element={<ValidateUserScreen/>}/>
         <Route path="restore/:requestId" element={<RestorePasswordScreen/>}/>
+        <Route path="restore" element={<RequestRestorePasswordScreen/>}/>
 
         <Route path='login' element={
           <PublicRouter>

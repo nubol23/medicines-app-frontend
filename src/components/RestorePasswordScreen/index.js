@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-hot-toast";
 import authApi from "../../apis/authApi";
 
-const Index = () => {
+const RestorePasswordScreen = () => {
 
   const {requestId} = useParams();
   const navigate = useNavigate();
@@ -72,4 +72,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default RestorePasswordScreen;

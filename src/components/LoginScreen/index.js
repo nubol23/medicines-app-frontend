@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import React, {useContext} from 'react'
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import authApi from '../../apis/authApi'
 import {AuthContext} from '../../auth/authContext';
 import useForm from '../../hooks/useForm'
@@ -80,7 +80,7 @@ export const LoginScreen = () => {
             Login
           </button>
         </form>
-
+        <Link to="/restore">¿Olvidaste tu contraseña?</Link>
       </div>
     </div>
   )
