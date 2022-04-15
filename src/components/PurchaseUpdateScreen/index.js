@@ -14,6 +14,11 @@ const PurchaseUpdateScreen = () => {
   const {medicineId, purchaseId} = useParams()
   const {userDispatch} = useContext(AuthContext);
 
+  const [consumed, setConsumed] = useState(false);
+  const handleCheckbox = () => {
+    setConsumed(!consumed);
+  }
+
   const [medicine, setMedicine] = useState({
     id: "",
     name: "",
@@ -82,6 +87,7 @@ const PurchaseUpdateScreen = () => {
       buy_date: buyDate,
       expiration_date: expirationDate,
       units: quantity,
+      consumed,
     })
       .then((response) => {
         toast.success("Compra actualizada correctamente")
@@ -153,6 +159,19 @@ const PurchaseUpdateScreen = () => {
           value={quantity}
           onChange={handleInputChange}
         />
+
+        <div className="form-check family-selector mb-4">
+          <label className="form-check-label" htmlFor="consumed">Consumido</label>
+          <input
+            id="consumed"
+            className="form-check-input"
+            type="checkbox"
+            name="consumed"
+            checked={consumed}
+            onChange={handleCheckbox}
+          />
+        </div>
+
         <button type="submit" className="create-medicine-button" disabled={buttonDisabled}>Actualizar compra</button>
       </form>
     </div>
