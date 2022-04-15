@@ -12,6 +12,7 @@ import MedicineUpdateScreen from "../components/MedicineUpdateScreen";
 import PurchaseCreateScreen from "../components/PurchaseCreateScreen";
 import PurchaseUpdateScreen from "../components/PurchaseUpdateScreen";
 import InviteMemberScreen from "../components/InviteMemberScreen";
+import ProfileScreen from "../components/ProfileScreen";
 
 export const DashboardRouter = () => {
   return (
@@ -22,6 +23,7 @@ export const DashboardRouter = () => {
         <div className="dashboard-screen">
 
           <Routes>
+            <Route path="/profile/:userId" element={<ProfileScreen/>}/>
             <Route path='/home' element={<HomeScreen/>}/>
             <Route path='/families' element={<FamiliesScreen/>}/>
             <Route path='/families/:familyId' element={<FamilyDetails/>}/>

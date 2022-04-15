@@ -11,7 +11,7 @@ const activeTabButton = ({isActive}) => "tab-button" + (isActive ? " tab-button-
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const {userDispatch} = useContext(AuthContext);
+  const {user, userDispatch} = useContext(AuthContext);
   const {familiesDispatch} = useContext(FamilyContext);
 
   const handleLogout = () => {
@@ -41,9 +41,14 @@ const Navbar = () => {
 
       </div>
 
-      <button onClick={handleLogout} type="button" className="logout-button">
-        Logout
-      </button>
+      <div>
+        <NavLink to={`/profile/${user.userId}`} className={activeTabButton}>
+          ({user.firstName})
+        </NavLink>
+        <button onClick={handleLogout} type="button" className="logout-button">
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
