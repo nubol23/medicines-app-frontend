@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useParams} from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import "./profile.scss"
 import {toast} from "react-hot-toast";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
+import {AuthContext} from "../../auth/authContext";
+import authTypes from "../../types/authTypes";
 
 const ProfileScreen = () => {
   const {userId} = useParams();
@@ -66,6 +68,7 @@ const ProfileScreen = () => {
       })
   }
 
+  const {userDispatch} = useContext(AuthContext);
   const handleUpdatePassword = (e) => {
     e.preventDefault();
 
@@ -76,6 +79,18 @@ const ProfileScreen = () => {
       toast.error("Las contraseñas no coinciden")
       return;
     }
+
+    setPasswordButtonDisabled(true);
+    api.patch(`/users/update/${userId}`, {password})
+      .then((response) => {
+        setPasswordButtonDisabled(false);
+        userDispatch({type: authTypes.logout});
+        toast.success("Contraseña actualizada correctamente");
+      })
+      .catch((error) => {
+        setPasswordButtonDisabled(false);
+        toast.error("Error al actualizar la contraseña")
+      })
   }
 
   return (
@@ -125,7 +140,7 @@ const ProfileScreen = () => {
           <input
             className="form-control mb-4"
             type="password"
-            placeholder="Contraseña"
+            placeholder="Nueva contraseña"
             name="password"
             autoComplete='off'
             value={password}
