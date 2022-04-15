@@ -1,11 +1,13 @@
 import React from 'react';
 import useForm from "../../hooks/useForm";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-hot-toast";
+import authApi from "../../apis/authApi";
 
 const Index = () => {
 
   const {requestId} = useParams();
+  const navigate = useNavigate();
 
   const [{password, passwordConfirm}, handleInputChange] = useForm({
     password: '',
@@ -20,6 +22,19 @@ const Index = () => {
 
     if (password !== passwordConfirm)
       toast.error("Los campos no coinciden")
+
+    authApi.post(`/users/restoration/${requestId}`, {password})
+      .then((response) => {
+        toast.success("Contraseña restaurada exitosamente")
+        navigate("/login", {replace: true});
+      })
+      .catch((error) => {
+        let errorMsg = error.response.data.error
+        if (errorMsg === "Expired request")
+          toast.error("Solicitud expirada")
+        else
+          toast.error("Error al restaurar contraseña")
+      })
   }
 
   return (
