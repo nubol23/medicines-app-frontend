@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import authApi from '../../apis/authApi'
 import {AuthContext} from '../../auth/authContext';
@@ -11,6 +11,7 @@ import {toast} from "react-hot-toast";
 export const LoginScreen = () => {
 
   const {userDispatch} = useContext(AuthContext);
+  const [buttonDisabled, setDisabled] = useState(false);
 
   const [{email, password}, handleInputChange] = useForm({
     email: '',
@@ -24,6 +25,7 @@ export const LoginScreen = () => {
 
     if (email === "" || password === "") return;
 
+    setDisabled(true);
     authApi.post("users/token/", {
       email,
       password,
@@ -42,9 +44,11 @@ export const LoginScreen = () => {
 
       userDispatch({type: authTypes.login, payload});
 
+      setDisabled(false);
       navigate('/', {replace: true});
     }).catch((error) => {
       toast.error("Credenciales inválidas")
+      setDisabled(false);
     })
   }
 
@@ -76,7 +80,7 @@ export const LoginScreen = () => {
           />
 
           {/*<button type='submit' className="btn btn-primary btn-block">*/}
-          <button type='submit' className="primary-button">
+          <button type='submit' className="primary-button" disabled={buttonDisabled}>
             Login
           </button>
           <Link to="/register">¿No tienes cuenta?</Link>

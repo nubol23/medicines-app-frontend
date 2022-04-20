@@ -26,7 +26,7 @@ const MedicineCreateScreen = () => {
       toast.error("Todos los campos son requeridos")
       return;
     }
-
+    setDisabled(true);
     api.post("/medicines/medicines/", {
       name,
       maker,
@@ -35,7 +35,6 @@ const MedicineCreateScreen = () => {
     })
       .then((response) => {
         toast.success("Medicina creada correctamente")
-        setDisabled(true);
 
         reset();
         setDisabled(false);
