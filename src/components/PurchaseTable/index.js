@@ -26,7 +26,6 @@ const PurchaseTable = ({
   useRequest(
     () => api.get("/medicines/purchase"),
     (response) => {
-      console.log(response.data.results);
       purchasesDispatch({ type: purchaseTypes.clear });
       purchasesDispatch({
         type: purchaseTypes.addMultiple,
