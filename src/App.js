@@ -1,20 +1,20 @@
-import {useEffect, useReducer} from "react";
-import {BrowserRouter} from "react-router-dom";
-import {AuthContext} from "./auth/authContext";
-import {authReducer} from "./auth/authReducer";
-import {AppRouter} from "./routers/AppRouter";
-import {familyReducer} from "./reducers/familyReducer";
-import {FamilyContext} from "./contexts/familyContext";
-import {medicineReducer} from "./reducers/medicineReducer";
-import {MedicineContext} from "./contexts/medicineContext";
-import {purchaseReducer} from "./reducers/purchaseReducer";
-import {PurchaseContext} from "./contexts/purchaseContext";
-import {MemberContext} from "./contexts/memberContext";
-import {memberReducer} from "./reducers/memberReducer";
+import { useEffect, useReducer } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AuthContext } from "./auth/authContext";
+import { authReducer } from "./auth/authReducer";
+import { AppRouter } from "./routers/AppRouter";
+import { familyReducer } from "./reducers/familyReducer";
+import { FamilyContext } from "./contexts/familyContext";
+import { medicineReducer } from "./reducers/medicineReducer";
+import { MedicineContext } from "./contexts/medicineContext";
+import { purchaseReducer } from "./reducers/purchaseReducer";
+import { PurchaseContext } from "./contexts/purchaseContext";
+import { MemberContext } from "./contexts/memberContext";
+import { memberReducer } from "./reducers/memberReducer";
 
 const init = () => {
-  return JSON.parse(localStorage.getItem('user') || '{"logged": false}')
-}
+  return JSON.parse(localStorage.getItem("user") || '{"logged": false}');
+};
 
 function App() {
   const [user, userDispatch] = useReducer(authReducer, {}, init);
@@ -22,22 +22,30 @@ function App() {
   useEffect(() => {
     if (!user) return;
 
-    localStorage.setItem('user', JSON.stringify(user));
-  }, [user])
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   const [families, familiesDispatch] = useReducer(familyReducer, [], () => []);
-  const [medicines, medicinesDispatch] = useReducer(medicineReducer, [], () => []);
-  const [purchases, purchasesDispatch] = useReducer(purchaseReducer, [], () => []);
+  const [medicines, medicinesDispatch] = useReducer(
+    medicineReducer,
+    [],
+    () => []
+  );
+  const [purchases, purchasesDispatch] = useReducer(
+    purchaseReducer,
+    [],
+    () => []
+  );
   const [members, membersDispatch] = useReducer(memberReducer, [], () => []);
 
   return (
-    <MemberContext.Provider value={{members, membersDispatch}}>
-      <PurchaseContext.Provider value={{purchases, purchasesDispatch}}>
-        <MedicineContext.Provider value={{medicines, medicinesDispatch}}>
-          <FamilyContext.Provider value={{families, familiesDispatch}}>
-            <AuthContext.Provider value={{user, userDispatch}}>
+    <MemberContext.Provider value={{ members, membersDispatch }}>
+      <PurchaseContext.Provider value={{ purchases, purchasesDispatch }}>
+        <MedicineContext.Provider value={{ medicines, medicinesDispatch }}>
+          <FamilyContext.Provider value={{ families, familiesDispatch }}>
+            <AuthContext.Provider value={{ user, userDispatch }}>
               <BrowserRouter>
-                <AppRouter/>
+                <AppRouter />
               </BrowserRouter>
             </AuthContext.Provider>
           </FamilyContext.Provider>

@@ -16,20 +16,20 @@ export const purchaseReducer = (state = [], action) => {
       return [action.payload, ...state];
 
     case purchaseTypes.remove:
-      return state.filter(purchase => purchase.id !== action.payload.id);
+      return state.filter((purchase) => purchase.id !== action.payload.id);
 
     case purchaseTypes.update:
-      return state.map(purchase => {
+      return state.map((purchase) => {
         if (purchase.id === action.payload.id) {
           return {
             ...purchase,
             buy_date: action.payload.buyDate,
             expiration_date: action.payload.expirationDate,
             units: action.payload.units,
-          }
+          };
         }
-        return purchase
-      })
+        return purchase;
+      });
 
     case purchaseTypes.addMultiple:
       return [...state, ...action.payload];
@@ -37,9 +37,9 @@ export const purchaseReducer = (state = [], action) => {
     case purchaseTypes.clear:
       // Clearing the state array
       state.length = 0;
-      return state
+      return state;
 
     default:
-      return state
+      return state;
   }
-}
+};

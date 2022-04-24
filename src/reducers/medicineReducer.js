@@ -14,10 +14,10 @@ export const medicineReducer = (state = [], action) => {
       return [action.payload, ...state];
 
     case medicineTypes.remove:
-      return state.filter(medicine => medicine.id !== action.payload.id);
+      return state.filter((medicine) => medicine.id !== action.payload.id);
 
     case medicineTypes.update:
-      return state.map(medicine => {
+      return state.map((medicine) => {
         if (medicine.id === action.payload.id) {
           return {
             ...medicine,
@@ -25,10 +25,10 @@ export const medicineReducer = (state = [], action) => {
             maker: action.payload.maker,
             quantity: action.payload.quantity,
             unit: action.payload.unit,
-          }
+          };
         }
-        return medicine
-      })
+        return medicine;
+      });
 
     case medicineTypes.addMultiple:
       return [...state, ...action.payload];
@@ -36,9 +36,9 @@ export const medicineReducer = (state = [], action) => {
     case medicineTypes.clear:
       // Clearing the state array
       state.length = 0;
-      return state
+      return state;
 
     default:
-      return state
+      return state;
   }
-}
+};

@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const PurchaseCreateScreen = () => {
-  const {medicineId} = useParams()
+  const { medicineId } = useParams();
 
   const [medicine, setMedicine] = useState({
     id: "",
@@ -24,63 +24,72 @@ const PurchaseCreateScreen = () => {
         maker: response.data.maker,
         quantity: response.data.quantity,
         unit: response.data.unit,
-      })
+      });
     },
-    (error) => {
-    }
-  )
-  const [families, setFamilies] = useState([{
-    id: "",
-    name: "",
-  }])
+    (error) => {}
+  );
+  const [families, setFamilies] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
   useRequest(
     () => api.get("/families/"),
     (response) => {
-      setFamilies(response.data.results)
+      setFamilies(response.data.results);
     },
-    (error) => {
-    }
-  )
+    (error) => {}
+  );
 
-  const [{familyId, buyDate, expirationDate, quantity}, handleInputChange] = useForm({
-    familyId: "",
-    buyDate: "",
-    expirationDate: "",
-    quantity: "",
-  })
+  const [{ familyId, buyDate, expirationDate, quantity }, handleInputChange] =
+    useForm({
+      familyId: "",
+      buyDate: "",
+      expirationDate: "",
+      quantity: "",
+    });
   const navigate = useNavigate();
 
   const handlePurchase = (e) => {
     e.preventDefault();
 
-    if (familyId === "" || buyDate === "" || expirationDate === "" || quantity === "") {
-      toast.error("Todos los campos son requeridos")
+    if (
+      familyId === "" ||
+      buyDate === "" ||
+      expirationDate === "" ||
+      quantity === ""
+    ) {
+      toast.error("Todos los campos son requeridos");
       return;
     }
 
-    api.post("/medicines/purchase", {
-      medicine: medicineId,
-      family: familyId,
-      buy_date: buyDate,
-      expiration_date: expirationDate,
-      units: quantity,
-    })
+    api
+      .post("/medicines/purchase", {
+        medicine: medicineId,
+        family: familyId,
+        buy_date: buyDate,
+        expiration_date: expirationDate,
+        units: quantity,
+      })
       .then((response) => {
         toast.success("Compra registrada correctamente");
-        navigate("/purchases")
+        navigate("/purchases");
       })
       .catch((error) => {
-        toast.error("Error al registrrar la compra")
-      })
-  }
+        toast.error("Error al registrrar la compra");
+      });
+  };
 
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
       <form className="create-medicine-form" onSubmit={handlePurchase}>
         <div>
           <p>
-            Registrando compra de {medicine.name}<br/>
-            Cantidad: {medicine.quantity} {medicine.unit}<br/>
+            Registrando compra de {medicine.name}
+            <br />
+            Cantidad: {medicine.quantity} {medicine.unit}
+            <br />
             Fabricante: {medicine.maker}
           </p>
         </div>
@@ -92,9 +101,11 @@ const PurchaseCreateScreen = () => {
           onChange={handleInputChange}
         >
           <option value="">Seleccione su familia</option>
-          {
-            families.map(family => <option value={family.id} key={family.id}>{family.family_name}</option>)
-          }
+          {families.map((family) => (
+            <option value={family.id} key={family.id}>
+              {family.family_name}
+            </option>
+          ))}
         </select>
 
         <label htmlFor="buyDate">Fecha de compra</label>
@@ -123,7 +134,9 @@ const PurchaseCreateScreen = () => {
           value={quantity}
           onChange={handleInputChange}
         />
-        <button type="submit" className="create-medicine-button">Registrar compra</button>
+        <button type="submit" className="create-medicine-button">
+          Registrar compra
+        </button>
       </form>
     </div>
   );

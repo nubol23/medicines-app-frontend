@@ -1,29 +1,29 @@
-import React, {useContext} from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
-import {AuthContext} from "../../auth/authContext";
+import React, { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
-import "./navbar.scss"
-import {FamilyContext} from "../../contexts/familyContext";
+import "./navbar.scss";
+import { FamilyContext } from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 
-const activeTabButton = ({isActive}) => "tab-button" + (isActive ? " tab-button-active" : "")
+const activeTabButton = ({ isActive }) =>
+  "tab-button" + (isActive ? " tab-button-active" : "");
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const {user, userDispatch} = useContext(AuthContext);
-  const {familiesDispatch} = useContext(FamilyContext);
+  const { user, userDispatch } = useContext(AuthContext);
+  const { familiesDispatch } = useContext(FamilyContext);
 
   const handleLogout = () => {
-    userDispatch({type: authTypes.logout})
-    familiesDispatch({type: familyTypes.clear})
+    userDispatch({ type: authTypes.logout });
+    familiesDispatch({ type: familyTypes.clear });
 
-    navigate('/login', {replace: true});
-  }
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="app-header animate__animated animate__fadeInDown">
-
       <div className="header-tabs">
         <h3 className="header-name">Medicines</h3>
 
@@ -38,7 +38,6 @@ const Navbar = () => {
         <NavLink to="/purchases" className={activeTabButton}>
           Compras
         </NavLink>
-
       </div>
 
       <div>

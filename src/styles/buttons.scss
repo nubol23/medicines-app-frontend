@@ -8,7 +8,7 @@
   border: 0;
   padding: 8px;
 
-  transition: background-color .3s ease, box-shadow .3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     background-color: darken($color: $primary, $amount: 5);
@@ -42,7 +42,7 @@
   border: 0;
   padding: 8px;
 
-  transition: background-color .3s ease, box-shadow .3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     background-color: darken($color: $secondary, $amount: 5);
@@ -71,7 +71,7 @@
   border: 0;
   padding: 8px;
 
-  transition: background-color .3s ease, box-shadow .3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     background-color: darken($color: $tertiary, $amount: 5);

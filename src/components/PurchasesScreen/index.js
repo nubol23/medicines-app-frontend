@@ -1,53 +1,57 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from "react";
 import useForm from "../../hooks/useForm";
-import "./purchases.scss"
+import "./purchases.scss";
 import PurchaseTable from "../PurchaseTable";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
-import {PurchaseContext} from "../../contexts/purchaseContext";
+import { PurchaseContext } from "../../contexts/purchaseContext";
 import purchaseTypes from "../../types/purchaseTypes";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const PurchasesScreen = () => {
-
   const [paginatorParams, setPaginatorParams] = useState({
     baseUrl: "/medicines/purchase",
     totalCount: 0,
     nextUrl: null,
     prevUrl: null,
-  })
+  });
 
-  const [families, setFamilies] = useState([{
-    id: "",
-    name: "",
-  }])
+  const [families, setFamilies] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
   useRequest(
     () => api.get("/families/"),
     (response) => {
-      setFamilies(response.data.results)
+      setFamilies(response.data.results);
     },
-    (error) => {
-    }
-  )
+    (error) => {}
+  );
 
-  const [{medicineName, familyId}, handleInputChange] = useForm({medicineName: '',})
+  const [{ medicineName, familyId }, handleInputChange] = useForm({
+    medicineName: "",
+  });
 
   const [filterByUser, setFilterByUser] = useState(false);
   const handleCheckbox = () => {
     setFilterByUser(!filterByUser);
-  }
+  };
 
-  const {purchasesDispatch} = useContext(PurchaseContext);
+  const { purchasesDispatch } = useContext(PurchaseContext);
   const handleSearchByMedicine = (e) => {
     e.preventDefault();
 
-    let searchParams = {}
+    let searchParams = {};
 
-    if (medicineName !== "") searchParams = {...searchParams, medicine_name: medicineName}
+    if (medicineName !== "")
+      searchParams = { ...searchParams, medicine_name: medicineName };
 
-    api.get("/medicines/purchase", {params: searchParams})
+    api
+      .get("/medicines/purchase", { params: searchParams })
       .then((response) => {
-        purchasesDispatch({type: purchaseTypes.clear});
+        purchasesDispatch({ type: purchaseTypes.clear });
         purchasesDispatch({
           type: purchaseTypes.addMultiple,
           payload: response.data.results,
@@ -58,16 +62,18 @@ const PurchasesScreen = () => {
           totalCount: response.data.count,
           nextUrl: response.data.next,
           prevUrl: response.data.previous,
-        })
-
-      }).catch((error) => toast.error("Error al buscar"))
-  }
+        });
+      })
+      .catch((error) => toast.error("Error al buscar"));
+  };
 
   return (
     <div className="medicine-screen animate__animated animate__fadeIn">
-
       <div className="medicines-buttons">
-        <form className="search-purchases-form" onSubmit={handleSearchByMedicine}>
+        <form
+          className="search-purchases-form"
+          onSubmit={handleSearchByMedicine}
+        >
           <input
             className="form-control medicine-search-input"
             type="text"
@@ -77,7 +83,9 @@ const PurchasesScreen = () => {
             onChange={handleInputChange}
           />
 
-          <button type="submit" className="create-family-button">Buscar</button>
+          <button type="submit" className="create-family-button">
+            Buscar
+          </button>
 
           <select
             className="form-select family-selector"
@@ -86,13 +94,17 @@ const PurchasesScreen = () => {
             onChange={handleInputChange}
           >
             <option value="">Seleccione su familia</option>
-            {
-              families.map(family => <option value={family.id} key={family.id}>{family.family_name}</option>)
-            }
+            {families.map((family) => (
+              <option value={family.id} key={family.id}>
+                {family.family_name}
+              </option>
+            ))}
           </select>
 
           <div className="form-check family-selector">
-            <label className="form-check-label" htmlFor="listByUser">Mostrar solo mis compras</label>
+            <label className="form-check-label" htmlFor="listByUser">
+              Mostrar solo mis compras
+            </label>
             <input
               id="listByUser"
               className="form-check-input"

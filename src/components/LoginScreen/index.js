@@ -1,22 +1,21 @@
-import jwtDecode from 'jwt-decode';
-import React, {useContext, useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom';
-import authApi from '../../apis/authApi'
-import {AuthContext} from '../../auth/authContext';
-import useForm from '../../hooks/useForm'
-import authTypes from '../../types/authTypes';
-import "./login.scss"
-import {toast} from "react-hot-toast";
+import jwtDecode from "jwt-decode";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import authApi from "../../apis/authApi";
+import { AuthContext } from "../../auth/authContext";
+import useForm from "../../hooks/useForm";
+import authTypes from "../../types/authTypes";
+import "./login.scss";
+import { toast } from "react-hot-toast";
 
 export const LoginScreen = () => {
-
-  const {userDispatch} = useContext(AuthContext);
+  const { userDispatch } = useContext(AuthContext);
   const [buttonDisabled, setDisabled] = useState(false);
 
-  const [{email, password}, handleInputChange] = useForm({
-    email: '',
-    password: '',
-  })
+  const [{ email, password }, handleInputChange] = useForm({
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
@@ -26,37 +25,37 @@ export const LoginScreen = () => {
     if (email === "" || password === "") return;
 
     setDisabled(true);
-    authApi.post("users/token/", {
-      email,
-      password,
-    }).then((response) => {
+    authApi
+      .post("users/token/", {
+        email,
+        password,
+      })
+      .then((response) => {
+        const decoded = jwtDecode(response.data.access);
+        const payload = {
+          accessToken: response.data.access,
+          refreshToken: response.data.refresh,
+          issuedAt: decoded.iat,
+          expiresAt: decoded.exp,
+          userId: decoded.user_id,
+          firstName: decoded.first,
+          email: decoded.email,
+        };
 
-      const decoded = jwtDecode(response.data.access)
-      const payload = {
-        accessToken: response.data.access,
-        refreshToken: response.data.refresh,
-        issuedAt: decoded.iat,
-        expiresAt: decoded.exp,
-        userId: decoded.user_id,
-        firstName: decoded.first,
-        email: decoded.email,
-      }
+        userDispatch({ type: authTypes.login, payload });
 
-      userDispatch({type: authTypes.login, payload});
-
-      setDisabled(false);
-      navigate('/', {replace: true});
-    }).catch((error) => {
-      toast.error("Credenciales inválidas")
-      setDisabled(false);
-    })
-  }
+        setDisabled(false);
+        navigate("/", { replace: true });
+      })
+      .catch((error) => {
+        toast.error("Credenciales inválidas");
+        setDisabled(false);
+      });
+  };
 
   return (
     <div className="login-box animate__animated animate__fadeIn">
-
       <div className="login-content">
-
         <h3 className="login-header mb-4">Medicines App</h3>
 
         <form onSubmit={handleLogin} className="form-box">
@@ -74,20 +73,24 @@ export const LoginScreen = () => {
             type="password"
             placeholder="Contraseña"
             name="password"
-            autoComplete='off'
+            autoComplete="off"
             value={password}
             onChange={handleInputChange}
           />
 
           {/*<button type='submit' className="btn btn-primary btn-block">*/}
-          <button type='submit' className="primary-button" disabled={buttonDisabled}>
+          <button
+            type="submit"
+            className="primary-button"
+            disabled={buttonDisabled}
+          >
             Login
           </button>
           <Link to="/register">¿No tienes cuenta?</Link>
         </form>
-        <br/>
+        <br />
         <Link to="/restore">¿Olvidaste tu contraseña?</Link>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,31 +1,29 @@
-import React, {useContext, useState} from 'react';
-import {useParams} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm";
-import "./profile.scss"
-import {toast} from "react-hot-toast";
+import "./profile.scss";
+import { toast } from "react-hot-toast";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
-import {AuthContext} from "../../auth/authContext";
+import { AuthContext } from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
 
 const ProfileScreen = () => {
-  const {userId} = useParams();
+  const { userId } = useParams();
 
-  const [{
-    email,
-    firstName,
-    lastName,
-    phoneNumber,
-    password,
-    confirmPassword
-  }, handleInputChange, reset, handleSetAllValues] = useForm({
+  const [
+    { email, firstName, lastName, phoneNumber, password, confirmPassword },
+    handleInputChange,
+    reset,
+    handleSetAllValues,
+  ] = useForm({
     email: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
     password: "",
     confirmPassword: "",
-  })
+  });
   useRequest(
     () => api.get(`/users/${userId}`),
     (response) => {
@@ -34,11 +32,10 @@ const ProfileScreen = () => {
         firstName: response.data.first_name,
         lastName: response.data.last_name,
         phoneNumber: response.data.phone_number,
-      })
+      });
     },
-    (error) => {
-    },
-  )
+    (error) => {}
+  );
 
   const [userButtonDisabled, setUserButtonDisabled] = useState(false);
   const [passwordButtonDisabled, setPasswordButtonDisabled] = useState(false);
@@ -46,52 +43,58 @@ const ProfileScreen = () => {
   const handleUpdateUser = (e) => {
     e.preventDefault();
 
-    if (email === "" || firstName === "" || lastName === "" || phoneNumber === "") {
-      toast.error("Ningún campo debe estar vacío")
+    if (
+      email === "" ||
+      firstName === "" ||
+      lastName === "" ||
+      phoneNumber === ""
+    ) {
+      toast.error("Ningún campo debe estar vacío");
       return;
     }
 
     setUserButtonDisabled(true);
-    api.patch(`/users/update/${userId}`, {
-      email,
-      first_name: firstName,
-      last_name: lastName,
-      phone_number: phoneNumber,
-    })
+    api
+      .patch(`/users/update/${userId}`, {
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        phone_number: phoneNumber,
+      })
       .then((response) => {
         setUserButtonDisabled(false);
         toast.success("Datos actualizados correctamente");
       })
       .catch((error) => {
         setUserButtonDisabled(false);
-        toast.error("Error al actualizar los datos")
-      })
-  }
+        toast.error("Error al actualizar los datos");
+      });
+  };
 
-  const {userDispatch} = useContext(AuthContext);
+  const { userDispatch } = useContext(AuthContext);
   const handleUpdatePassword = (e) => {
     e.preventDefault();
 
-    if (password === "" || confirmPassword === "")
-      return
+    if (password === "" || confirmPassword === "") return;
 
     if (password !== confirmPassword) {
-      toast.error("Las contraseñas no coinciden")
+      toast.error("Las contraseñas no coinciden");
       return;
     }
 
     setPasswordButtonDisabled(true);
-    api.patch(`/users/update/${userId}`, {password})
+    api
+      .patch(`/users/update/${userId}`, { password })
       .then((response) => {
         setPasswordButtonDisabled(false);
-        userDispatch({type: authTypes.logout});
+        userDispatch({ type: authTypes.logout });
         toast.success("Contraseña actualizada correctamente");
       })
       .catch((error) => {
         setPasswordButtonDisabled(false);
-        toast.error("Error al actualizar la contraseña")
-      })
-  }
+        toast.error("Error al actualizar la contraseña");
+      });
+  };
 
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
@@ -133,16 +136,25 @@ const ProfileScreen = () => {
             value={phoneNumber}
             onChange={handleInputChange}
           />
-          <button type="submit" className="create-medicine-button" disabled={userButtonDisabled}>Actualizar</button>
+          <button
+            type="submit"
+            className="create-medicine-button"
+            disabled={userButtonDisabled}
+          >
+            Actualizar
+          </button>
         </form>
-        <hr/>
-        <form className="update-user-password-form" onSubmit={handleUpdatePassword}>
+        <hr />
+        <form
+          className="update-user-password-form"
+          onSubmit={handleUpdatePassword}
+        >
           <input
             className="form-control mb-4"
             type="password"
             placeholder="Nueva contraseña"
             name="password"
-            autoComplete='off'
+            autoComplete="off"
             value={password}
             onChange={handleInputChange}
           />
@@ -152,12 +164,16 @@ const ProfileScreen = () => {
             type="password"
             placeholder="Confirmar contraseña"
             name="confirmPassword"
-            autoComplete='off'
+            autoComplete="off"
             value={confirmPassword}
             onChange={handleInputChange}
           />
-          <button type="submit" className="create-medicine-button" disabled={passwordButtonDisabled}>Actualizar
-            Contraseña
+          <button
+            type="submit"
+            className="create-medicine-button"
+            disabled={passwordButtonDisabled}
+          >
+            Actualizar Contraseña
           </button>
         </form>
       </div>

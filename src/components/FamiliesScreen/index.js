@@ -1,49 +1,49 @@
-import React, {useContext} from 'react';
-import "./families.scss"
+import React, { useContext } from "react";
+import "./families.scss";
 import FamilyTable from "../FamilyTable";
 import useForm from "../../hooks/useForm";
 import api from "../../apis/api";
-import {AuthContext} from "../../auth/authContext";
-import {FamilyContext} from "../../contexts/familyContext";
+import { AuthContext } from "../../auth/authContext";
+import { FamilyContext } from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const FamiliesScreen = () => {
+  const { userDispatch } = useContext(AuthContext);
+  const { familiesDispatch } = useContext(FamilyContext);
 
-  const {userDispatch} = useContext(AuthContext);
-  const {familiesDispatch} = useContext(FamilyContext);
-
-  const [{new_family_name}, handleInputChange, reset] = useForm({new_family_name: '',})
+  const [{ new_family_name }, handleInputChange, reset] = useForm({
+    new_family_name: "",
+  });
 
   const handleCreateFamily = (e) => {
     e.preventDefault();
 
-    api.post("/families/", {
-      family_name: new_family_name,
-    })
+    api
+      .post("/families/", {
+        family_name: new_family_name,
+      })
       .then((response) => {
         familiesDispatch({
           type: familyTypes.addFamily,
           payload: response.data,
-        })
+        });
 
-        toast.success("Familia creada correctamente")
-        reset()
+        toast.success("Familia creada correctamente");
+        reset();
       })
       .catch((error) => {
-
-        toast.error("Error al crear la familia")
+        toast.error("Error al crear la familia");
 
         // If returned 401
         if (error.response && error.response.status === 401)
-          userDispatch({type: authTypes.logout});
-      })
-  }
+          userDispatch({ type: authTypes.logout });
+      });
+  };
 
   return (
     <div className="family-screen animate__animated animate__fadeIn">
-
       <form className="create-family-form" onSubmit={handleCreateFamily}>
         <input
           className="form-control create-family-input"
@@ -54,10 +54,12 @@ const FamiliesScreen = () => {
           onChange={handleInputChange}
         />
 
-        <button type="submit" className="create-family-button">Crear Familia</button>
+        <button type="submit" className="create-family-button">
+          Crear Familia
+        </button>
       </form>
 
-      <FamilyTable/>
+      <FamilyTable />
     </div>
   );
 };
