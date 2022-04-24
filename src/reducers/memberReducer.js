@@ -14,10 +14,10 @@ export const memberReducer = (state = [], action) => {
       return [action.payload, ...state];
 
     case memberTypes.remove:
-      return state.filter(member => member.user_id !== action.payload.id);
+      return state.filter((member) => member.user_id !== action.payload.id);
 
     case memberTypes.update:
-      return state.map(member => {
+      return state.map((member) => {
         if (member.user_id === action.payload.id) {
           return {
             ...member,
@@ -25,10 +25,10 @@ export const memberReducer = (state = [], action) => {
             maker: action.payload.maker,
             quantity: action.payload.quantity,
             unit: action.payload.unit,
-          }
+          };
         }
-        return member
-      })
+        return member;
+      });
 
     case memberTypes.addMultiple:
       return [...state, ...action.payload];
@@ -36,9 +36,9 @@ export const memberReducer = (state = [], action) => {
     case memberTypes.clear:
       // Clearing the state array
       state.length = 0;
-      return state
+      return state;
 
     default:
-      return state
+      return state;
   }
-}
+};

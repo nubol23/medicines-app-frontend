@@ -1,54 +1,53 @@
-import React, {useContext, useState} from 'react';
-import "./createMedicine.scss"
+import React, { useContext, useState } from "react";
+import "./createMedicine.scss";
 import useForm from "../../hooks/useForm";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import api from "../../apis/api";
-import {AuthContext} from "../../auth/authContext";
+import { AuthContext } from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MedicineCreateScreen = () => {
-
   const [buttonDisabled, setDisabled] = useState(false);
-  const navigate = useNavigate()
-  const {userDispatch} = useContext(AuthContext);
-  const [{name, maker, quantity, unit}, handleInputChange, reset] = useForm({
+  const navigate = useNavigate();
+  const { userDispatch } = useContext(AuthContext);
+  const [{ name, maker, quantity, unit }, handleInputChange, reset] = useForm({
     name: "",
     maker: "",
     quantity: "",
-    unit: ""
-  })
+    unit: "",
+  });
 
   const handleCreateMedicine = (e) => {
     e.preventDefault();
 
     if (name === "" || maker === "" || quantity === "" || unit === "") {
-      toast.error("Todos los campos son requeridos")
+      toast.error("Todos los campos son requeridos");
       return;
     }
     setDisabled(true);
-    api.post("/medicines/medicines/", {
-      name,
-      maker,
-      quantity,
-      unit,
-    })
+    api
+      .post("/medicines/medicines/", {
+        name,
+        maker,
+        quantity,
+        unit,
+      })
       .then((response) => {
-        toast.success("Medicina creada correctamente")
+        toast.success("Medicina creada correctamente");
 
         reset();
         setDisabled(false);
         navigate("/medicines");
       })
       .catch((error) => {
-
-        toast.error("Error al crear medicina")
+        toast.error("Error al crear medicina");
 
         // If returned 401
         if (error.response && error.response.status === 401)
-          userDispatch({type: authTypes.logout});
-      })
-  }
+          userDispatch({ type: authTypes.logout });
+      });
+  };
 
   return (
     <div className="create-medicine-screen animate__animated animate__fadeIn">
@@ -85,7 +84,13 @@ const MedicineCreateScreen = () => {
           value={unit}
           onChange={handleInputChange}
         />
-        <button type="submit" className="create-medicine-button" disabled={buttonDisabled}>Crear</button>
+        <button
+          type="submit"
+          className="create-medicine-button"
+          disabled={buttonDisabled}
+        >
+          Crear
+        </button>
       </form>
     </div>
   );

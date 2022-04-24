@@ -1,11 +1,11 @@
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 
 const UseUpdateEffect = (f, deps) => {
   const didRunFirstRender = useRef(false);
 
   useEffect(() => {
     if (didRunFirstRender.current) {
-      f()
+      f();
     }
     didRunFirstRender.current = true;
   }, deps);

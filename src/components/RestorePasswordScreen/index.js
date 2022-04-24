@@ -1,55 +1,51 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
-import {useNavigate, useParams} from "react-router-dom";
-import {toast} from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import authApi from "../../apis/authApi";
 
 const RestorePasswordScreen = () => {
-
-  const {requestId} = useParams();
+  const { requestId } = useParams();
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(false);
 
-  const [{password, passwordConfirm}, handleInputChange] = useForm({
-    password: '',
-    passwordConfirm: '',
-  })
+  const [{ password, passwordConfirm }, handleInputChange] = useForm({
+    password: "",
+    passwordConfirm: "",
+  });
 
   const handleRestore = (e) => {
     e.preventDefault();
 
     if (password === "" || passwordConfirm === "") {
-      toast.error("Ambos campos son obligatorios")
+      toast.error("Ambos campos son obligatorios");
       return;
     }
 
     if (password !== passwordConfirm) {
-      toast.error("Los campos no coinciden")
+      toast.error("Los campos no coinciden");
       return;
     }
 
     setDisabled(true);
-    authApi.post(`/users/restoration/${requestId}`, {password})
+    authApi
+      .post(`/users/restoration/${requestId}`, { password })
       .then((response) => {
         setDisabled(false);
-        toast.success("Contraseña restaurada exitosamente")
-        navigate("/login", {replace: true});
+        toast.success("Contraseña restaurada exitosamente");
+        navigate("/login", { replace: true });
       })
       .catch((error) => {
         setDisabled(false);
-        let errorMsg = error.response.data.error
-        if (errorMsg === "Expired request")
-          toast.error("Solicitud expirada")
-        else
-          toast.error("Error al restaurar contraseña")
-      })
-  }
+        let errorMsg = error.response.data.error;
+        if (errorMsg === "Expired request") toast.error("Solicitud expirada");
+        else toast.error("Error al restaurar contraseña");
+      });
+  };
 
   return (
     <div className="login-box animate__animated animate__fadeIn">
-
       <div className="login-content">
-
         <form onSubmit={handleRestore} className="form-box">
           <input
             className="form-control mb-4"
@@ -65,16 +61,15 @@ const RestorePasswordScreen = () => {
             type="password"
             placeholder="Confirmar contraseña"
             name="passwordConfirm"
-            autoComplete='off'
+            autoComplete="off"
             value={passwordConfirm}
             onChange={handleInputChange}
           />
 
-          <button type='submit' className="primary-button" disabled={disabled}>
+          <button type="submit" className="primary-button" disabled={disabled}>
             Nueva contraseña
           </button>
         </form>
-
       </div>
     </div>
   );

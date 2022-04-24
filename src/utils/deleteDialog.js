@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 const deleteDialog = (deleteFunction, title) => {
   Swal.fire({
     title: title,
-    icon: 'warning',
-    confirmButtonText: 'SI',
+    icon: "warning",
+    confirmButtonText: "SI",
     showCancelButton: true,
     cancelButtonText: "NO",
     confirmButtonColor: "#20b2aa",
@@ -18,9 +18,9 @@ const deleteDialog = (deleteFunction, title) => {
       // });
       // Swal.showLoading()
 
-      deleteFunction()
+      deleteFunction();
     }
-  })
-}
+  });
+};
 
 export default deleteDialog;

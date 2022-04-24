@@ -11,18 +11,18 @@ export const familyReducer = (state = [], action) => {
       return [action.payload, ...state];
 
     case familyTypes.removeFamily:
-      return state.filter(family => family.id !== action.payload.id);
+      return state.filter((family) => family.id !== action.payload.id);
 
     case familyTypes.updateFamily:
-      return state.map(family => {
+      return state.map((family) => {
         if (family.id === action.payload.id) {
           return {
             ...family,
-            name: action.payload.name
-          }
+            name: action.payload.name,
+          };
         }
-        return family
-      })
+        return family;
+      });
 
     case familyTypes.addMultiple:
       return [...state, ...action.payload];
@@ -30,9 +30,9 @@ export const familyReducer = (state = [], action) => {
     case familyTypes.clear:
       // Clearing the state array
       state.length = 0;
-      return state
+      return state;
 
     default:
-      return state
+      return state;
   }
-}
+};

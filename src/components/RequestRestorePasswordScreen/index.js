@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import authApi from "../../apis/authApi";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RequestRestorePasswordScreen = () => {
-
-  const [{email}, handleInputChange] = useForm({email: ''})
+  const [{ email }, handleInputChange] = useForm({ email: "" });
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
@@ -14,28 +13,27 @@ const RequestRestorePasswordScreen = () => {
     e.preventDefault();
 
     if (email === "") {
-      toast.error("El correo es requisito")
+      toast.error("El correo es requisito");
       return;
     }
 
     setDisabled(true);
-    authApi.post(`/users/restoration`, {email})
+    authApi
+      .post(`/users/restoration`, { email })
       .then((response) => {
         setDisabled(false);
-        toast.success("Se enviaron las instruccions al email")
-        navigate("/login", {replace: true});
+        toast.success("Se enviaron las instruccions al email");
+        navigate("/login", { replace: true });
       })
       .catch((error) => {
         setDisabled(false);
-        toast.error("Error al enviar email")
-      })
-  }
+        toast.error("Error al enviar email");
+      });
+  };
 
   return (
     <div className="login-box animate__animated animate__fadeIn">
-
       <div className="login-content">
-
         <form onSubmit={handleRequestRestore} className="form-box">
           <input
             className="form-control mb-4"
@@ -46,11 +44,10 @@ const RequestRestorePasswordScreen = () => {
             onChange={handleInputChange}
           />
 
-          <button type='submit' className="primary-button" disabled={disabled}>
+          <button type="submit" className="primary-button" disabled={disabled}>
             Recuperar contraseña
           </button>
         </form>
-
       </div>
     </div>
   );
