@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import "./paginator.scss";
 import api from "../../apis/api";
+import { ActionType, PaginatorParams } from "../../types/PaginatorParams";
+import "./paginator.scss";
 
-const Paginator = ({ params, setParams, dispatch, actionType }) => {
+type Props = {
+  params: PaginatorParams;
+  setParams: (params: PaginatorParams) => void;
+  dispatch: (type: { type: string; payload?: any }) => void;
+  actionType: ActionType;
+};
+
+const Paginator = ({ params, setParams, dispatch, actionType }: Props) => {
   const [page, setPage] = useState(1);
 
-  const updatePageRequest = (newPageNumber) => {
+  const updatePageRequest = (newPageNumber: number) => {
     api
       .get(params.baseUrl, { params: { page: newPageNumber } })
       .then((response) => {
