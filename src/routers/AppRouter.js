@@ -13,7 +13,7 @@ import RegisterScreen from "../components/RegisterScreen";
 export const AppRouter = () => {
   return (
     <>
-      <Toaster />
+      <Toaster position="top-right" reverseOrder={false}/>
       <Routes>
         <Route path="validate/:userId" element={<ValidateUserScreen />} />
         <Route path="restore/:requestId" element={<RestorePasswordScreen />} />
