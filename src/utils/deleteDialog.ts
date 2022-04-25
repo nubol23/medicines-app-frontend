@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const deleteDialog = (deleteFunction, title) => {
+const deleteDialog = (deleteFunction: Function, title: string) => {
   Swal.fire({
     title: title,
     icon: "warning",
