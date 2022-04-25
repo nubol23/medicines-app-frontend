@@ -1,6 +1,11 @@
 import authTypes from "../types/authTypes";
+import { Action } from "../types/objectTypes";
+import { SessionUser } from "../types/objectTypes";
 
-export const authReducer = (state = {}, action) => {
+export const authReducer = (
+  state: SessionUser = { logged: false },
+  action: Action
+) => {
   switch (action.type) {
     case authTypes.login:
       return {
