@@ -7,8 +7,9 @@
 // }
 
 import medicineTypes from "../types/medicineTypes";
+import {Action, Medicine} from "../types/objectTypes";
 
-export const medicineReducer = (state = [], action) => {
+export const medicineReducer = (state: Array<Medicine> = [], action: Action) => {
   switch (action.type) {
     case medicineTypes.add:
       return [action.payload, ...state];
