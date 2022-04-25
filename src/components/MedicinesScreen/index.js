@@ -17,7 +17,7 @@ const MedicinesScreen = () => {
   });
 
   const navigate = useNavigate();
-  const [{ medicineName }, handleInputChange, reset] = useForm({
+  const [{ medicineName }, handleInputChange] = useForm({
     medicineName: "",
   });
   const { medicinesDispatch } = useContext(MedicineContext);

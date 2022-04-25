@@ -22,8 +22,9 @@ const FamilyDetails = () => {
     (error) => {}
   );
 
-  const [{ familyName }, handleInputChange, reset, handleSetAllValues] =
-    useForm({ familyName: "" });
+  const [{ familyName }, handleInputChange, , handleSetAllValues] = useForm({
+    familyName: "",
+  });
   const [editable, setEditable] = useState(false);
   const handleEdit = () => {
     setEditable(true);

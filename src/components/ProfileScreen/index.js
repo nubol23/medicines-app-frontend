@@ -14,7 +14,7 @@ const ProfileScreen = () => {
   const [
     { email, firstName, lastName, phoneNumber, password, confirmPassword },
     handleInputChange,
-    reset,
+    ,
     handleSetAllValues,
   ] = useForm({
     email: "",
