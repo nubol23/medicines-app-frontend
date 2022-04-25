@@ -7,8 +7,9 @@
 // }
 
 import memberTypes from "../types/memberTypes";
+import { Action, Member } from "../types/objectTypes";
 
-export const memberReducer = (state = [], action) => {
+export const memberReducer = (state: Array<Member> = [], action: Action) => {
   switch (action.type) {
     case memberTypes.add:
       return [action.payload, ...state];
@@ -21,10 +22,11 @@ export const memberReducer = (state = [], action) => {
         if (member.user_id === action.payload.id) {
           return {
             ...member,
-            name: action.payload.name,
-            maker: action.payload.maker,
-            quantity: action.payload.quantity,
-            unit: action.payload.unit,
+            first_name: action.payload.first_name,
+            last_name: action.payload.last_name,
+            phone_number: action.payload.phone_number,
+            email: action.payload.email,
+            status: action.payload.status,
           };
         }
         return member;

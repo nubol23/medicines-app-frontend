@@ -15,3 +15,12 @@ export type Medicine = {
   quantity: number,
   unit: string,
 }
+
+export type Member = {
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  email: string;
+  status: string;
+}
