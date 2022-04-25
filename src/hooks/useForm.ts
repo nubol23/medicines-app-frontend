@@ -7,15 +7,19 @@ const useForm = (initialState = {}) => {
     setValues(initialState);
   };
 
-  const handleInputChange = ({ target }) => {
+  const handleInputChange = ({
+    target,
+  }: {
+    target: { name: string; value: string };
+  }) => {
     setValues({
       ...values,
       [target.name]: target.value,
     });
   };
 
-  const handleSetAllValues = (data) => {
-    setValues((vals) => data);
+  const handleSetAllValues = (data: any) => {
+    setValues(data);
   };
 
   return [values, handleInputChange, reset, handleSetAllValues];
