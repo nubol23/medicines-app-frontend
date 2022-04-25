@@ -1,11 +1,12 @@
 import familyTypes from "../types/familyTypes";
+import { Family, Action } from "../types/objectTypes";
 
 // family := {
 //   id,
 //   family_name,
 // }
 
-export const familyReducer = (state = [], action) => {
+export const familyReducer = (state: Array<Family> = [], action: Action) => {
   switch (action.type) {
     case familyTypes.add:
       return [action.payload, ...state];
