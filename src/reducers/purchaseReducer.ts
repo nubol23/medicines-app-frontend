@@ -9,8 +9,12 @@
 // }
 
 import purchaseTypes from "../types/purchaseTypes";
+import { Action, Purchase } from "../types/objectTypes";
 
-export const purchaseReducer = (state = [], action) => {
+export const purchaseReducer = (
+  state: Array<Purchase> = [],
+  action: Action
+) => {
   switch (action.type) {
     case purchaseTypes.add:
       return [action.payload, ...state];
