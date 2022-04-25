@@ -55,7 +55,7 @@ const FamilyTable = () => {
         .delete(`/families/${id}`)
         .then((response) => {
           familiesDispatch({
-            type: familyTypes.removeFamily,
+            type: familyTypes.remove,
             payload: { id },
           });
 

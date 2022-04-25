@@ -1,7 +1,7 @@
 const familyTypes = {
-  addFamily: "[family] add",
-  removeFamily: "[family] remove",
-  updateFamily: "[family] update",
+  add: "[family] add",
+  remove: "[family] remove",
+  update: "[family] update",
   addMultiple: "[family] multiple",
   clear: "[family] clear",
 };

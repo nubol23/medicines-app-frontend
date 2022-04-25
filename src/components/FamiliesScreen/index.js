@@ -26,7 +26,7 @@ const FamiliesScreen = () => {
       })
       .then((response) => {
         familiesDispatch({
-          type: familyTypes.addFamily,
+          type: familyTypes.add,
           payload: response.data,
         });
 

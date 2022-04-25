@@ -2,23 +2,23 @@ import familyTypes from "../types/familyTypes";
 
 // family := {
 //   id,
-//   name,
+//   family_name,
 // }
 
 export const familyReducer = (state = [], action) => {
   switch (action.type) {
-    case familyTypes.addFamily:
+    case familyTypes.add:
       return [action.payload, ...state];
 
-    case familyTypes.removeFamily:
+    case familyTypes.remove:
       return state.filter((family) => family.id !== action.payload.id);
 
-    case familyTypes.updateFamily:
+    case familyTypes.update:
       return state.map((family) => {
         if (family.id === action.payload.id) {
           return {
             ...family,
-            name: action.payload.name,
+            name: action.payload.family_name,
           };
         }
         return family;
