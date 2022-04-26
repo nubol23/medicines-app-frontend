@@ -156,7 +156,7 @@ const PurchaseTable = ({
                       handleDeletePurchase(
                         purchase.id!,
                         purchase.medicine!.name!,
-                        purchase.family!.family_name
+                        purchase.family!.family_name!
                       )
                     }
                   >

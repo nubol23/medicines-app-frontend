@@ -11,9 +11,12 @@ import { toast } from "react-hot-toast";
 import useRequest from "../../hooks/useRequest";
 import LoadingCircle from "../LoadingCircle";
 import Paginator from "../Paginator";
+import { PaginatorParams } from "../../types/PaginatorParams";
+import { AxiosError, AxiosResponse } from "axios";
+import { Family, PaginatedResponse } from "../../types/objectTypes";
 
 const FamilyTable = () => {
-  const [paginatorParams, setPaginatorParams] = useState({
+  const [paginatorParams, setPaginatorParams] = useState<PaginatorParams>({
     baseUrl: "/families/",
     totalCount: 0,
     nextUrl: null,
@@ -26,7 +29,7 @@ const FamilyTable = () => {
 
   useRequest(
     () => api.get("/families/"),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Family>>) => {
       familiesDispatch({ type: familyTypes.clear });
       familiesDispatch({
         type: familyTypes.addMultiple,
@@ -41,15 +44,15 @@ const FamilyTable = () => {
         prevUrl: response.data.previous,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const navigate = useNavigate();
-  const handleTableClick = (id) => {
+  const handleTableClick = (id: string) => {
     navigate(`/families/${id}`);
   };
 
-  const handleDeleteFamily = (id, family_name) => {
+  const handleDeleteFamily = (id: string, family_name: string) => {
     deleteDialog(() => {
       api
         .delete(`/families/${id}`)
@@ -88,15 +91,15 @@ const FamilyTable = () => {
         <tbody>
           {families.map((family) => (
             <tr key={family.id} className="animate__animated animate__fadeIn">
-              <td onClick={() => handleTableClick(family.id)}>{family.id}</td>
-              <td onClick={() => handleTableClick(family.id)}>
+              <td onClick={() => handleTableClick(family.id!)}>{family.id}</td>
+              <td onClick={() => handleTableClick(family.id!)}>
                 {family.family_name}
               </td>
               <td>
                 <button
                   className="delete-row-button"
                   onClick={() =>
-                    handleDeleteFamily(family.id, family.family_name)
+                    handleDeleteFamily(family.id!, family.family_name!)
                   }
                 >
                   <i className="material-icons">delete</i>

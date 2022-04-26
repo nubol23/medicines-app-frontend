@@ -32,8 +32,8 @@ export type PaginatedResponse<T> = {
 };
 
 export type Family = {
-  id: string;
-  family_name: string;
+  id?: string;
+  family_name?: string;
 };
 
 export type Medicine = {
