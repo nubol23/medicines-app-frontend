@@ -14,14 +14,14 @@ const MedicineCreateScreen = () => {
   const [{ name, maker, quantity, unit }, handleInputChange, reset] = useForm({
     name: "",
     maker: "",
-    quantity: "",
+    quantity: 0,
     unit: "",
   });
 
-  const handleCreateMedicine = (e) => {
+  const handleCreateMedicine = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (name === "" || maker === "" || quantity === "" || unit === "") {
+    if (name === "" || maker === "" || quantity === 0 || unit === "") {
       toast.error("Todos los campos son requeridos");
       return;
     }
