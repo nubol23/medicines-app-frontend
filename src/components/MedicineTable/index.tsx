@@ -11,8 +11,16 @@ import { AuthContext } from "../../auth/authContext";
 import { useNavigate } from "react-router-dom";
 import LoadingCircle from "../LoadingCircle";
 import Paginator from "../Paginator";
+import { PaginatorParams } from "../../types/PaginatorParams";
+import { AxiosError, AxiosResponse } from "axios";
+import { Medicine, PaginatedResponse } from "../../types/objectTypes";
 
-const MedicineTable = ({ paginatorParams, setPaginatorParams }) => {
+type Props = {
+  paginatorParams: PaginatorParams;
+  setPaginatorParams: (params: PaginatorParams) => void;
+};
+
+const MedicineTable = ({ paginatorParams, setPaginatorParams }: Props) => {
   const [loading, setLoading] = useState(true);
   const { medicines, medicinesDispatch } = useContext(MedicineContext);
   const { userDispatch } = useContext(AuthContext);
@@ -20,7 +28,7 @@ const MedicineTable = ({ paginatorParams, setPaginatorParams }) => {
 
   useRequest(
     () => api.get("/medicines/medicines/"),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Medicine>>) => {
       medicinesDispatch({ type: medicineTypes.clear });
       medicinesDispatch({
         type: medicineTypes.addMultiple,
@@ -34,18 +42,25 @@ const MedicineTable = ({ paginatorParams, setPaginatorParams }) => {
         prevUrl: response.data.previous,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {
+      toast.error("Error al cargar las medicinas");
+    }
   );
 
-  const handleTableClick = (id) => {
+  const handleTableClick = (id: string) => {
     navigate(`/purchases/${id}/create`);
   };
 
-  const handleEditMedicine = (id) => {
+  const handleEditMedicine = (id: string) => {
     navigate(`/medicines/update/${id}`);
   };
 
-  const handleDeleteMedicine = (id, name, cant, unit) => {
+  const handleDeleteMedicine = (
+    id: string,
+    name: string,
+    cant: number,
+    unit: string
+  ) => {
     deleteDialog(() => {
       api
         .delete(`/medicines/medicines/${id}`)
@@ -81,7 +96,7 @@ const MedicineTable = ({ paginatorParams, setPaginatorParams }) => {
               <th>Fabricante</th>
               <th>Cant.</th>
               <th>U.</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -90,22 +105,22 @@ const MedicineTable = ({ paginatorParams, setPaginatorParams }) => {
                 key={medicine.id}
                 className="animate__animated animate__fadeIn"
               >
-                <td onClick={() => handleTableClick(medicine.id)}>
+                <td onClick={() => handleTableClick(medicine.id!)}>
                   {medicine.name}
                 </td>
-                <td onClick={() => handleTableClick(medicine.id)}>
+                <td onClick={() => handleTableClick(medicine.id!)}>
                   {medicine.maker}
                 </td>
-                <td onClick={() => handleTableClick(medicine.id)}>
-                  {Math.round(medicine.quantity)}
+                <td onClick={() => handleTableClick(medicine.id!)}>
+                  {Math.round(medicine.quantity!)}
                 </td>
-                <td onClick={() => handleTableClick(medicine.id)}>
+                <td onClick={() => handleTableClick(medicine.id!)}>
                   {medicine.unit}
                 </td>
                 <td>
                   <button
                     className="edit-row-button"
-                    onClick={() => handleEditMedicine(medicine.id)}
+                    onClick={() => handleEditMedicine(medicine.id!)}
                   >
                     <i className="material-icons">edit</i>
                   </button>
@@ -113,10 +128,10 @@ const MedicineTable = ({ paginatorParams, setPaginatorParams }) => {
                     className="delete-row-button"
                     onClick={() =>
                       handleDeleteMedicine(
-                        medicine.id,
-                        medicine.name,
-                        medicine.quantity,
-                        medicine.unit
+                        medicine.id!,
+                        medicine.name!,
+                        medicine.quantity!,
+                        medicine.unit!
                       )
                     }
                   >

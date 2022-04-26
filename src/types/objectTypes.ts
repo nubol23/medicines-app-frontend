@@ -35,11 +35,11 @@ export type Family = {
 };
 
 export type Medicine = {
-  id: string;
-  name: string;
-  maker: string;
-  quantity: number;
-  unit: string;
+  id?: string;
+  name?: string;
+  maker?: string;
+  quantity?: number;
+  unit?: string;
 };
 
 export type Member = {

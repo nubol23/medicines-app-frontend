@@ -145,7 +145,7 @@ const PurchaseTable = ({
                   <button
                     className="edit-row-button"
                     onClick={() =>
-                      handleEditPurchase(purchase.id!, purchase.medicine!.id)
+                      handleEditPurchase(purchase.id!, purchase.medicine!.id!)
                     }
                   >
                     <i className="material-icons">edit</i>
@@ -155,7 +155,7 @@ const PurchaseTable = ({
                     onClick={() =>
                       handleDeletePurchase(
                         purchase.id!,
-                        purchase.medicine!.name,
+                        purchase.medicine!.name!,
                         purchase.family!.family_name
                       )
                     }

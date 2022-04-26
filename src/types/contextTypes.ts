@@ -1,4 +1,5 @@
-import { Family, Member, Purchase, SessionUser } from "./objectTypes";
+import { Family, Medicine, Member, Purchase, SessionUser } from "./objectTypes";
+import exp from "constants";
 
 export type GenericDispatch = (type: { type: string; payload?: any }) => void;
 
@@ -33,5 +34,13 @@ export type MemberContextType = {
   membersDispatch: (type: {
     type: string;
     payload?: Member | Array<Member>;
+  }) => void;
+};
+
+export type MedicineContextType = {
+  medicines: Array<Medicine>;
+  medicinesDispatch: (type: {
+    type: string;
+    payload?: Medicine | Array<Medicine>;
   }) => void;
 };

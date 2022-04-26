@@ -36,11 +36,11 @@ const PurchaseUpdateScreen = () => {
     () => api.get(`/medicines/medicines/${medicineId}`),
     (response: AxiosResponse<Medicine>) => {
       setMedicine({
-        id: response.data.id,
-        name: response.data.name,
-        maker: response.data.maker,
-        quantity: response.data.quantity,
-        unit: response.data.unit,
+        id: response.data.id!,
+        name: response.data.name!,
+        maker: response.data.maker!,
+        quantity: response.data.quantity!,
+        unit: response.data.unit!,
       });
     },
     (error: AxiosError) => {}
