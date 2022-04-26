@@ -14,7 +14,7 @@ const RestorePasswordScreen = () => {
     passwordConfirm: "",
   });
 
-  const handleRestore = (e) => {
+  const handleRestore = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password === "" || passwordConfirm === "") {
