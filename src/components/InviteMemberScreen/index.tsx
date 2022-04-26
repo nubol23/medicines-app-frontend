@@ -5,19 +5,28 @@ import api from "../../apis/api";
 import "./inviteMembers.scss";
 import useForm from "../../hooks/useForm";
 import { toast } from "react-hot-toast";
+import {
+  CorrectResponse,
+  ErrorResponse,
+  Family,
+} from "../../types/objectTypes";
+import { AxiosError, AxiosResponse } from "axios";
 
 const InviteMemberScreen = () => {
   const { familyId } = useParams();
-  const [family, setFamily] = useState({ id: familyId, family_name: "" });
+  const [family, setFamily] = useState<Family>({
+    id: familyId!,
+    family_name: "",
+  });
   const [expandForm, setExpandForm] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   useRequest(
     () => api.get(`/families/${familyId}`),
-    (response) => {
+    (response: AxiosResponse<Family>) => {
       setFamily(response.data);
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const [{ email, firstName, lastName, phoneNumber }, handleInputChange] =
@@ -30,7 +39,7 @@ const InviteMemberScreen = () => {
 
   const navigate = useNavigate();
 
-  const handleInviteMember = (e) => {
+  const handleInviteMember = (e: React.FormEvent) => {
     e.preventDefault();
     setDisabled(true);
 
@@ -38,7 +47,7 @@ const InviteMemberScreen = () => {
       if (email !== "")
         api
           .get(`/users/${email}/exists/`)
-          .then((response) => {
+          .then((response: AxiosResponse<{ exists: string }>) => {
             const exists = response.data.exists;
 
             if (exists) {
@@ -96,7 +105,7 @@ const InviteMemberScreen = () => {
             last_name: lastName,
             phone_number: phoneNumber,
           })
-          .then((response) => {
+          .then((response: AxiosResponse<CorrectResponse>) => {
             let msg = response.data.message;
             if (msg === "Created the invitation") msg = "Se creó la invitación";
 
@@ -104,8 +113,8 @@ const InviteMemberScreen = () => {
             navigate(`/families/${familyId}`);
             setDisabled(false);
           })
-          .catch((error) => {
-            let errorMsg = error.response.data.error;
+          .catch((error: AxiosError<ErrorResponse>) => {
+            let errorMsg = error.response!.data.error;
             if (
               errorMsg ===
               "User already has a pending invitation to this family"

@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export type TokenContent = {
   iat: number;
   exp: number;
@@ -69,4 +71,12 @@ export type Purchase = {
   expiration_date?: string;
   units?: number;
   consumed?: boolean;
+};
+
+export type CorrectResponse = {
+  message: string;
+};
+
+export type ErrorResponse = {
+  error: string;
 };
