@@ -19,7 +19,7 @@ const RegisterScreen = () => {
   const [disabled, setDisabled] = useState(false);
 
   const navigate = useNavigate();
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
