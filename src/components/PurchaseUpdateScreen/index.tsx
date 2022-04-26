@@ -7,6 +7,13 @@ import { formatFormDate } from "../../utils/functions";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
+import { AxiosError, AxiosResponse } from "axios";
+import {
+  Family,
+  Medicine,
+  PaginatedResponse,
+  Purchase,
+} from "../../types/objectTypes";
 
 const PurchaseUpdateScreen = () => {
   const [buttonDisabled, setDisabled] = useState(false);
@@ -22,12 +29,12 @@ const PurchaseUpdateScreen = () => {
     id: "",
     name: "",
     maker: "",
-    quantity: "",
+    quantity: 0,
     unit: "",
   });
   useRequest(
     () => api.get(`/medicines/medicines/${medicineId}`),
-    (response) => {
+    (response: AxiosResponse<Medicine>) => {
       setMedicine({
         id: response.data.id,
         name: response.data.name,
@@ -36,20 +43,15 @@ const PurchaseUpdateScreen = () => {
         unit: response.data.unit,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
-  const [families, setFamilies] = useState([
-    {
-      id: "",
-      name: "",
-    },
-  ]);
+  const [families, setFamilies] = useState<Array<Family>>([]);
   useRequest(
     () => api.get("/families/"),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Family>>) => {
       setFamilies(response.data.results);
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const [
@@ -66,7 +68,7 @@ const PurchaseUpdateScreen = () => {
 
   useRequest(
     () => api.get(`/medicines/purchase/${purchaseId}`),
-    (response) => {
+    (response: AxiosResponse<Purchase>) => {
       handleSetAllValues({
         familyId: response.data.family.id,
         buyDate: formatFormDate(response.data.buy_date),
@@ -74,11 +76,11 @@ const PurchaseUpdateScreen = () => {
         quantity: response.data.units,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const navigate = useNavigate();
-  const handleUpdatePurchase = (e) => {
+  const handleUpdatePurchase = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (

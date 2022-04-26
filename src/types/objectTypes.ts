@@ -22,6 +22,13 @@ export type Action = {
   payload: any;
 };
 
+export type PaginatedResponse<T> = {
+  count: number;
+  next: string;
+  previous: string;
+  results: Array<T>;
+};
+
 export type Family = {
   id: string;
   family_name: string;
