@@ -7,6 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import authTypes from "../../types/authTypes";
+import { AxiosError, AxiosResponse } from "axios";
+import { Medicine } from "../../types/objectTypes";
 
 const MedicineUpdateScreen = () => {
   const [buttonDisabled, setDisabled] = useState(false);
@@ -20,14 +22,14 @@ const MedicineUpdateScreen = () => {
   ] = useForm({
     name: "",
     maker: "",
-    quantity: "",
+    quantity: 0,
     unit: "",
   });
 
   const { medicineId } = useParams();
   useRequest(
     () => api.get(`/medicines/medicines/${medicineId}`),
-    (response) => {
+    (response: AxiosResponse<Medicine>) => {
       handleSetAllValues({
         name: response.data.name,
         maker: response.data.maker,
@@ -35,10 +37,10 @@ const MedicineUpdateScreen = () => {
         unit: response.data.unit,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
-  const handleUpdateMedicine = (e) => {
+  const handleUpdateMedicine = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (name === "" || maker === "" || quantity === "" || unit === "") {
