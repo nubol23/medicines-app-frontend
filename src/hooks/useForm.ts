@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useForm = (initialState = {}) => {
+const useForm = <T>(initialState: T): Array<any> => {
   const [values, setValues] = useState(initialState);
 
   const reset = () => {

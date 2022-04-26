@@ -1,13 +1,21 @@
+export type TokenContent = {
+  iat: number;
+  exp: number;
+  user_id: string;
+  first: string;
+  email: string;
+};
+
 export type SessionUser = {
   accessToken?: string;
   email?: string;
   expiresAt?: number;
   firstName?: string;
   issuedAt?: number;
-  logged: boolean;
+  logged?: boolean;
   refreshToken?: string;
   userId?: string;
-}
+};
 
 export type Action = {
   type: string;
@@ -17,7 +25,7 @@ export type Action = {
 export type Family = {
   id: string;
   family_name: string;
-}
+};
 
 export type Medicine = {
   id: string;
@@ -25,7 +33,7 @@ export type Medicine = {
   maker: string;
   quantity: number;
   unit: string;
-}
+};
 
 export type Member = {
   user_id: string;
@@ -34,7 +42,7 @@ export type Member = {
   phone_number: string;
   email: string;
   status: string;
-}
+};
 
 export type User = {
   id: string;
@@ -42,7 +50,7 @@ export type User = {
   last_name: string;
   email: string;
   phone_number: string;
-}
+};
 
 export type Purchase = {
   id: string;
@@ -52,4 +60,4 @@ export type Purchase = {
   buy_date: string;
   expiration_date: string;
   units: number;
-}
+};

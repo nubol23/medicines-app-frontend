@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import React, { useContext, useState } from "react";
+import React, { SyntheticEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../apis/authApi";
 import { AuthContext } from "../../auth/authContext";
@@ -7,19 +7,20 @@ import useForm from "../../hooks/useForm";
 import authTypes from "../../types/authTypes";
 import "./login.scss";
 import { toast } from "react-hot-toast";
+import { TokenContent } from "../../types/objectTypes";
 
 export const LoginScreen = () => {
   const { userDispatch } = useContext(AuthContext);
   const [buttonDisabled, setDisabled] = useState(false);
 
-  const [{ email, password }, handleInputChange] = useForm({
+  const [{ email, password }, handleInputChange] = useForm<any>({
     email: "",
     password: "",
   });
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: SyntheticEvent) => {
     e.preventDefault();
 
     if (email === "" || password === "") return;
@@ -31,7 +32,7 @@ export const LoginScreen = () => {
         password,
       })
       .then((response) => {
-        const decoded = jwtDecode(response.data.access);
+        const decoded = jwtDecode<TokenContent>(response.data.access);
         const payload = {
           accessToken: response.data.access,
           refreshToken: response.data.refresh,
