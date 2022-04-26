@@ -7,9 +7,12 @@ import api from "../../apis/api";
 import { MedicineContext } from "../../contexts/medicineContext";
 import medicineTypes from "../../types/medicineTypes";
 import { toast } from "react-hot-toast";
+import { PaginatorParams } from "../../types/PaginatorParams";
+import { AxiosResponse } from "axios";
+import { Medicine, PaginatedResponse } from "../../types/objectTypes";
 
 const MedicinesScreen = () => {
-  const [paginatorParams, setPaginatorParams] = useState({
+  const [paginatorParams, setPaginatorParams] = useState<PaginatorParams>({
     baseUrl: "/medicines/medicines/",
     totalCount: 0,
     nextUrl: null,
@@ -22,7 +25,7 @@ const MedicinesScreen = () => {
   });
   const { medicinesDispatch } = useContext(MedicineContext);
 
-  const handleSearchMedicine = (e) => {
+  const handleSearchMedicine = (e: React.FormEvent) => {
     e.preventDefault();
 
     let searchParams = {};
@@ -32,7 +35,7 @@ const MedicinesScreen = () => {
 
     api
       .get("/medicines/medicines/", { params: searchParams })
-      .then((response) => {
+      .then((response: AxiosResponse<PaginatedResponse<Medicine>>) => {
         medicinesDispatch({ type: medicineTypes.clear });
         medicinesDispatch({
           type: medicineTypes.addMultiple,

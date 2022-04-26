@@ -1,7 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const useForm = <T>(initialState: T): Array<any> => {
-  const [values, setValues] = useState(initialState);
+const useForm = <T>(
+  initialState: T
+): [
+  T,
+  React.ChangeEventHandler<HTMLInputElement> &
+    React.ChangeEventHandler<HTMLSelectElement>,
+  Function,
+  Function
+] => {
+  const [values, setValues] = useState<T>(initialState);
 
   const reset = () => {
     setValues(initialState);

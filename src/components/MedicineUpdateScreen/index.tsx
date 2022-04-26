@@ -43,7 +43,7 @@ const MedicineUpdateScreen = () => {
   const handleUpdateMedicine = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (name === "" || maker === "" || quantity === "" || unit === "") {
+    if (name === "" || maker === "" || quantity === 0 || unit === "") {
       toast.error("Todos los campos son requeridos");
       return;
     }

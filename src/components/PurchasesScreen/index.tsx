@@ -30,6 +30,7 @@ const PurchasesScreen = () => {
 
   const [{ medicineName, familyId }, handleInputChange] = useForm({
     medicineName: "",
+    familyId: "",
   });
 
   const [filterByUser, setFilterByUser] = useState(false);

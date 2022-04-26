@@ -26,7 +26,7 @@ export type PaginatedResponse<T> = {
   count: number;
   next: string;
   previous: string;
-  results: Array<T>;
+  results: T[];
 };
 
 export type Family = {
