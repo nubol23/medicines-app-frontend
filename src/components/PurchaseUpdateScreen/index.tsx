@@ -70,9 +70,9 @@ const PurchaseUpdateScreen = () => {
     () => api.get(`/medicines/purchase/${purchaseId}`),
     (response: AxiosResponse<Purchase>) => {
       handleSetAllValues({
-        familyId: response.data.family.id,
-        buyDate: formatFormDate(response.data.buy_date),
-        expirationDate: formatFormDate(response.data.expiration_date),
+        familyId: response.data.family!.id,
+        buyDate: formatFormDate(response.data.buy_date!),
+        expirationDate: formatFormDate(response.data.expiration_date!),
         quantity: response.data.units,
       });
     },

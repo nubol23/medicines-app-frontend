@@ -7,27 +7,25 @@ import api from "../../apis/api";
 import { PurchaseContext } from "../../contexts/purchaseContext";
 import purchaseTypes from "../../types/purchaseTypes";
 import { toast } from "react-hot-toast";
+import { AxiosError, AxiosResponse } from "axios";
+import { Family, PaginatedResponse, Purchase } from "../../types/objectTypes";
+import { PaginatorParams } from "../../types/PaginatorParams";
 
 const PurchasesScreen = () => {
-  const [paginatorParams, setPaginatorParams] = useState({
+  const [paginatorParams, setPaginatorParams] = useState<PaginatorParams>({
     baseUrl: "/medicines/purchase",
     totalCount: 0,
     nextUrl: null,
     prevUrl: null,
   });
 
-  const [families, setFamilies] = useState([
-    {
-      id: "",
-      name: "",
-    },
-  ]);
+  const [families, setFamilies] = useState<Array<Family>>([]);
   useRequest(
     () => api.get("/families/"),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Family>>) => {
       setFamilies(response.data.results);
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const [{ medicineName, familyId }, handleInputChange] = useForm({
@@ -40,7 +38,7 @@ const PurchasesScreen = () => {
   };
 
   const { purchasesDispatch } = useContext(PurchaseContext);
-  const handleSearchByMedicine = (e) => {
+  const handleSearchByMedicine = (e: React.FormEvent) => {
     e.preventDefault();
 
     let searchParams = {};
@@ -50,7 +48,7 @@ const PurchasesScreen = () => {
 
     api
       .get("/medicines/purchase", { params: searchParams })
-      .then((response) => {
+      .then((response: AxiosResponse<PaginatedResponse<Purchase>>) => {
         purchasesDispatch({ type: purchaseTypes.clear });
         purchasesDispatch({
           type: purchaseTypes.addMultiple,

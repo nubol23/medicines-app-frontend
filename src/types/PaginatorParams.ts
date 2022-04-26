@@ -1,8 +1,8 @@
 export type PaginatorParams = {
   baseUrl: string;
   totalCount: number;
-  nextUrl: string;
-  prevUrl: string;
+  nextUrl: string | null;
+  prevUrl: string | null;
 };
 
 export type ActionType = {
