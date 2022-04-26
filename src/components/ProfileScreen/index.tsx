@@ -7,40 +7,48 @@ import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import { AuthContext } from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
+import { AxiosError, AxiosResponse } from "axios";
+import { User } from "../../types/objectTypes";
 
 const ProfileScreen = () => {
   const { userId } = useParams();
 
   const [
-    { email, firstName, lastName, phoneNumber, password, confirmPassword },
-    handleInputChange,
+    { email, firstName, lastName, phoneNumber },
+    handleInputChangeUser,
     ,
-    handleSetAllValues,
+    handleSetAllValuesUser,
   ] = useForm({
     email: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
+  });
+
+  const [{ password, confirmPassword }, handleInputChangePassword] = useForm({
     password: "",
     confirmPassword: "",
   });
+
   useRequest(
     () => api.get(`/users/${userId}`),
-    (response) => {
-      handleSetAllValues({
+    (response: AxiosResponse<User>) => {
+      handleSetAllValuesUser({
         email: response.data.email,
         firstName: response.data.first_name,
         lastName: response.data.last_name,
         phoneNumber: response.data.phone_number,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {
+      toast.error("Error al cargar la información del usuario");
+    }
   );
 
   const [userButtonDisabled, setUserButtonDisabled] = useState(false);
   const [passwordButtonDisabled, setPasswordButtonDisabled] = useState(false);
 
-  const handleUpdateUser = (e) => {
+  const handleUpdateUser = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -72,7 +80,7 @@ const ProfileScreen = () => {
   };
 
   const { userDispatch } = useContext(AuthContext);
-  const handleUpdatePassword = (e) => {
+  const handleUpdatePassword = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password === "" || confirmPassword === "") return;
@@ -106,7 +114,7 @@ const ProfileScreen = () => {
             placeholder="Correo"
             name="email"
             value={email}
-            onChange={handleInputChange}
+            onChange={handleInputChangeUser}
             disabled={true}
           />
 
@@ -116,7 +124,7 @@ const ProfileScreen = () => {
             placeholder="Nombres"
             name="firstName"
             value={firstName}
-            onChange={handleInputChange}
+            onChange={handleInputChangeUser}
           />
 
           <input
@@ -125,7 +133,7 @@ const ProfileScreen = () => {
             placeholder="Apellidos"
             name="lastName"
             value={lastName}
-            onChange={handleInputChange}
+            onChange={handleInputChangeUser}
           />
 
           <input
@@ -134,7 +142,7 @@ const ProfileScreen = () => {
             placeholder="Teléfono"
             name="phoneNumber"
             value={phoneNumber}
-            onChange={handleInputChange}
+            onChange={handleInputChangeUser}
           />
           <button
             type="submit"
@@ -156,7 +164,7 @@ const ProfileScreen = () => {
             name="password"
             autoComplete="off"
             value={password}
-            onChange={handleInputChange}
+            onChange={handleInputChangePassword}
           />
 
           <input
@@ -166,7 +174,7 @@ const ProfileScreen = () => {
             name="confirmPassword"
             autoComplete="off"
             value={confirmPassword}
-            onChange={handleInputChange}
+            onChange={handleInputChangePassword}
           />
           <button
             type="submit"
