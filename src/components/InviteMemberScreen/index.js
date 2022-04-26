@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import "./inviteMembers.scss";
 import useForm from "../../hooks/useForm";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const InviteMemberScreen = () => {
-  const {familyId} = useParams();
-  const [family, setFamily] = useState({id: familyId, family_name: ""});
+  const { familyId } = useParams();
+  const [family, setFamily] = useState({ id: familyId, family_name: "" });
   const [expandForm, setExpandForm] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -17,19 +17,16 @@ const InviteMemberScreen = () => {
     (response) => {
       setFamily(response.data);
     },
-    (error) => {
-    }
+    (error) => {}
   );
 
-  const [
-    {email, firstName, lastName, phoneNumber},
-    handleInputChange,
-  ] = useForm({
-    email: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-  });
+  const [{ email, firstName, lastName, phoneNumber }, handleInputChange] =
+    useForm({
+      email: "",
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+    });
 
   const navigate = useNavigate();
 
@@ -75,14 +72,13 @@ const InviteMemberScreen = () => {
             } else {
               toast(
                 "El usuario no está registrado\n\nRegistre sus datos por favor",
-                {duration: 6000}
+                { duration: 6000 }
               );
               setExpandForm(true);
               setDisabled(false);
             }
           })
-          .catch((error) => {
-          });
+          .catch((error) => {});
       else toast.error("Campo obligatorio");
     } else {
       if (
