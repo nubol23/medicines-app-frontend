@@ -8,6 +8,8 @@ import { FamilyContext } from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 import authTypes from "../../types/authTypes";
 import { toast } from "react-hot-toast";
+import { AxiosResponse } from "axios";
+import { Family } from "../../types/objectTypes";
 
 const FamiliesScreen = () => {
   const { userDispatch } = useContext(AuthContext);
@@ -17,14 +19,14 @@ const FamiliesScreen = () => {
     new_family_name: "",
   });
 
-  const handleCreateFamily = (e) => {
+  const handleCreateFamily = (e: React.FormEvent) => {
     e.preventDefault();
 
     api
       .post("/families/", {
         family_name: new_family_name,
       })
-      .then((response) => {
+      .then((response: AxiosResponse<Family>) => {
         familiesDispatch({
           type: familyTypes.add,
           payload: response.data,
