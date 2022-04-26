@@ -4,20 +4,22 @@ import useForm from "../../hooks/useForm";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import { toast } from "react-hot-toast";
+import { Family, Medicine, PaginatedResponse } from "../../types/objectTypes";
+import { AxiosError, AxiosResponse } from "axios";
 
 const PurchaseCreateScreen = () => {
   const { medicineId } = useParams();
 
-  const [medicine, setMedicine] = useState({
+  const [medicine, setMedicine] = useState<Medicine>({
     id: "",
     name: "",
     maker: "",
-    quantity: "",
+    quantity: 0,
     unit: "",
   });
   useRequest(
     () => api.get(`/medicines/medicines/${medicineId}`),
-    (response) => {
+    (response: AxiosResponse<Medicine>) => {
       setMedicine({
         id: response.data.id,
         name: response.data.name,
@@ -26,20 +28,15 @@ const PurchaseCreateScreen = () => {
         unit: response.data.unit,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
-  const [families, setFamilies] = useState([
-    {
-      id: "",
-      name: "",
-    },
-  ]);
+  const [families, setFamilies] = useState<Array<Family>>([]);
   useRequest(
     () => api.get("/families/"),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Family>>) => {
       setFamilies(response.data.results);
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const [{ familyId, buyDate, expirationDate, quantity }, handleInputChange] =
@@ -51,7 +48,7 @@ const PurchaseCreateScreen = () => {
     });
   const navigate = useNavigate();
 
-  const handlePurchase = (e) => {
+  const handlePurchase = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
