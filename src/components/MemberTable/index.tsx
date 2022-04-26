@@ -8,15 +8,21 @@ import { AuthContext } from "../../auth/authContext";
 import deleteDialog from "../../utils/deleteDialog";
 import { toast } from "react-hot-toast";
 import authTypes from "../../types/authTypes";
+import { AxiosError, AxiosResponse } from "axios";
+import { Member, PaginatedResponse } from "../../types/objectTypes";
 
-const MemberTable = ({ familyId }) => {
+type Props = {
+  familyId: string;
+};
+
+const MemberTable = ({ familyId }: Props) => {
   const { user, userDispatch } = useContext(AuthContext);
   const { members, membersDispatch } = useContext(MemberContext);
   const [loading, setLoading] = useState(true);
 
   useRequest(
     () => api.get(`/families/${familyId}/members`),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Member>>) => {
       membersDispatch({ type: memberTypes.clear });
       membersDispatch({
         type: memberTypes.addMultiple,
@@ -24,10 +30,10 @@ const MemberTable = ({ familyId }) => {
       });
       setLoading(false);
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
-  const handleDeleteMember = (memberId, memberName) => {
+  const handleDeleteMember = (memberId: string, memberName: string) => {
     deleteDialog(() => {
       api
         .delete(`/families/${familyId}/delete-member/${memberId}`)
@@ -63,7 +69,7 @@ const MemberTable = ({ familyId }) => {
               <th>Telf</th>
               {/*<th>Email</th>*/}
               <th>Estado</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -83,7 +89,7 @@ const MemberTable = ({ familyId }) => {
                     <button
                       className="delete-row-button"
                       onClick={() =>
-                        handleDeleteMember(member.user_id, member.first_name)
+                        handleDeleteMember(member.user_id!, member.first_name!)
                       }
                     >
                       <i className="material-icons">delete</i>

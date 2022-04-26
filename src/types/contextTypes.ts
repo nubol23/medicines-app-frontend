@@ -1,4 +1,4 @@
-import { Family, Purchase, SessionUser } from "./objectTypes";
+import { Family, Member, Purchase, SessionUser } from "./objectTypes";
 
 export type GenericDispatch = (type: { type: string; payload?: any }) => void;
 
@@ -25,5 +25,13 @@ export type PurchaseContextType = {
   purchasesDispatch: (type: {
     type: string;
     payload?: Purchase | Array<Purchase>;
+  }) => void;
+};
+
+export type MemberContextType = {
+  members: Array<Member>;
+  membersDispatch: (type: {
+    type: string;
+    payload?: Member | Array<Member>;
   }) => void;
 };

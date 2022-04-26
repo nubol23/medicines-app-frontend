@@ -43,12 +43,13 @@ export type Medicine = {
 };
 
 export type Member = {
-  user_id: string;
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  email: string;
-  status: string;
+  id?: string;
+  user_id?: string;
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  email?: string;
+  status?: string;
 };
 
 export type User = {
