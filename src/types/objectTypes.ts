@@ -60,11 +60,12 @@ export type User = {
 };
 
 export type Purchase = {
-  id: string;
-  medicine: Medicine;
-  user: User;
-  family: Family;
-  buy_date: string;
-  expiration_date: string;
-  units: number;
+  id?: string;
+  medicine?: Medicine;
+  user?: User;
+  family?: Family;
+  buy_date?: string;
+  expiration_date?: string;
+  units?: number;
+  consumed?: boolean;
 };

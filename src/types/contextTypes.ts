@@ -1,4 +1,4 @@
-import { Family, SessionUser } from "./objectTypes";
+import { Family, Purchase, SessionUser } from "./objectTypes";
 
 export type GenericDispatch = (type: { type: string; payload?: any }) => void;
 
@@ -17,5 +17,13 @@ export type FamilyContextType = {
   familiesDispatch: (type: {
     type: string;
     payload?: Family | Array<Family>;
+  }) => void;
+};
+
+export type PurchaseContextType = {
+  purchases: Array<Purchase>;
+  purchasesDispatch: (type: {
+    type: string;
+    payload?: Purchase | Array<Purchase>;
   }) => void;
 };

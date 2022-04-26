@@ -12,20 +12,30 @@ import { toast } from "react-hot-toast";
 import { AuthContext } from "../../auth/authContext";
 import authTypes from "../../types/authTypes";
 import Paginator from "../Paginator";
+import { AxiosError, AxiosResponse } from "axios";
+import { PaginatedResponse, Purchase } from "../../types/objectTypes";
+import { PaginatorParams } from "../../types/PaginatorParams";
+
+type Props = {
+  familyId: string;
+  filterByUser: boolean;
+  paginatorParams: PaginatorParams;
+  setPaginatorParams: (params: PaginatorParams) => void;
+};
 
 const PurchaseTable = ({
   familyId,
   filterByUser,
   paginatorParams,
   setPaginatorParams,
-}) => {
+}: Props) => {
   const { purchases, purchasesDispatch } = useContext(PurchaseContext);
   const { userDispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
   useRequest(
     () => api.get("/medicines/purchase"),
-    (response) => {
+    (response: AxiosResponse<PaginatedResponse<Purchase>>) => {
       purchasesDispatch({ type: purchaseTypes.clear });
       purchasesDispatch({
         type: purchaseTypes.addMultiple,
@@ -39,7 +49,9 @@ const PurchaseTable = ({
         prevUrl: response.data.previous,
       });
     },
-    (error) => {}
+    (error: AxiosError) => {
+      toast.error("Error al cargar las medicinas");
+    }
   );
 
   useEffect(() => {
@@ -47,7 +59,7 @@ const PurchaseTable = ({
       .get("/medicines/purchase", {
         params: { family_ids: familyId, filter_by_user: filterByUser },
       })
-      .then((response) => {
+      .then((response: AxiosResponse<PaginatedResponse<Purchase>>) => {
         purchasesDispatch({ type: purchaseTypes.clear });
         purchasesDispatch({
           type: purchaseTypes.addMultiple,
@@ -65,13 +77,15 @@ const PurchaseTable = ({
 
   const navigate = useNavigate();
 
-  const handleTableClick = (purchaseId) => {};
-
-  const handleEditPurchase = (purchaseId, medicineId) => {
+  const handleEditPurchase = (purchaseId: string, medicineId: string) => {
     navigate(`/purchases/${medicineId}/update/${purchaseId}`);
   };
 
-  const handleDeletePurchase = (purchaseId, medicineName, familyName) => {
+  const handleDeletePurchase = (
+    purchaseId: string,
+    medicineName: string,
+    familyName: string
+  ) => {
     deleteDialog(() => {
       api
         .delete(`/medicines/purchase/${purchaseId}`)
@@ -108,7 +122,7 @@ const PurchaseTable = ({
               <th>Exp</th>
               <th>U.</th>
               <th>Fin</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -117,27 +131,21 @@ const PurchaseTable = ({
                 key={purchase.id}
                 className="animate__animated animate__fadeIn"
               >
-                <td onClick={() => handleTableClick(purchase.id)}>
-                  {purchase.medicine.name} - {purchase.medicine.maker}:{" "}
-                  {purchase.medicine.quantity} {purchase.medicine.unit}
+                <td onClick={() => {}}>
+                  {purchase.medicine!.name} - {purchase.medicine!.maker}:{" "}
+                  {purchase.medicine!.quantity} {purchase.medicine!.unit}
                 </td>
-                <td onClick={() => handleTableClick(purchase.id)}>
-                  {purchase.family.family_name}
+                <td onClick={() => {}}>{purchase.family!.family_name}</td>
+                <td onClick={() => {}}>
+                  {formatDate(purchase.expiration_date!)}
                 </td>
-                <td onClick={() => handleTableClick(purchase.id)}>
-                  {formatDate(purchase.expiration_date)}
-                </td>
-                <td onClick={() => handleTableClick(purchase.id)}>
-                  {purchase.units}
-                </td>
-                <td onClick={() => handleTableClick(purchase.id)}>
-                  {purchase.consumed ? "SI" : "NO"}
-                </td>
+                <td onClick={() => {}}>{purchase.units}</td>
+                <td onClick={() => {}}>{purchase.consumed ? "SI" : "NO"}</td>
                 <td>
                   <button
                     className="edit-row-button"
                     onClick={() =>
-                      handleEditPurchase(purchase.id, purchase.medicine.id)
+                      handleEditPurchase(purchase.id!, purchase.medicine!.id)
                     }
                   >
                     <i className="material-icons">edit</i>
@@ -146,9 +154,9 @@ const PurchaseTable = ({
                     className="delete-row-button"
                     onClick={() =>
                       handleDeletePurchase(
-                        purchase.id,
-                        purchase.medicine.name,
-                        purchase.family.family_name
+                        purchase.id!,
+                        purchase.medicine!.name,
+                        purchase.family!.family_name
                       )
                     }
                   >
