@@ -1,7 +1,7 @@
 import React from "react";
 import "./loading.scss";
 
-const Index = () => {
+const LoadingCircle = () => {
   return (
     <div className="loader">
       <svg className="circular">
@@ -19,4 +19,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default LoadingCircle;
