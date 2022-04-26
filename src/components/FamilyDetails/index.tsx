@@ -8,18 +8,23 @@ import { toast } from "react-hot-toast";
 import authTypes from "../../types/authTypes";
 import { AuthContext } from "../../auth/authContext";
 import MemberTable from "../MemberTable";
+import { Family } from "../../types/objectTypes";
+import { AxiosError, AxiosResponse } from "axios";
 
 const FamilyDetails = () => {
   const { userDispatch } = useContext(AuthContext);
   const { familyId } = useParams();
-  const [family, setFamily] = useState({ id: familyId, family_name: "" });
+  const [family, setFamily] = useState<Family>({
+    id: familyId,
+    family_name: "",
+  });
 
   useRequest(
     () => api.get(`/families/${familyId}`),
-    (response) => {
+    (response: AxiosResponse<Family>) => {
       setFamily(response.data);
     },
-    (error) => {}
+    (error: AxiosError) => {}
   );
 
   const [{ familyName }, handleInputChange, , handleSetAllValues] = useForm({
@@ -90,7 +95,7 @@ const FamilyDetails = () => {
         </button>
       </div>
 
-      <MemberTable familyId={familyId} />
+      <MemberTable familyId={familyId!} />
     </div>
   );
 };
