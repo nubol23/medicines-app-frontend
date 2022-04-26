@@ -9,7 +9,7 @@ const RequestRestorePasswordScreen = () => {
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
-  const handleRequestRestore = (e) => {
+  const handleRequestRestore = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (email === "") {
