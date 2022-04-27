@@ -1,25 +1,24 @@
 import familyTypes from "../types/familyTypes";
 import { Family, Action } from "../types/objectTypes";
+import React from "react";
 
-// family := {
-//   id,
-//   family_name,
-// }
-
-export const familyReducer = (state: Array<Family> = [], action: Action) => {
+export const familyReducer: React.Reducer<Family[], Action<Family>> = (
+  state = [],
+  action
+) => {
   switch (action.type) {
     case familyTypes.add:
-      return [action.payload, ...state];
+      return [action.payload!, ...state];
 
     case familyTypes.remove:
-      return state.filter((family) => family.id !== action.payload.id);
+      return state.filter((family) => family.id !== action.payload!.id);
 
     case familyTypes.update:
       return state.map((family) => {
-        if (family.id === action.payload.id) {
+        if (family.id === action.payload!.id) {
           return {
             ...family,
-            name: action.payload.family_name,
+            name: action.payload!.family_name,
           };
         }
         return family;
