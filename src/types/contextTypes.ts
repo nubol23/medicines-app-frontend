@@ -1,46 +1,36 @@
-import { Family, Medicine, Member, Purchase, SessionUser } from "./objectTypes";
-import exp from "constants";
+import {
+  Action,
+  Family,
+  Medicine,
+  Member,
+  Purchase,
+  SessionUser,
+} from "./objectTypes";
+import React from "react";
 
 export type GenericDispatch = (type: { type: string; payload?: any }) => void;
 
-export type UserDispatchType = (type: {
-  type: string;
-  payload?: SessionUser;
-}) => void;
-
 export type AuthContextType = {
   user: SessionUser;
-  userDispatch: UserDispatchType;
+  userDispatch: React.Dispatch<Action<SessionUser>>;
 };
 
 export type FamilyContextType = {
-  families: Array<Family>;
-  familiesDispatch: (type: {
-    type: string;
-    payload?: Family | Array<Family>;
-  }) => void;
+  families: Family[];
+  familiesDispatch: React.Dispatch<Action<Family | Family[]>>;
 };
 
 export type PurchaseContextType = {
-  purchases: Array<Purchase>;
-  purchasesDispatch: (type: {
-    type: string;
-    payload?: Purchase | Array<Purchase>;
-  }) => void;
+  purchases: Purchase[];
+  purchasesDispatch: React.Dispatch<Action<Purchase | Purchase[]>>;
 };
 
 export type MemberContextType = {
-  members: Array<Member>;
-  membersDispatch: (type: {
-    type: string;
-    payload?: Member | Array<Member>;
-  }) => void;
+  members: Member[];
+  membersDispatch: React.Dispatch<Action<Member | Member[]>>;
 };
 
 export type MedicineContextType = {
-  medicines: Array<Medicine>;
-  medicinesDispatch: (type: {
-    type: string;
-    payload?: Medicine | Array<Medicine>;
-  }) => void;
+  medicines: Medicine[];
+  medicinesDispatch: React.Dispatch<Action<Medicine | Medicine[]>>;
 };

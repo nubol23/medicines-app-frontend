@@ -19,9 +19,9 @@ export type SessionUser = {
   userId?: string;
 };
 
-export type Action = {
+export type Action<T = any> = {
   type: string;
-  payload: any;
+  payload?: T;
 };
 
 export type PaginatedResponse<T> = {
