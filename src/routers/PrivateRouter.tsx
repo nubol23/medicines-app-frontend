@@ -1,4 +1,4 @@
-import React, { ReactPropTypes, useContext } from "react";
+import React, { FC, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../auth/authContext";
 
@@ -6,10 +6,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-const PrivateRouter = ({ children }: Props): JSX.Element => {
+const PrivateRouter: FC<Props> = (props) => {
   const { user } = useContext(AuthContext);
 
-  return user.logged ? (children as JSX.Element) : <Navigate to="/login" />;
+  return user.logged ? <>{props.children}</> : <Navigate to="/login" />;
 };
 
 export default PrivateRouter;
