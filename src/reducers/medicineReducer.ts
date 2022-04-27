@@ -34,9 +34,6 @@ export const medicineReducer = (
         return medicine;
       });
 
-    case medicineTypes.addMultiple:
-      return [...state, ...action.payload];
-
     case medicineTypes.clear:
       // Clearing the state array
       state.length = 0;

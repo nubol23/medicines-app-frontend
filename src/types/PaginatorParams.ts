@@ -9,6 +9,5 @@ export type ActionType = {
   add: string;
   remove: string;
   update: string;
-  addMultiple: string;
   clear: string;
 };

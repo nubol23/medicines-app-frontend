@@ -17,20 +17,20 @@ export type AuthContextType = {
 
 export type FamilyContextType = {
   families: Family[];
-  familiesDispatch: React.Dispatch<Action<Family | Family[]>>;
+  familiesDispatch: React.Dispatch<Action<Family>>;
 };
 
 export type PurchaseContextType = {
   purchases: Purchase[];
-  purchasesDispatch: React.Dispatch<Action<Purchase | Purchase[]>>;
+  purchasesDispatch: React.Dispatch<Action<Purchase>>;
 };
 
 export type MemberContextType = {
   members: Member[];
-  membersDispatch: React.Dispatch<Action<Member | Member[]>>;
+  membersDispatch: React.Dispatch<Action<Member>>;
 };
 
 export type MedicineContextType = {
   medicines: Medicine[];
-  medicinesDispatch: React.Dispatch<Action<Medicine | Medicine[]>>;
+  medicinesDispatch: React.Dispatch<Action<Medicine>>;
 };

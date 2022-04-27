@@ -24,10 +24,10 @@ const MemberTable = ({ familyId }: Props) => {
     () => api.get(`/families/${familyId}/members`),
     (response: AxiosResponse<PaginatedResponse<Member>>) => {
       membersDispatch({ type: memberTypes.clear });
-      membersDispatch({
-        type: memberTypes.addMultiple,
-        payload: response.data.results,
-      });
+      response.data.results.map((member) =>
+        membersDispatch({ type: memberTypes.add, payload: member })
+      );
+
       setLoading(false);
     },
     (error: AxiosError) => {}

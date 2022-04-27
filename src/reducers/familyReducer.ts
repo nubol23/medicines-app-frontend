@@ -25,9 +25,6 @@ export const familyReducer = (state: Array<Family> = [], action: Action) => {
         return family;
       });
 
-    case familyTypes.addMultiple:
-      return [...state, ...action.payload];
-
     case familyTypes.clear:
       // Clearing the state array
       state.length = 0;

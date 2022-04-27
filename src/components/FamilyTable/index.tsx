@@ -31,10 +31,11 @@ const FamilyTable = () => {
     () => api.get("/families/"),
     (response: AxiosResponse<PaginatedResponse<Family>>) => {
       familiesDispatch({ type: familyTypes.clear });
-      familiesDispatch({
-        type: familyTypes.addMultiple,
-        payload: response.data.results,
-      });
+
+      response.data.results.map((family) =>
+        familiesDispatch({ type: familyTypes.add, payload: family })
+      );
+
       setLoading(false);
 
       setPaginatorParams({

@@ -25,10 +25,9 @@ const Paginator = ({ params, setParams, dispatch, actionType }: Props) => {
         });
 
         dispatch({ type: actionType.clear });
-        dispatch({
-          type: actionType.addMultiple,
-          payload: response.data.results,
-        });
+        response.data.results.map((o: any) =>
+          dispatch({ type: actionType.add, payload: o })
+        );
       });
   };
 

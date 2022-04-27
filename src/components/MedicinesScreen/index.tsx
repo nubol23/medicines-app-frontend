@@ -37,10 +37,9 @@ const MedicinesScreen = () => {
       .get("/medicines/medicines/", { params: searchParams })
       .then((response: AxiosResponse<PaginatedResponse<Medicine>>) => {
         medicinesDispatch({ type: medicineTypes.clear });
-        medicinesDispatch({
-          type: medicineTypes.addMultiple,
-          payload: response.data.results,
-        });
+        response.data.results.map((medicine) =>
+          medicinesDispatch({ type: medicineTypes.add, payload: medicine })
+        );
 
         setPaginatorParams({
           ...paginatorParams,

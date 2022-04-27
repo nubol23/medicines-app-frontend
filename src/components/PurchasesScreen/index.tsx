@@ -51,10 +51,9 @@ const PurchasesScreen = () => {
       .get("/medicines/purchase", { params: searchParams })
       .then((response: AxiosResponse<PaginatedResponse<Purchase>>) => {
         purchasesDispatch({ type: purchaseTypes.clear });
-        purchasesDispatch({
-          type: purchaseTypes.addMultiple,
-          payload: response.data.results,
-        });
+        response.data.results.map((purchase) =>
+          purchasesDispatch({ type: purchaseTypes.add, payload: purchase })
+        );
 
         setPaginatorParams({
           ...paginatorParams,

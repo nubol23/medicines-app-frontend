@@ -37,10 +37,10 @@ const PurchaseTable = ({
     () => api.get("/medicines/purchase"),
     (response: AxiosResponse<PaginatedResponse<Purchase>>) => {
       purchasesDispatch({ type: purchaseTypes.clear });
-      purchasesDispatch({
-        type: purchaseTypes.addMultiple,
-        payload: response.data.results,
-      });
+      response.data.results.map((purchase) =>
+        purchasesDispatch({ type: purchaseTypes.add, payload: purchase })
+      );
+
       setLoading(false);
       setPaginatorParams({
         ...paginatorParams,
@@ -61,10 +61,9 @@ const PurchaseTable = ({
       })
       .then((response: AxiosResponse<PaginatedResponse<Purchase>>) => {
         purchasesDispatch({ type: purchaseTypes.clear });
-        purchasesDispatch({
-          type: purchaseTypes.addMultiple,
-          payload: response.data.results,
-        });
+        response.data.results.map((purchase) =>
+          purchasesDispatch({ type: purchaseTypes.add, payload: purchase })
+        );
 
         setPaginatorParams({
           ...paginatorParams,

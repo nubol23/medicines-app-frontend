@@ -35,9 +35,6 @@ export const purchaseReducer = (
         return purchase;
       });
 
-    case purchaseTypes.addMultiple:
-      return [...state, ...action.payload];
-
     case purchaseTypes.clear:
       // Clearing the state array
       state.length = 0;

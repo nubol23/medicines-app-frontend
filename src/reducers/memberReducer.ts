@@ -32,9 +32,6 @@ export const memberReducer = (state: Array<Member> = [], action: Action) => {
         return member;
       });
 
-    case memberTypes.addMultiple:
-      return [...state, ...action.payload];
-
     case memberTypes.clear:
       // Clearing the state array
       state.length = 0;
