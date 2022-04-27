@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import api from "../../apis/api";
 import { ActionType, PaginatorParams } from "../../types/PaginatorParams";
 import "./paginator.scss";
@@ -10,7 +10,7 @@ type Props = {
   actionType: ActionType;
 };
 
-const Paginator = ({ params, setParams, dispatch, actionType }: Props) => {
+const Paginator: FC<Props> = ({ params, setParams, dispatch, actionType }) => {
   const [page, setPage] = useState(1);
 
   const updatePageRequest = (newPageNumber: number) => {

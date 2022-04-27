@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import memberTypes from "../../types/memberTypes";
@@ -15,7 +15,7 @@ type Props = {
   familyId: string;
 };
 
-const MemberTable = ({ familyId }: Props) => {
+const MemberTable: FC<Props> = ({ familyId }) => {
   const { user, userDispatch } = useContext(AuthContext);
   const { members, membersDispatch } = useContext(MemberContext);
   const [loading, setLoading] = useState(true);

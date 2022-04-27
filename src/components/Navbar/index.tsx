@@ -6,11 +6,7 @@ import "./navbar.scss";
 import { FamilyContext } from "../../contexts/familyContext";
 import familyTypes from "../../types/familyTypes";
 
-type Props = {
-  isActive: boolean;
-};
-
-const activeTabButton = ({ isActive }: Props) =>
+const activeTabButton = ({ isActive }: { isActive: boolean }) =>
   "tab-button" + (isActive ? " tab-button-active" : "");
 
 const Navbar = () => {

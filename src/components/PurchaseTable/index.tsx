@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { PurchaseContext } from "../../contexts/purchaseContext";
 import LoadingCircle from "../LoadingCircle";
 import useRequest from "../../hooks/useRequest";
@@ -23,12 +23,12 @@ type Props = {
   setPaginatorParams: (params: PaginatorParams) => void;
 };
 
-const PurchaseTable = ({
+const PurchaseTable: FC<Props> = ({
   familyId,
   filterByUser,
   paginatorParams,
   setPaginatorParams,
-}: Props) => {
+}) => {
   const { purchases, purchasesDispatch } = useContext(PurchaseContext);
   const { userDispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);

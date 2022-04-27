@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import "./medicineTable.scss";
 import { MedicineContext } from "../../contexts/medicineContext";
 import useRequest from "../../hooks/useRequest";
@@ -20,7 +20,7 @@ type Props = {
   setPaginatorParams: (params: PaginatorParams) => void;
 };
 
-const MedicineTable = ({ paginatorParams, setPaginatorParams }: Props) => {
+const MedicineTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
   const [loading, setLoading] = useState(true);
   const { medicines, medicinesDispatch } = useContext(MedicineContext);
   const { userDispatch } = useContext(AuthContext);
