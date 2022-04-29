@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import useForm from "../../hooks/useForm";
 import "./purchases.scss";
-import PurchaseTable from "../PurchaseTable";
+import PurchaseTable from "../../components/PurchaseTable";
 import useRequest from "../../hooks/useRequest";
 import api from "../../apis/api";
 import { PurchaseContext } from "../../contexts/purchaseContext";

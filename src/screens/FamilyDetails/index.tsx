@@ -7,7 +7,7 @@ import useForm from "../../hooks/useForm";
 import { toast } from "react-hot-toast";
 import authTypes from "../../types/authTypes";
 import { AuthContext } from "../../auth/authContext";
-import MemberTable from "../MemberTable";
+import MemberTable from "../../components/MemberTable";
 import { Family } from "../../types/objectTypes";
 import { AxiosError, AxiosResponse } from "axios";
 

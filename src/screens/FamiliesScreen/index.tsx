@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./families.scss";
-import FamilyTable from "../FamilyTable";
+import FamilyTable from "../../components/FamilyTable";
 import useForm from "../../hooks/useForm";
 import api from "../../apis/api";
 import { AuthContext } from "../../auth/authContext";

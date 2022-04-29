@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import useForm from "../../hooks/useForm";
 import "./medicines.scss";
 import { useNavigate } from "react-router-dom";
-import MedicineTable from "../MedicineTable";
+import MedicineTable from "../../components/MedicineTable";
 import api from "../../apis/api";
 import { MedicineContext } from "../../contexts/medicineContext";
 import medicineTypes from "../../types/medicineTypes";
