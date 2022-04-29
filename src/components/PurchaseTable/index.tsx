@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { PurchaseContext } from "../../contexts/purchaseContext";
 import LoadingCircle from "../LoadingCircle";
 import useRequest from "../../hooks/useRequest";
@@ -17,18 +17,11 @@ import { PaginatedResponse, Purchase } from "../../types/objectTypes";
 import { PaginatorParams } from "../../types/PaginatorParams";
 
 type Props = {
-  familyId: string;
-  filterByUser: boolean;
   paginatorParams: PaginatorParams;
   setPaginatorParams: (params: PaginatorParams) => void;
 };
 
-const PurchaseTable: FC<Props> = ({
-  familyId,
-  filterByUser,
-  paginatorParams,
-  setPaginatorParams,
-}) => {
+const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
   const { purchases, purchasesDispatch } = useContext(PurchaseContext);
   const { userDispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -53,26 +46,6 @@ const PurchaseTable: FC<Props> = ({
       toast.error("Error al cargar las medicinas");
     }
   );
-
-  useEffect(() => {
-    api
-      .get("/medicines/purchase", {
-        params: { family_ids: familyId, filter_by_user: filterByUser },
-      })
-      .then((response: AxiosResponse<PaginatedResponse<Purchase>>) => {
-        purchasesDispatch({ type: purchaseTypes.clear });
-        response.data.results.map((purchase) =>
-          purchasesDispatch({ type: purchaseTypes.add, payload: purchase })
-        );
-
-        setPaginatorParams({
-          ...paginatorParams,
-          totalCount: response.data.count,
-          nextUrl: response.data.next,
-          prevUrl: response.data.previous,
-        });
-      });
-  }, [familyId, filterByUser]);
 
   const navigate = useNavigate();
 

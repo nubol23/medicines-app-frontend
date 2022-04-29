@@ -47,6 +47,11 @@ const PurchasesScreen = () => {
     if (medicineName !== "")
       searchParams = { ...searchParams, medicine_name: medicineName };
 
+    searchParams = { ...searchParams, filter_by_user: filterByUser };
+
+    if (familyId !== "")
+      searchParams = { ...searchParams, family_ids: familyId };
+
     api
       .get("/medicines/purchase", { params: searchParams })
       .then((response: AxiosResponse<PaginatedResponse<Purchase>>) => {
@@ -86,7 +91,7 @@ const PurchasesScreen = () => {
           </button>
 
           <select
-            className="form-select family-selector"
+            className="form-select family-selector clickable"
             name="familyId"
             value={familyId}
             onChange={handleInputChange}
@@ -105,7 +110,7 @@ const PurchasesScreen = () => {
             </label>
             <input
               id="listByUser"
-              className="form-check-input"
+              className="form-check-input clickable"
               type="checkbox"
               name="listByUser"
               checked={filterByUser}
@@ -116,8 +121,6 @@ const PurchasesScreen = () => {
       </div>
 
       <PurchaseTable
-        familyId={familyId}
-        filterByUser={filterByUser}
         paginatorParams={paginatorParams}
         setPaginatorParams={setPaginatorParams}
       />
