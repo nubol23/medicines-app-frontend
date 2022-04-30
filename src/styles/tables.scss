@@ -1,0 +1,15 @@
+.wrap-text {
+  word-wrap: break-word;
+}
+
+.wrap-row > td {
+  word-wrap: break-word;
+}
+
+.wrap-header > th {
+  word-wrap: break-word;
+}
+
+.fixed-table {
+  table-layout: fixed !important;
+}

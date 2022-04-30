@@ -14,6 +14,7 @@ import Paginator from "../Paginator";
 import { PaginatorParams } from "../../types/PaginatorParams";
 import { AxiosError, AxiosResponse } from "axios";
 import { Medicine, PaginatedResponse } from "../../types/objectTypes";
+import "../../styles/styles.scss";
 
 type Props = {
   paginatorParams: PaginatorParams;
@@ -89,13 +90,13 @@ const MedicineTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
   ) : (
     <div>
       <div className="medicine-table">
-        <table className="table table-hover">
+        <table className="table table-hover fixed-table">
           <thead>
-            <tr>
+            <tr className="wrap-header">
               <th>Nombre</th>
               <th>Fabricante</th>
-              <th>Cant.</th>
-              <th>U.</th>
+              <th>Cantidad</th>
+              <th>Unidad</th>
               <th />
             </tr>
           </thead>
@@ -103,7 +104,7 @@ const MedicineTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
             {medicines.map((medicine) => (
               <tr
                 key={medicine.id}
-                className="animate__animated animate__fadeIn"
+                className="animate__animated animate__fadeIn wrap-row"
               >
                 <td onClick={() => handleTableClick(medicine.id!)}>
                   {medicine.name}

@@ -86,14 +86,14 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
   ) : (
     <div>
       <div className="purchase-table">
-        <table className="table table-hover">
+        <table className="table table-hover fixed-table">
           <thead>
-            <tr>
+            <tr className="wrap-header">
               <th>Medicina</th>
-              <th>Fam</th>
-              <th>Exp</th>
-              <th>U.</th>
-              <th>Fin</th>
+              <th>Familia</th>
+              <th>Expiración</th>
+              <th>Unidades</th>
+              <th>Finalizado</th>
               <th />
             </tr>
           </thead>
@@ -101,7 +101,7 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
             {purchases.map((purchase) => (
               <tr
                 key={purchase.id}
-                className="animate__animated animate__fadeIn"
+                className="animate__animated animate__fadeIn wrap-row"
               >
                 <td onClick={() => {}}>
                   {purchase.medicine!.name} - {purchase.medicine!.maker}:{" "}
