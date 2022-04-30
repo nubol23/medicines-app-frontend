@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import { toast } from "react-hot-toast";
 import authApi from "../../apis/authApi";
+import { AxiosError } from "axios";
 
 const RegisterScreen = () => {
   const [
@@ -50,10 +51,19 @@ const RegisterScreen = () => {
       })
       .then((response) => {
         setDisabled(false);
-        toast.success("Éxito! revise su correo");
+        toast.success("Éxito! revise su correo para activar su cuenta");
         navigate("/login", { replace: true });
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
+        if (
+          error.response?.data?.email?.at(0) ===
+          "user with this email address already exists."
+        ) {
+          toast.error("Ya existe un usuario con este correo.");
+          setDisabled(false);
+          return;
+        }
+
         toast.error("Error al crear la cuenta");
         setDisabled(false);
       });
