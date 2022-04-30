@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import api from "../../apis/api";
 import { ActionType, PaginatorParams } from "../../types/PaginatorParams";
 import "./paginator.scss";
+import { baseUrlLength } from "../../utils/baseUrlFuncs";
 
 type Props = {
   params: PaginatorParams;
@@ -13,33 +14,31 @@ type Props = {
 const Paginator: FC<Props> = ({ params, setParams, dispatch, actionType }) => {
   const [page, setPage] = useState(1);
 
-  const updatePageRequest = (newPageNumber: number) => {
-    api
-      .get(params.baseUrl, { params: { page: newPageNumber } })
-      .then((response) => {
-        setPage(newPageNumber);
-        setParams({
-          ...params,
-          nextUrl: response.data.next,
-          prevUrl: response.data.previous,
-        });
-
-        dispatch({ type: actionType.clear });
-        response.data.results.map((o: any) =>
-          dispatch({ type: actionType.add, payload: o })
-        );
+  const updatePageRequest = (newUrl: string) => {
+    api.get(newUrl).then((response) => {
+      setPage(response.data.current);
+      setParams({
+        ...params,
+        nextUrl: response.data.next,
+        prevUrl: response.data.previous,
       });
+
+      dispatch({ type: actionType.clear });
+      response.data.results.map((o: any) =>
+        dispatch({ type: actionType.add, payload: o })
+      );
+    });
   };
 
   const handlePrevious = () => {
     if (params.prevUrl !== null) {
-      updatePageRequest(page - 1);
+      updatePageRequest(params.prevUrl?.substring(baseUrlLength())!);
     }
   };
 
   const handleNext = () => {
     if (params.nextUrl !== null) {
-      updatePageRequest(page + 1);
+      updatePageRequest(params.nextUrl?.substring(baseUrlLength())!);
     }
   };
 
@@ -56,7 +55,7 @@ const Paginator: FC<Props> = ({ params, setParams, dispatch, actionType }) => {
       <div className="paginator-space-top paginator-space-item">{page}</div>
       <div className="paginator-space-top">/</div>
       <div className="paginator-space-top">
-        {Math.ceil(params.totalCount / 20)}
+        {Math.ceil(params.totalCount / 1)}
       </div>
 
       <button
