@@ -62,7 +62,7 @@ const PurchasesScreen = () => {
 
         setPaginatorParams({
           ...paginatorParams,
-          totalCount: response.data.count,
+          totalCount: response.data.pages,
           nextUrl: response.data.next,
           prevUrl: response.data.previous,
         });
