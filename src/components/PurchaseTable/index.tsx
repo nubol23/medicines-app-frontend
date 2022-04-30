@@ -93,7 +93,7 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
               <th>Familia</th>
               <th>Expiración</th>
               <th>Unidades</th>
-              <th>Finalizado</th>
+              <th>Disponible</th>
               <th />
             </tr>
           </thead>
@@ -112,7 +112,17 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
                   {formatDate(purchase.expiration_date!)}
                 </td>
                 <td onClick={() => {}}>{purchase.units}</td>
-                <td onClick={() => {}}>{purchase.consumed ? "SI" : "NO"}</td>
+                <td onClick={() => {}}>
+                  <div>
+                    {purchase.consumed ? (
+                      <i className="material-icons consumed">block</i>
+                    ) : (
+                      <i className="material-icons available">
+                        check_circle_outline
+                      </i>
+                    )}
+                  </div>
+                </td>
                 <td>
                   <button
                     className="edit-row-button"

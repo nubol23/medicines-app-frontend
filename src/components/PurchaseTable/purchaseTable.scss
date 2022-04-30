@@ -4,3 +4,15 @@
   @extend .medicine-table;
   cursor: initial;
 }
+
+.consumed {
+  background-color: $tertiary;
+  color: white;
+  border-radius: 50%;
+}
+
+.available {
+  background-color: $primary;
+  color: white;
+  border-radius: 50%;
+}
