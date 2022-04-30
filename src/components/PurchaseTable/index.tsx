@@ -109,7 +109,9 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
                 </td>
                 <td onClick={() => {}}>{purchase.family!.family_name}</td>
                 <td onClick={() => {}}>
-                  {formatDate(purchase.expiration_date!)}
+                  <span className={purchase.is_expired ? "expired-badge" : ""}>
+                    {formatDate(purchase.expiration_date!)}
+                  </span>
                 </td>
                 <td onClick={() => {}}>{purchase.units}</td>
                 <td onClick={() => {}}>
