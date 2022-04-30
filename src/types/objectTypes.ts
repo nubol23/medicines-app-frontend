@@ -29,6 +29,8 @@ export type PaginatedResponse<T> = {
   next: string;
   previous: string;
   results: T[];
+  current: number;
+  pages: number;
 };
 
 export type Family = {
