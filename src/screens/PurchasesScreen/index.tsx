@@ -34,8 +34,13 @@ const PurchasesScreen = () => {
   });
 
   const [filterByUser, setFilterByUser] = useState(false);
-  const handleCheckbox = () => {
+  const handleFilterByUser = () => {
     setFilterByUser(!filterByUser);
+  };
+
+  const [filterByNotConsumed, setFilterByNotConsumed] = useState(false);
+  const handleFilterByNotConsumed = () => {
+    setFilterByNotConsumed(!filterByNotConsumed);
   };
 
   const { purchasesDispatch } = useContext(PurchaseContext);
@@ -48,6 +53,10 @@ const PurchasesScreen = () => {
       searchParams = { ...searchParams, medicine_name: medicineName };
 
     searchParams = { ...searchParams, filter_by_user: filterByUser };
+    searchParams = {
+      ...searchParams,
+      filter_by_not_consumed: filterByNotConsumed,
+    };
 
     if (familyId !== "")
       searchParams = { ...searchParams, family_ids: familyId };
@@ -104,18 +113,34 @@ const PurchasesScreen = () => {
             ))}
           </select>
 
-          <div className="form-check family-selector">
-            <label className="form-check-label" htmlFor="listByUser">
-              Mostrar solo mis compras
-            </label>
-            <input
-              id="listByUser"
-              className="form-check-input clickable"
-              type="checkbox"
-              name="listByUser"
-              checked={filterByUser}
-              onChange={handleCheckbox}
-            />
+          <div className="family-selector selectors-row">
+            <div className="form-check selector-pad">
+              <label className="form-check-label" htmlFor="listByUser">
+                Mis compras
+              </label>
+              <input
+                id="listByUser"
+                className="form-check-input clickable"
+                type="checkbox"
+                name="listByUser"
+                checked={filterByUser}
+                onChange={handleFilterByUser}
+              />
+            </div>
+
+            <div className="form-check">
+              <label className="form-check-label" htmlFor="listByNotConsumed">
+                Solo disponibles
+              </label>
+              <input
+                id="listByNotConsumed"
+                className="form-check-input clickable"
+                type="checkbox"
+                name="listByNotConsumed"
+                checked={filterByNotConsumed}
+                onChange={handleFilterByNotConsumed}
+              />
+            </div>
           </div>
         </form>
       </div>

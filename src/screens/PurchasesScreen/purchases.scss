@@ -13,3 +13,14 @@
 .family-selector {
   margin-top: 30px;
 }
+
+.selectors-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.selector-pad {
+  margin-right: 15px;
+}
