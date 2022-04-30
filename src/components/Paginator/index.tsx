@@ -3,11 +3,13 @@ import api from "../../apis/api";
 import { ActionType, PaginatorParams } from "../../types/PaginatorParams";
 import "./paginator.scss";
 import { baseUrlLength } from "../../utils/baseUrlFuncs";
+import { AxiosResponse } from "axios";
+import { Action, PaginatedResponse } from "../../types/objectTypes";
 
 type Props = {
   params: PaginatorParams;
   setParams: (params: PaginatorParams) => void;
-  dispatch: (type: { type: string; payload?: any }) => void;
+  dispatch: React.Dispatch<Action>;
   actionType: ActionType;
 };
 
@@ -15,7 +17,7 @@ const Paginator: FC<Props> = ({ params, setParams, dispatch, actionType }) => {
   const [page, setPage] = useState(1);
 
   const updatePageRequest = (newUrl: string) => {
-    api.get(newUrl).then((response) => {
+    api.get(newUrl).then((response: AxiosResponse<PaginatedResponse<any>>) => {
       setPage(response.data.current);
       setParams({
         ...params,
@@ -54,9 +56,7 @@ const Paginator: FC<Props> = ({ params, setParams, dispatch, actionType }) => {
 
       <div className="paginator-space-top paginator-space-item">{page}</div>
       <div className="paginator-space-top">/</div>
-      <div className="paginator-space-top">
-        {Math.ceil(params.totalCount / 1)}
-      </div>
+      <div className="paginator-space-top">{params.totalCount}</div>
 
       <button
         className="primary-button-icon paginator-space-item"
