@@ -86,14 +86,14 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
   ) : (
     <div>
       <div className="purchase-table">
-        <table className="table table-hover">
+        <table className="table table-hover fixed-table">
           <thead>
-            <tr>
+            <tr className="wrap-header">
               <th>Medicina</th>
-              <th>Fam</th>
-              <th>Exp</th>
-              <th>U.</th>
-              <th>Fin</th>
+              <th>Familia</th>
+              <th>Expiración</th>
+              <th>Unidades</th>
+              <th>Disponible</th>
               <th />
             </tr>
           </thead>
@@ -101,7 +101,7 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
             {purchases.map((purchase) => (
               <tr
                 key={purchase.id}
-                className="animate__animated animate__fadeIn"
+                className="animate__animated animate__fadeIn wrap-row"
               >
                 <td onClick={() => {}}>
                   {purchase.medicine!.name} - {purchase.medicine!.maker}:{" "}
@@ -109,10 +109,22 @@ const PurchaseTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
                 </td>
                 <td onClick={() => {}}>{purchase.family!.family_name}</td>
                 <td onClick={() => {}}>
-                  {formatDate(purchase.expiration_date!)}
+                  <span className={purchase.is_expired ? "expired-badge" : ""}>
+                    {formatDate(purchase.expiration_date!)}
+                  </span>
                 </td>
                 <td onClick={() => {}}>{purchase.units}</td>
-                <td onClick={() => {}}>{purchase.consumed ? "SI" : "NO"}</td>
+                <td onClick={() => {}}>
+                  <div>
+                    {purchase.consumed ? (
+                      <i className="material-icons consumed">block</i>
+                    ) : (
+                      <i className="material-icons available">
+                        check_circle_outline
+                      </i>
+                    )}
+                  </div>
+                </td>
                 <td>
                   <button
                     className="edit-row-button"

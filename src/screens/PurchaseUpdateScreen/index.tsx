@@ -75,6 +75,7 @@ const PurchaseUpdateScreen = () => {
         expirationDate: formatFormDate(response.data.expiration_date!),
         quantity: response.data.units,
       });
+      setConsumed(response.data.consumed!);
     },
     (error: AxiosError) => {}
   );
@@ -167,7 +168,7 @@ const PurchaseUpdateScreen = () => {
         <label htmlFor="units">Cantidad de unidades</label>
         <input
           id="units"
-          className="form-control create-medicine-form-input"
+          className="form-control"
           type="text"
           placeholder="Cantitdad unitaria"
           name="quantity"
@@ -175,13 +176,13 @@ const PurchaseUpdateScreen = () => {
           onChange={handleInputChange}
         />
 
-        <div className="form-check family-selector mb-4">
+        <div className="form-check family-selector mb-5">
           <label className="form-check-label" htmlFor="consumed">
             Consumido
           </label>
           <input
             id="consumed"
-            className="form-check-input"
+            className="form-check-input clickable"
             type="checkbox"
             name="consumed"
             checked={consumed}

@@ -73,6 +73,7 @@ export type Purchase = {
   expiration_date?: string;
   units?: number;
   consumed?: boolean;
+  is_expired?: boolean;
 };
 
 export type CorrectResponse = {
