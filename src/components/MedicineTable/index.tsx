@@ -37,7 +37,7 @@ const MedicineTable: FC<Props> = ({ paginatorParams, setPaginatorParams }) => {
       setLoading(false);
       setPaginatorParams({
         ...paginatorParams,
-        totalCount: response.data.count,
+        totalCount: response.data.pages,
         nextUrl: response.data.next,
         prevUrl: response.data.previous,
       });
