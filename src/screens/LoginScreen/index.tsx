@@ -1,39 +1,43 @@
 import jwtDecode from "jwt-decode";
-import React, { SyntheticEvent, useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../apis/authApi";
 import { AuthContext } from "../../auth/authContext";
-import useForm from "../../hooks/useForm";
 import authTypes from "../../types/authTypes";
 import "./login.scss";
 import { toast } from "react-hot-toast";
 import { TokenContent } from "../../types/objectTypes";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 
 export const LoginScreen = () => {
   const { userDispatch } = useContext(AuthContext);
-  const [buttonDisabled, setDisabled] = useState(false);
-
-  const [{ email, password }, handleInputChange] = useForm<any>({
-    email: "",
-    password: "",
-  });
-
   const navigate = useNavigate();
 
-  const handleLogin = (e: SyntheticEvent) => {
-    e.preventDefault();
+  type FormValues = {
+    email: string;
+    password: string;
+  };
 
-    if (email === "" || password === "") return;
-    if (!/^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,}$/i.test(email)) {
-      toast.error("Email inválido");
-      return;
-    }
+  const validateLogin = (values: FormValues) => {
+    let errors = {};
+    if (!values.email) errors = { ...errors, email: "Correo requerido" };
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))
+      errors = { ...errors, email: "Formato de correo inválido" };
 
-    setDisabled(true);
+    if (!values.password)
+      errors = { ...errors, password: "Contraseña requerida" };
+
+    return errors;
+  };
+
+  const handleLogin = (
+    values: FormValues,
+    { setSubmitting }: FormikHelpers<FormValues>
+  ) => {
     authApi
       .post("users/token/", {
-        email,
-        password,
+        email: values.email,
+        password: values.password,
       })
       .then((response) => {
         const decoded = jwtDecode<TokenContent>(response.data.access);
@@ -49,13 +53,13 @@ export const LoginScreen = () => {
 
         userDispatch({ type: authTypes.login, payload });
 
-        setDisabled(false);
         navigate("/", { replace: true });
       })
       .catch((error) => {
         toast.error("Credenciales inválidas");
-        setDisabled(false);
       });
+
+    setSubmitting(false);
   };
 
   return (
@@ -63,36 +67,47 @@ export const LoginScreen = () => {
       <div className="login-content">
         <h3 className="login-header mb-4">Medicines App</h3>
 
-        <form onSubmit={handleLogin} className="form-box">
-          <input
-            className="form-control mb-4"
-            type="text"
-            placeholder="Correo"
-            name="email"
-            value={email}
-            onChange={handleInputChange}
-          />
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={validateLogin}
+          onSubmit={handleLogin}
+        >
+          {({ isSubmitting }) => (
+            <Form className="form-box">
+              <div className="mb-4">
+                <Field type="email" name="email" className="form-control" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
 
-          <input
-            className="form-control mb-4"
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            autoComplete="off"
-            value={password}
-            onChange={handleInputChange}
-          />
+              <div className="mb-4">
+                <Field
+                  type="password"
+                  name="password"
+                  className="form-control"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
 
-          {/*<button type='submit' className="btn btn-primary btn-block">*/}
-          <button
-            type="submit"
-            className="primary-button"
-            disabled={buttonDisabled}
-          >
-            Login
-          </button>
-          <Link to="/register">¿No tienes cuenta?</Link>
-        </form>
+              <button
+                type="submit"
+                className="primary-button"
+                disabled={isSubmitting}
+              >
+                Login
+              </button>
+
+              <Link to="/register">¿No tienes cuenta?</Link>
+            </Form>
+          )}
+        </Formik>
         <br />
         <Link to="/restore">¿Olvidaste tu contraseña?</Link>
       </div>
