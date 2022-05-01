@@ -8,27 +8,21 @@ import "./login.scss";
 import { toast } from "react-hot-toast";
 import { TokenContent } from "../../types/objectTypes";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
+import * as Yup from "yup";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Formato de correo inválido").required("Requerido"),
+  password: Yup.string().required("Requerido"),
+});
 
 export const LoginScreen = () => {
   const { userDispatch } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  type FormValues = {
-    email: string;
-    password: string;
-  };
-
-  const validateLogin = (values: FormValues) => {
-    let errors = {};
-    if (!values.email) errors = { ...errors, email: "Correo requerido" };
-    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))
-      errors = { ...errors, email: "Formato de correo inválido" };
-
-    if (!values.password)
-      errors = { ...errors, password: "Contraseña requerida" };
-
-    return errors;
-  };
 
   const handleLogin = (
     values: FormValues,
@@ -69,7 +63,7 @@ export const LoginScreen = () => {
 
         <Formik
           initialValues={{ email: "", password: "" }}
-          validate={validateLogin}
+          validationSchema={LoginSchema}
           onSubmit={handleLogin}
         >
           {({ isSubmitting }) => (
