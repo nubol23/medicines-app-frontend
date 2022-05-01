@@ -24,6 +24,10 @@ export const LoginScreen = () => {
     e.preventDefault();
 
     if (email === "" || password === "") return;
+    if (!/^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,}$/i.test(email)) {
+      toast.error("Email inválido");
+      return;
+    }
 
     setDisabled(true);
     authApi

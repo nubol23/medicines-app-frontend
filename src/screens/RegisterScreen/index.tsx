@@ -40,6 +40,11 @@ const RegisterScreen = () => {
       return;
     }
 
+    if (!/^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,}$/i.test(email)) {
+      toast.error("Email inválido");
+      return;
+    }
+
     setDisabled(true);
     authApi
       .post("/users/register", {
