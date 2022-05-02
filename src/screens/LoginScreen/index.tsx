@@ -69,7 +69,12 @@ export const LoginScreen = () => {
           {({ isSubmitting }) => (
             <Form className="form-box">
               <div className="mb-4">
-                <Field type="email" name="email" className="form-control" />
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder="Correo"
+                  className="form-control"
+                />
                 <ErrorMessage
                   name="email"
                   component="div"
@@ -81,6 +86,7 @@ export const LoginScreen = () => {
                 <Field
                   type="password"
                   name="password"
+                  placeholder="Contraseña"
                   className="form-control"
                 />
                 <ErrorMessage
