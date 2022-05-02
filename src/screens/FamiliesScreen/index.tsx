@@ -45,7 +45,7 @@ const FamiliesScreen = () => {
   };
 
   return (
-    <div className="family-screen animate__animated animate__fadeIn">
+    <div className="family-screen animate__animated animate__fadeIn animate__faster">
       <form className="create-family-form" onSubmit={handleCreateFamily}>
         <input
           className="form-control create-family-input"

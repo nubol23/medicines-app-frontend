@@ -59,7 +59,7 @@ const FamilyDetails = () => {
   };
 
   return (
-    <div className="medicine-screen animate__animated animate__fadeIn">
+    <div className="medicine-screen animate__animated animate__fadeIn animate__faster">
       <div className="family-editable-row">
         {editable ? (
           <div className="editable-row">

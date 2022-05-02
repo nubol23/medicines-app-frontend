@@ -56,7 +56,7 @@ const MedicinesScreen = () => {
   };
 
   return (
-    <div className="medicine-screen animate__animated animate__fadeIn">
+    <div className="medicine-screen animate__animated animate__fadeIn animate__faster">
       <div className="medicines-buttons">
         <form className="search-medicine-form" onSubmit={handleSearchMedicine}>
           <input
