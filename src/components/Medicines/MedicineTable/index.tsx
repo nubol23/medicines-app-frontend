@@ -1,20 +1,20 @@
 import React, { FC, useContext, useState } from "react";
 import "./medicineTable.scss";
-import { MedicineContext } from "../../contexts/medicineContext";
-import useRequest from "../../hooks/useRequest";
-import api from "../../apis/api";
-import medicineTypes from "../../types/medicineTypes";
-import deleteDialog from "../../utils/deleteDialog";
+import { MedicineContext } from "../../../contexts/medicineContext";
+import useRequest from "../../../hooks/useRequest";
+import api from "../../../apis/api";
+import medicineTypes from "../../../types/medicineTypes";
+import deleteDialog from "../../../utils/deleteDialog";
 import { toast } from "react-hot-toast";
-import authTypes from "../../types/authTypes";
-import { AuthContext } from "../../auth/authContext";
+import authTypes from "../../../types/authTypes";
+import { AuthContext } from "../../../auth/authContext";
 import { useNavigate } from "react-router-dom";
-import LoadingCircle from "../LoadingCircle";
-import Paginator from "../Paginator";
-import { PaginatorParams } from "../../types/PaginatorParams";
+import LoadingCircle from "../../LoadingCircle";
+import Paginator from "../../Paginator";
+import { PaginatorParams } from "../../../types/PaginatorParams";
 import { AxiosError, AxiosResponse } from "axios";
-import { Medicine, PaginatedResponse } from "../../types/objectTypes";
-import "../../styles/styles.scss";
+import { Medicine, PaginatedResponse } from "../../../types/objectTypes";
+import "../../../styles/styles.scss";
 
 type Props = {
   paginatorParams: PaginatorParams;

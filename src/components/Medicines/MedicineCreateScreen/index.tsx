@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import "./createMedicine.scss";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { toast } from "react-hot-toast";
-import api from "../../apis/api";
-import { AuthContext } from "../../auth/authContext";
-import authTypes from "../../types/authTypes";
+import api from "../../../apis/api";
+import { AuthContext } from "../../../auth/authContext";
+import authTypes from "../../../types/authTypes";
 import { useNavigate } from "react-router-dom";
 
 const MedicineCreateScreen = () => {

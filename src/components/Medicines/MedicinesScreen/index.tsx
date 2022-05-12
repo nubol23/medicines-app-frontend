@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import "./medicines.scss";
 import { useNavigate } from "react-router-dom";
-import MedicineTable from "../../components/MedicineTable";
-import api from "../../apis/api";
-import { MedicineContext } from "../../contexts/medicineContext";
-import medicineTypes from "../../types/medicineTypes";
+import MedicineTable from "../MedicineTable";
+import api from "../../../apis/api";
+import { MedicineContext } from "../../../contexts/medicineContext";
+import medicineTypes from "../../../types/medicineTypes";
 import { toast } from "react-hot-toast";
-import { PaginatorParams } from "../../types/PaginatorParams";
+import { PaginatorParams } from "../../../types/PaginatorParams";
 import { AxiosResponse } from "axios";
-import { Medicine, PaginatedResponse } from "../../types/objectTypes";
+import { Medicine, PaginatedResponse } from "../../../types/objectTypes";
 
 const MedicinesScreen = () => {
   const [paginatorParams, setPaginatorParams] = useState<PaginatorParams>({

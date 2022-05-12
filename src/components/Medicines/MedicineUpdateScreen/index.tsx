@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import "../MedicineCreateScreen/createMedicine.scss";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../../auth/authContext";
+import { AuthContext } from "../../../auth/authContext";
 import { useNavigate, useParams } from "react-router-dom";
-import useRequest from "../../hooks/useRequest";
-import api from "../../apis/api";
-import authTypes from "../../types/authTypes";
+import useRequest from "../../../hooks/useRequest";
+import api from "../../../apis/api";
+import authTypes from "../../../types/authTypes";
 import { AxiosError, AxiosResponse } from "axios";
-import { Medicine } from "../../types/objectTypes";
+import { Medicine } from "../../../types/objectTypes";
 
 const MedicineUpdateScreen = () => {
   const [buttonDisabled, setDisabled] = useState(false);
