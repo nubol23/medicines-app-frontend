@@ -1,19 +1,19 @@
 import React, { useContext, useState } from "react";
-import { FamilyContext } from "../../contexts/familyContext";
+import { FamilyContext } from "../../../contexts/familyContext";
 import { useNavigate } from "react-router-dom";
 import "./familyTable.scss";
-import api from "../../apis/api";
-import familyTypes from "../../types/familyTypes";
-import authTypes from "../../types/authTypes";
-import { AuthContext } from "../../auth/authContext";
-import deleteDialog from "../../utils/deleteDialog";
+import api from "../../../apis/api";
+import familyTypes from "../../../types/familyTypes";
+import authTypes from "../../../types/authTypes";
+import { AuthContext } from "../../../auth/authContext";
+import deleteDialog from "../../../utils/deleteDialog";
 import { toast } from "react-hot-toast";
-import useRequest from "../../hooks/useRequest";
-import LoadingCircle from "../LoadingCircle";
-import Paginator from "../Paginator";
-import { PaginatorParams } from "../../types/PaginatorParams";
+import useRequest from "../../../hooks/useRequest";
+import LoadingCircle from "../../LoadingCircle";
+import Paginator from "../../Paginator";
+import { PaginatorParams } from "../../../types/PaginatorParams";
 import { AxiosError, AxiosResponse } from "axios";
-import { Family, PaginatedResponse } from "../../types/objectTypes";
+import { Family, PaginatedResponse } from "../../../types/objectTypes";
 
 const FamilyTable = () => {
   const [paginatorParams, setPaginatorParams] = useState<PaginatorParams>({
