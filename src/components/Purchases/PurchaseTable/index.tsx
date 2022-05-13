@@ -1,20 +1,20 @@
 import React, { FC, useContext, useState } from "react";
-import { PurchaseContext } from "../../contexts/purchaseContext";
-import LoadingCircle from "../LoadingCircle";
-import useRequest from "../../hooks/useRequest";
-import api from "../../apis/api";
-import purchaseTypes from "../../types/purchaseTypes";
-import { formatDate } from "../../utils/functions";
+import { PurchaseContext } from "../../../contexts/purchaseContext";
+import LoadingCircle from "../../LoadingCircle";
+import useRequest from "../../../hooks/useRequest";
+import api from "../../../apis/api";
+import purchaseTypes from "../../../types/purchaseTypes";
+import { formatDate } from "../../../utils/functions";
 import "./purchaseTable.scss";
 import { useNavigate } from "react-router-dom";
-import deleteDialog from "../../utils/deleteDialog";
+import deleteDialog from "../../../utils/deleteDialog";
 import { toast } from "react-hot-toast";
-import { AuthContext } from "../../auth/authContext";
-import authTypes from "../../types/authTypes";
-import Paginator from "../Paginator";
+import { AuthContext } from "../../../auth/authContext";
+import authTypes from "../../../types/authTypes";
+import Paginator from "../../Paginator";
 import { AxiosError, AxiosResponse } from "axios";
-import { PaginatedResponse, Purchase } from "../../types/objectTypes";
-import { PaginatorParams } from "../../types/PaginatorParams";
+import { PaginatedResponse, Purchase } from "../../../types/objectTypes";
+import { PaginatorParams } from "../../../types/PaginatorParams";
 
 type Props = {
   paginatorParams: PaginatorParams;

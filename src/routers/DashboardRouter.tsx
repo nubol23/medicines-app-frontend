@@ -5,12 +5,12 @@ import Navbar from "../components/Navbar";
 import "./dashboard.scss";
 import FamiliesScreen from "../components/Families/FamiliesScreen";
 import MedicinesScreen from "../components/Medicines/MedicinesScreen";
-import PurchasesScreen from "../screens/PurchasesScreen";
+import PurchasesScreen from "../components/Purchases/PurchasesScreen";
 import FamilyDetails from "../components/Families/FamilyDetails";
 import MedicineCreateScreen from "../components/Medicines/MedicineCreateScreen";
 import MedicineUpdateScreen from "../components/Medicines/MedicineUpdateScreen";
-import PurchaseCreateScreen from "../screens/PurchaseCreateScreen";
-import PurchaseUpdateScreen from "../screens/PurchaseUpdateScreen";
+import PurchaseCreateScreen from "../components/Purchases/PurchaseCreateScreen";
+import PurchaseUpdateScreen from "../components/Purchases/PurchaseUpdateScreen";
 import InviteMemberScreen from "../screens/InviteMemberScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 

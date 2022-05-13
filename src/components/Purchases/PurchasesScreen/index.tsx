@@ -1,15 +1,19 @@
 import React, { useContext, useState } from "react";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import "./purchases.scss";
-import PurchaseTable from "../../components/PurchaseTable";
-import useRequest from "../../hooks/useRequest";
-import api from "../../apis/api";
-import { PurchaseContext } from "../../contexts/purchaseContext";
-import purchaseTypes from "../../types/purchaseTypes";
+import PurchaseTable from "../PurchaseTable";
+import useRequest from "../../../hooks/useRequest";
+import api from "../../../apis/api";
+import { PurchaseContext } from "../../../contexts/purchaseContext";
+import purchaseTypes from "../../../types/purchaseTypes";
 import { toast } from "react-hot-toast";
 import { AxiosError, AxiosResponse } from "axios";
-import { Family, PaginatedResponse, Purchase } from "../../types/objectTypes";
-import { PaginatorParams } from "../../types/PaginatorParams";
+import {
+  Family,
+  PaginatedResponse,
+  Purchase,
+} from "../../../types/objectTypes";
+import { PaginatorParams } from "../../../types/PaginatorParams";
 
 const PurchasesScreen = () => {
   const [paginatorParams, setPaginatorParams] = useState<PaginatorParams>({
