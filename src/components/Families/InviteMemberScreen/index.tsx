@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useRequest from "../../hooks/useRequest";
-import api from "../../apis/api";
+import useRequest from "../../../hooks/useRequest";
+import api from "../../../apis/api";
 import "./inviteMembers.scss";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { toast } from "react-hot-toast";
 import {
   CorrectResponse,
   ErrorResponse,
   Family,
-} from "../../types/objectTypes";
+} from "../../../types/objectTypes";
 import { AxiosError, AxiosResponse } from "axios";
 
 const InviteMemberScreen = () => {

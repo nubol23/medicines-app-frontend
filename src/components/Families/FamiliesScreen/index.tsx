@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import "../families.scss";
+import "./families.scss";
 import FamilyTable from "../FamilyTable";
 import useForm from "../../../hooks/useForm";
 import api from "../../../apis/api";

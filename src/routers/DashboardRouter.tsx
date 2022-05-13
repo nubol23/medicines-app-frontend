@@ -11,7 +11,7 @@ import MedicineCreateScreen from "../components/Medicines/MedicineCreateScreen";
 import MedicineUpdateScreen from "../components/Medicines/MedicineUpdateScreen";
 import PurchaseCreateScreen from "../components/Purchases/PurchaseCreateScreen";
 import PurchaseUpdateScreen from "../components/Purchases/PurchaseUpdateScreen";
-import InviteMemberScreen from "../screens/InviteMemberScreen";
+import InviteMemberScreen from "../components/Families/InviteMemberScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
 export const DashboardRouter = () => {

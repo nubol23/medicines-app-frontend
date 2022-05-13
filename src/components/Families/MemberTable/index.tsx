@@ -1,15 +1,15 @@
 import React, { FC, useContext, useState } from "react";
-import useRequest from "../../hooks/useRequest";
-import api from "../../apis/api";
-import memberTypes from "../../types/memberTypes";
-import { MemberContext } from "../../contexts/memberContext";
-import LoadingCircle from "../LoadingCircle";
-import { AuthContext } from "../../auth/authContext";
-import deleteDialog from "../../utils/deleteDialog";
+import useRequest from "../../../hooks/useRequest";
+import api from "../../../apis/api";
+import memberTypes from "../../../types/memberTypes";
+import { MemberContext } from "../../../contexts/memberContext";
+import LoadingCircle from "../../LoadingCircle";
+import { AuthContext } from "../../../auth/authContext";
+import deleteDialog from "../../../utils/deleteDialog";
 import { toast } from "react-hot-toast";
-import authTypes from "../../types/authTypes";
+import authTypes from "../../../types/authTypes";
 import { AxiosError, AxiosResponse } from "axios";
-import { Member, PaginatedResponse } from "../../types/objectTypes";
+import { Member, PaginatedResponse } from "../../../types/objectTypes";
 
 type Props = {
   familyId: string;
