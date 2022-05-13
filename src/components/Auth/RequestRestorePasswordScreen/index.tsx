@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { toast } from "react-hot-toast";
-import authApi from "../../apis/authApi";
+import authApi from "../../../apis/authApi";
 import { useNavigate } from "react-router-dom";
 
 const RequestRestorePasswordScreen = () => {

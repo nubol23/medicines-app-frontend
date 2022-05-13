@@ -1,12 +1,12 @@
 import jwtDecode from "jwt-decode";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import authApi from "../../apis/authApi";
-import { AuthContext } from "../../auth/authContext";
-import authTypes from "../../types/authTypes";
+import authApi from "../../../apis/authApi";
+import { AuthContext } from "../../../auth/authContext";
+import authTypes from "../../../types/authTypes";
 import "./login.scss";
 import { toast } from "react-hot-toast";
-import { TokenContent } from "../../types/objectTypes";
+import { TokenContent } from "../../../types/objectTypes";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 

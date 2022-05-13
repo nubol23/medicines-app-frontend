@@ -2,7 +2,7 @@ import React from "react";
 import "./validateUserScreen.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import authApi from "../../apis/authApi";
+import authApi from "../../../apis/authApi";
 
 const ValidateUserScreen = () => {
   const { userId } = useParams();

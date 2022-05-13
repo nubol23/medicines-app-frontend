@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import authApi from "../../apis/authApi";
+import authApi from "../../../apis/authApi";
 
 const RestorePasswordScreen = () => {
   const { requestId } = useParams();

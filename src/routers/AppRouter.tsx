@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { LoginScreen } from "../screens/LoginScreen";
+import { LoginScreen } from "../components/Auth/LoginScreen";
 import { DashboardRouter } from "./DashboardRouter";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
 import { Toaster } from "react-hot-toast";
-import ValidateUserScreen from "../screens/ValidateUserScreen";
-import RestorePasswordScreen from "../screens/RestorePasswordScreen";
-import RequestRestorePasswordScreen from "../screens/RequestRestorePasswordScreen";
-import RegisterScreen from "../screens/RegisterScreen";
+import ValidateUserScreen from "../components/Auth/ValidateUserScreen";
+import RestorePasswordScreen from "../components/Auth/RestorePasswordScreen";
+import RequestRestorePasswordScreen from "../components/Auth/RequestRestorePasswordScreen";
+import RegisterScreen from "../components/Auth/RegisterScreen";
 
 export const AppRouter = () => {
   return (
