@@ -1,0 +1,54 @@
+@import "../../../styles/styles";
+
+.app-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  width: 100%;
+
+  //padding: 10px 20px 10px 20px;
+  background-color: $primary;
+
+  flex-wrap: wrap;
+}
+
+.header-name {
+  color: white;
+  //margin-left: 8px;
+  //margin-right: 20px;
+  //margin-top: 10px;
+  //margin-bottom: 10px;
+  margin: 10px 20px 10px 8px;
+}
+
+.header-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  @extend .primary-button;
+  margin: 10px;
+  text-decoration: none;
+
+  &:hover {
+    color: white;
+  }
+
+  &:focus {
+    background-color: darken($color: $primary, $amount: 10);
+  }
+}
+
+.tab-button-active {
+  background-color: darken($color: $primary, $amount: 10);
+}
+
+.logout-button {
+  @extend .secondary-button;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

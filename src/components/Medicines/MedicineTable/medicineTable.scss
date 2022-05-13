@@ -1,0 +1,18 @@
+@import "../../../styles/styles";
+
+.medicine-table {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  width: 100%;
+  //margin-left: 5%;
+
+  cursor: pointer;
+}
+
+.edit-row-button {
+  @extend .secondary-button-icon;
+  color: white;
+}

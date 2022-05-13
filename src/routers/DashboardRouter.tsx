@@ -1,18 +1,18 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { HomeScreen } from "../screens/HomeScreen";
-import Navbar from "../components/Navbar";
+import { HomeScreen } from "../components/HomeScreen";
+import Navbar from "../components/Common/Navbar";
 import "./dashboard.scss";
-import FamiliesScreen from "../screens/FamiliesScreen";
-import MedicinesScreen from "../screens/MedicinesScreen";
-import PurchasesScreen from "../screens/PurchasesScreen";
-import FamilyDetails from "../screens/FamilyDetails";
-import MedicineCreateScreen from "../screens/MedicineCreateScreen";
-import MedicineUpdateScreen from "../screens/MedicineUpdateScreen";
-import PurchaseCreateScreen from "../screens/PurchaseCreateScreen";
-import PurchaseUpdateScreen from "../screens/PurchaseUpdateScreen";
-import InviteMemberScreen from "../screens/InviteMemberScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import FamiliesScreen from "../components/Families/FamiliesScreen";
+import MedicinesScreen from "../components/Medicines/MedicinesScreen";
+import PurchasesScreen from "../components/Purchases/PurchasesScreen";
+import FamilyDetails from "../components/Families/FamilyDetails";
+import MedicineCreateScreen from "../components/Medicines/MedicineCreateScreen";
+import MedicineUpdateScreen from "../components/Medicines/MedicineUpdateScreen";
+import PurchaseCreateScreen from "../components/Purchases/PurchaseCreateScreen";
+import PurchaseUpdateScreen from "../components/Purchases/PurchaseUpdateScreen";
+import InviteMemberScreen from "../components/Families/InviteMemberScreen";
+import ProfileScreen from "../components/ProfileScreen";
 
 export const DashboardRouter = () => {
   return (

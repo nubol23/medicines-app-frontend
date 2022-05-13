@@ -1,0 +1,26 @@
+@import "../../Medicines/MedicineTable/medicineTable";
+
+.purchase-table {
+  @extend .medicine-table;
+  cursor: initial;
+}
+
+.consumed {
+  background-color: $tertiary;
+  color: white;
+  border-radius: 50%;
+}
+
+.available {
+  background-color: $primary;
+  color: white;
+  border-radius: 50%;
+}
+
+.expired-badge {
+  background-color: $tertiary;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 10px;
+}

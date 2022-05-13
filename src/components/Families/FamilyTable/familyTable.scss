@@ -1,0 +1,13 @@
+@import "../../../styles/styles";
+
+.family-table {
+  margin-top: 40px;
+  width: 100%;
+
+  cursor: pointer;
+}
+
+.delete-row-button {
+  @extend .tertiary-button-icon;
+  color: white;
+}
