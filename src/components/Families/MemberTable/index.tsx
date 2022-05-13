@@ -3,7 +3,7 @@ import useRequest from "../../../hooks/useRequest";
 import api from "../../../apis/api";
 import memberTypes from "../../../types/memberTypes";
 import { MemberContext } from "../../../contexts/memberContext";
-import LoadingCircle from "../../LoadingCircle";
+import LoadingCircle from "../../Common/LoadingCircle";
 import { AuthContext } from "../../../auth/authContext";
 import deleteDialog from "../../../utils/deleteDialog";
 import { toast } from "react-hot-toast";

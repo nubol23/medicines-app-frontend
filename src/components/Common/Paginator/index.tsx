@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
-import api from "../../apis/api";
-import { ActionType, PaginatorParams } from "../../types/PaginatorParams";
+import api from "../../../apis/api";
+import { ActionType, PaginatorParams } from "../../../types/PaginatorParams";
 import "./paginator.scss";
-import { baseUrlLength } from "../../utils/baseUrlFuncs";
+import { baseUrlLength } from "../../../utils/baseUrlFuncs";
 import { AxiosResponse } from "axios";
-import { Action, PaginatedResponse } from "../../types/objectTypes";
+import { Action, PaginatedResponse } from "../../../types/objectTypes";
 
 type Props = {
   params: PaginatorParams;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { HomeScreen } from "../screens/HomeScreen";
-import Navbar from "../components/Navbar";
+import { HomeScreen } from "../components/HomeScreen";
+import Navbar from "../components/Common/Navbar";
 import "./dashboard.scss";
 import FamiliesScreen from "../components/Families/FamiliesScreen";
 import MedicinesScreen from "../components/Medicines/MedicinesScreen";
@@ -12,7 +12,7 @@ import MedicineUpdateScreen from "../components/Medicines/MedicineUpdateScreen";
 import PurchaseCreateScreen from "../components/Purchases/PurchaseCreateScreen";
 import PurchaseUpdateScreen from "../components/Purchases/PurchaseUpdateScreen";
 import InviteMemberScreen from "../components/Families/InviteMemberScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import ProfileScreen from "../components/ProfileScreen";
 
 export const DashboardRouter = () => {
   return (

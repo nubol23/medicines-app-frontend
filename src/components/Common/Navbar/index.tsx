@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../auth/authContext";
-import authTypes from "../../types/authTypes";
+import { AuthContext } from "../../../auth/authContext";
+import authTypes from "../../../types/authTypes";
 import "./navbar.scss";
-import { FamilyContext } from "../../contexts/familyContext";
-import familyTypes from "../../types/familyTypes";
+import { FamilyContext } from "../../../contexts/familyContext";
+import familyTypes from "../../../types/familyTypes";
 
 const activeTabButton = ({ isActive }: { isActive: boolean }) =>
   "tab-button" + (isActive ? " tab-button-active" : "");
